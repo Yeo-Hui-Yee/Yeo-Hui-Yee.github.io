@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yeo Lab — Hepatology · AI · Cirrhosis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* UPDATED PALETTE — deep slate-navy + warm gold accent, distinct from green Garrett */
+    --primary:     #1e2d40;   /* deep slate navy — nav, headers, buttons               */
+    --primary-mid: #2e4460;   /* mid navy — hover states                                */
+    --accent:      #c9a84c;   /* warm gold — logo mark, links, active states            */
+    --accent-light:#f5ecd0;   /* pale gold — tags, badges, light fills                  */
+    --hero-bg:     #111b27;   /* near-black navy — hero section only                    */
+    --white:       #ffffff;
+    --off-white:   #f7f8fa;   /* very subtle cool-white page background                 */
+    --text-primary:#111827;
+    --text-secondary:#4b5563;
+    --text-muted:  #9ca3af;
+    --border:      #e2e8f0;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans:  'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--off-white); color: var(--text-primary); line-height: 1.6; }
+
+  /* ── NAV ── */
+  nav {
+    background: var(--primary); position: sticky; top: 0; z-index: 100;
+    padding: 0 2rem; display: flex; align-items: center; justify-content: space-between;
+    height: 56px; box-shadow: 0 1px 0 rgba(201,168,76,.12);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-logo-mark {
+    width: 28px; height: 28px; background: var(--accent);
+    border-radius: 5px; display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 600; color: var(--primary); flex-shrink: 0;
+  }
+  .nav-logo-text  { color: #e8edf3; font-size: 13px; font-weight: 600; }
+  .nav-logo-sub   { color: rgba(201,168,76,.75); font-size: 9px; letter-spacing: .05em; }
+  .nav-links { display: flex; }
+  .nav-links a {
+    color: rgba(232,237,243,.55); font-size: 11px; letter-spacing: .04em;
+    text-decoration: none; padding: 0 13px; height: 56px;
+    display: flex; align-items: center; transition: color .15s;
+    border-bottom: 2px solid transparent;
+  }
+  .nav-links a:hover  { color: var(--accent); }
+  .nav-links a.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 6px; }
+  .nav-toggle span { display: block; width: 20px; height: 1.5px; background: #e8edf3; margin: 4px 0; }
+
+  /* ── PAGE PANELS ── */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--hero-bg); padding: 80px 2rem 64px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; right: -40px; top: -40px;
+    width: 300px; height: 300px; border-radius: 50%;
+    border: 1px solid rgba(201,168,76,.06);
+  }
+  .hero-inner { max-width: 860px; margin: 0 auto; position: relative; z-index: 1; }
+  .hero-eyebrow { font-size: 10px; letter-spacing: .14em; color: var(--accent); font-weight: 500; margin-bottom: 16px; }
+  .hero-h1 { font-family: var(--serif); font-size: clamp(26px,5vw,42px); color: #e8edf3; line-height: 1.2; margin-bottom: 18px; max-width: 540px; }
+  .hero-sub { font-size: 15px; color: #8fa3bc; line-height: 1.8; max-width: 500px; margin-bottom: 32px; }
+  .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  /* ── BUTTONS ── */
+  .btn-primary {
+    background: var(--accent); color: var(--primary);
+    font-size: 13px; font-weight: 600; padding: 10px 22px;
+    border-radius: 6px; border: none; cursor: pointer; text-decoration: none; transition: opacity .15s;
+  }
+  .btn-primary:hover { opacity: .88; }
+  .btn-ghost {
+    border: 1px solid rgba(201,168,76,.35); color: var(--accent);
+    font-size: 13px; font-weight: 500; padding: 10px 22px;
+    border-radius: 6px; background: transparent; cursor: pointer; text-decoration: none; transition: border-color .15s;
+  }
+  .btn-ghost:hover { border-color: var(--accent); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 60px 2rem; }
+  .section-inner { max-width: 860px; margin: 0 auto; }
+  .section-alt { background: var(--white); }
+  .section-dark { background: var(--primary); }
+  .section-eyebrow {
+    font-size: 10px; letter-spacing: .12em; font-weight: 500; color: var(--accent);
+    border-left: 2px solid var(--accent); padding-left: 9px; margin-bottom: 10px;
+  }
+  .section-title { font-family: var(--serif); font-size: clamp(20px,3vw,30px); color: var(--text-primary); margin-bottom: 10px; line-height: 1.25; }
+  .section-dark .section-title { color: #e8edf3; }
+  .section-sub { font-size: 14px; color: var(--text-secondary); line-height: 1.75; max-width: 580px; margin-bottom: 36px; }
+  .section-dark .section-sub { color: #8fa3bc; }
+  .section-dark .section-eyebrow { color: var(--accent); }
+
+  /* ── PAGE HEADER ── */
+  .page-header { background: var(--primary); padding: 48px 2rem 40px; }
+  .page-header-inner { max-width: 860px; margin: 0 auto; }
+  .page-header h1 { font-family: var(--serif); font-size: clamp(22px,4vw,34px); color: #e8edf3; margin-top: 8px; }
+
+  /* ── CARDS / PILLARS ── */
+  .pillars { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px,1fr)); gap: 14px; }
+  .pillar {
+    background: var(--white); border: .5px solid var(--border);
+    border-radius: 10px; padding: 22px; transition: box-shadow .15s;
+  }
+  .pillar:hover { box-shadow: 0 4px 14px rgba(30,45,64,.07); }
+  .pillar-icon { width: 34px; height: 34px; background: var(--accent-light); border-radius: 7px; margin-bottom: 14px; display: flex; align-items: center; justify-content: center; }
+  .pillar-icon svg { width: 17px; height: 17px; }
+  .pillar h3 { font-size: 13px; font-weight: 600; margin-bottom: 7px; }
+  .pillar p  { font-size: 12px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 12px; }
+  .pillar-link { font-size: 12px; color: var(--primary); font-weight: 600; text-decoration: none; }
+  .pillar-link:hover { color: var(--accent); }
+
+  /* ── NEWS STRIP (dark bg) ── */
+  .news-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 12px; }
+  .news-card { background: rgba(255,255,255,.05); border: .5px solid rgba(201,168,76,.15); border-radius: 10px; padding: 18px; }
+  .news-date { font-size: 10px; color: var(--accent); letter-spacing: .06em; margin-bottom: 6px; font-weight: 500; }
+  .news-headline { font-size: 13px; color: #d1dbe6; font-weight: 500; line-height: 1.5; }
+  .news-tag { display: inline-block; margin-top: 10px; font-size: 10px; background: rgba(201,168,76,.15); color: var(--accent); padding: 2px 8px; border-radius: 99px; }
+
+  /* ── TAG / CHIP ── */
+  .tag  { font-size: 11px; background: var(--accent-light); color: #7a5e1a; padding: 3px 10px; border-radius: 99px; font-weight: 500; display: inline-block; }
+  .chip { font-size: 10px; background: var(--accent-light); color: #7a5e1a; padding: 2px 8px; border-radius: 99px; font-weight: 500; display: inline-block; }
+  .chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+
+  /* ── PI / PEOPLE ── */
+  .pi-card { display: flex; gap: 22px; align-items: flex-start; background: var(--white); border: .5px solid var(--border); border-radius: 12px; padding: 26px; margin-bottom: 28px; }
+  .pi-avatar { width: 72px; height: 72px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: 18px; font-weight: 600; flex-shrink: 0; }
+  .pi-name  { font-size: 17px; font-weight: 600; margin-bottom: 4px; }
+  .pi-title { font-size: 12px; color: var(--text-secondary); margin-bottom: 12px; }
+  .pi-tags  { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+  .pi-bio   { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+  .pi-links { display: flex; gap: 14px; margin-top: 12px; flex-wrap: wrap; }
+  .pi-link  { font-size: 12px; color: var(--primary); font-weight: 600; text-decoration: none; }
+  .pi-link:hover { color: var(--accent); }
+  .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px,1fr)); gap: 10px; }
+  .team-card { background: var(--white); border: .5px solid var(--border); border-radius: 10px; padding: 16px; text-align: center; }
+  .team-avatar { width: 46px; height: 46px; border-radius: 50%; background: var(--accent-light); margin: 0 auto 9px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: #7a5e1a; }
+  .team-name { font-size: 12px; font-weight: 600; margin-bottom: 3px; }
+  .team-role { font-size: 11px; color: var(--text-muted); }
+
+  /* ── RESEARCH TABS ── */
+  .res-tabs  { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 24px; }
+  .res-tab   { font-size: 12px; padding: 7px 15px; border-radius: 6px; border: .5px solid var(--border); background: var(--white); color: var(--text-secondary); cursor: pointer; transition: all .15s; }
+  .res-tab:hover { border-color: var(--accent); color: var(--primary); }
+  .res-tab.on    { background: var(--primary); color: #e8edf3; border-color: var(--primary); }
+  .res-panel     { display: none; }
+  .res-panel.on  { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .res-card { background: var(--white); border: .5px solid var(--border); border-radius: 10px; padding: 18px; }
+  .res-card h4 { font-size: 12px; font-weight: 600; margin-bottom: 7px; color: var(--primary); }
+  .res-card p  { font-size: 12px; color: var(--text-secondary); line-height: 1.65; }
+
+  /* ── PUBLICATIONS ── */
+  .pub-stats-bar { display: flex; gap: 28px; background: var(--primary); padding: 20px 26px; border-radius: 10px; margin-bottom: 24px; flex-wrap: wrap; }
+  .pub-stat-num   { font-size: 22px; font-weight: 600; color: #e8edf3; display: block; }
+  .pub-stat-label { font-size: 10px; color: #8fa3bc; letter-spacing: .05em; }
+  .pub-filters    { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
+  .pub-filter-btn { font-size: 11px; padding: 5px 12px; border-radius: 99px; border: .5px solid var(--border); background: var(--white); color: var(--text-secondary); cursor: pointer; transition: all .15s; }
+  .pub-filter-btn:hover { border-color: var(--accent); color: var(--primary); }
+  .pub-filter-btn.on { background: var(--primary); color: #e8edf3; border-color: var(--primary); }
+  .pub-list  { display: flex; flex-direction: column; }
+  .pub-item  { border-bottom: .5px solid var(--border); padding: 15px 0; display: flex; gap: 12px; align-items: flex-start; }
+  .pub-item:last-child { border-bottom: none; }
+  .pub-year-badge { font-size: 10px; background: var(--accent-light); color: #7a5e1a; padding: 3px 8px; border-radius: 4px; font-weight: 600; flex-shrink: 0; margin-top: 2px; }
+  .pub-title  { font-size: 13px; font-weight: 500; color: var(--text-primary); margin-bottom: 3px; line-height: 1.5; }
+  .pub-meta   { font-size: 11px; color: var(--text-muted); }
+  .pub-journal{ font-weight: 600; color: var(--primary); }
+  .pub-tag    { display: inline-block; font-size: 9px; padding: 1px 7px; border-radius: 99px; margin-left: 6px; background: var(--accent-light); color: #7a5e1a; font-weight: 500; }
+  .pub-tag.ai { background: #e0f0ff; color: #1a4a7a; }
+
+  /* ── PROJECTS ── */
+  .proj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 14px; }
+  .proj-card { background: var(--white); border: .5px solid var(--border); border-radius: 10px; padding: 22px; }
+  .proj-status { font-size: 10px; font-weight: 500; padding: 2px 9px; border-radius: 99px; display: inline-block; margin-bottom: 12px; }
+  .status-active   { background: #e6f4ea; color: #1a5c2a; }
+  .status-ongoing  { background: #e0f0ff; color: #1a4a7a; }
+  .status-complete { background: var(--accent-light); color: #7a5e1a; }
+  .proj-card h3 { font-size: 13px; font-weight: 600; margin-bottom: 8px; }
+  .proj-card p  { font-size: 12px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 12px; }
+  .proj-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  /* ── MAP CLINIC ── */
+  .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px,1fr)); gap: 14px; margin-bottom: 28px; }
+  .info-card { background: var(--white); border: .5px solid var(--border); border-radius: 10px; padding: 18px; }
+  .info-card h4 { font-size: 12px; font-weight: 600; color: var(--primary); margin-bottom: 8px; }
+  .info-card p, .info-card li { font-size: 12px; color: var(--text-secondary); line-height: 1.65; }
+  .info-card ul { padding-left: 15px; }
+  .info-card li { margin-bottom: 4px; }
+
+  /* ── PATIENT ED ── */
+  .patient-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 14px; margin-bottom: 28px; }
+  .patient-card { background: var(--white); border: .5px solid var(--border); border-radius: 10px; padding: 22px; }
+  .patient-card h3 { font-size: 13px; font-weight: 600; margin-bottom: 9px; }
+  .patient-card p  { font-size: 12px; color: var(--text-secondary); line-height: 1.7; }
+  .faq-item { border-bottom: .5px solid var(--border); padding: 16px 0; }
+  .faq-item:last-child { border-bottom: none; }
+  .faq-q { font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+  .faq-a { font-size: 12px; color: var(--text-secondary); line-height: 1.7; }
+
+  /* ── NEWS PAGE ── */
+  .news-list { display: flex; flex-direction: column; }
+  .news-full-item { border-bottom: .5px solid var(--border); padding: 18px 0; display: flex; gap: 16px; }
+  .news-full-item:last-child { border-bottom: none; }
+  .news-full-date { font-size: 11px; color: var(--text-muted); min-width: 60px; padding-top: 2px; flex-shrink: 0; }
+  .news-full-content h4 { font-size: 13px; font-weight: 600; margin-bottom: 5px; }
+  .news-full-content p  { font-size: 12px; color: var(--text-secondary); line-height: 1.65; }
+  .news-badge { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 99px; font-weight: 500; margin-bottom: 6px; }
+  .badge-award { background: #fff8e1; color: #7b5e00; }
+  .badge-paper { background: var(--accent-light); color: #7a5e1a; }
+  .badge-talk  { background: #e8eaf6; color: #283593; }
+
+  /* ── CONTACT ── */
+  .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 14px; }
+  .contact-card { background: var(--white); border: .5px solid var(--border); border-radius: 10px; padding: 20px; }
+  .contact-card h4 { font-size: 11px; font-weight: 600; color: var(--primary); letter-spacing: .06em; margin-bottom: 10px; }
+  .contact-card p, .contact-card a { font-size: 13px; color: var(--text-secondary); line-height: 1.7; text-decoration: none; }
+  .contact-card a:hover { color: var(--primary); }
+
+  /* ── DATA EMPTY STATE ── */
+  .empty-state { text-align: center; padding: 80px 20px; }
+  .empty-state h3 { font-size: 16px; font-weight: 500; color: var(--text-secondary); margin-bottom: 8px; }
+  .empty-state p  { font-size: 13px; color: var(--text-muted); }
+
+  /* ── FOOTER ── */
+  footer { background: var(--hero-bg); padding: 32px 2rem; border-top: 1px solid rgba(201,168,76,.08); }
+  .footer-inner { max-width: 860px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; }
+  .footer-name { color: #e8edf3; font-size: 13px; font-weight: 600; }
+  .footer-sub  { color: rgba(201,168,76,.7); font-size: 10px; }
+  .footer-right p { font-size: 11px; color: #8fa3bc; text-align: right; }
+  .footer-right a { color: rgba(201,168,76,.75); text-decoration: none; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 680px) {
+    .nav-links { display: none; flex-direction: column; position: absolute; top: 56px; left: 0; right: 0; background: var(--primary); padding: 10px 0; }
+    .nav-links.open { display: flex; }
+    .nav-links a { height: auto; padding: 10px 20px; }
+    .nav-toggle { display: block; }
+    .pi-card { flex-direction: column; }
+    .res-panel.on { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════ NAV ══════════ -->
+<nav id="main-nav">
+  <a class="nav-logo" href="#" onclick="showPage('home')">
+    <div class="nav-logo-mark">YL</div>
+    <div>
+      <div class="nav-logo-text">Yeo Lab</div>
+    </div>
+  </a>
+  <div class="nav-links" id="nav-links">
+    <a href="#" class="active" onclick="showPage('home')">Home</a>
+    <a href="#" onclick="showPage('research')">Research</a>
+    <a href="#" onclick="showPage('projects')">Projects</a>
+    <a href="#" onclick="showPage('people')">People</a>
+    <a href="#" onclick="showPage('map')">MAP Clinic</a>
+    <a href="#" onclick="showPage('publications')">Publications</a>
+    <a href="#" onclick="showPage('data')">Data & Code</a>
+    <a href="#" onclick="showPage('patient')">Patient Education</a>
+    <a href="#" onclick="showPage('news')">News</a>
+    <a href="#" onclick="showPage('contact')">Contact</a>
+  </div>
+  <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ══════════ HOME — minimal, placeholder ══════════ -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <div class="hero-inner">
+      <h1 class="hero-h1">Yeo Lab</h1>
+      <p class="hero-sub">Website coming soon. Content will be updated shortly.</p>
+      <div class="hero-btns">
+        <a class="btn-primary" href="#" onclick="showPage('research')">Research</a>
+        <a class="btn-ghost"   href="#" onclick="showPage('contact')">Contact</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ RESEARCH ══════════ -->
+<div id="page-research" class="page">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="section-eyebrow">Our work</div>
+      <h1>Research areas</h1>
+    </div>
+  </div>
+  <div class="section section-alt">
+    <div class="section-inner">
+      <div class="res-tabs">
+        <button class="res-tab on" onclick="showRes(this,'ald')">Alcohol-associated liver disease</button>
+        <button class="res-tab" onclick="showRes(this,'ai')">AI and digital health</button>
+        <button class="res-tab" onclick="showRes(this,'cirrh')">Cirrhosis and complications</button>
+      </div>
+
+      <div class="res-panel on" id="res-ald">
+        <div class="res-card"><h4>What we study</h4><p>We examine the epidemiology of alcohol-associated liver disease, mortality trends during the COVID-19 pandemic, alcohol thresholds in metabolic and steatotic liver disease, and psychiatric comorbidities driving poor outcomes in ALD.</p></div>
+        <div class="res-card"><h4>Key research questions</h4><p>What alcohol thresholds worsen steatotic liver disease? How did COVID-19 change ALD mortality? What psychiatric factors predict decompensation after hospital discharge?</p></div>
+        <div class="res-card"><h4>Methods</h4><p>Population-based databases (NHANES, NIS, NAMCS), epidemiological modeling, nationwide cohort studies, and target trial emulation frameworks.</p></div>
+        <div class="res-card"><h4>Selected publications</h4><div class="chips"><span class="chip">JAMA Netw Open 2022</span><span class="chip">JAMA Netw Open 2023</span><span class="chip">J Intern Med 2022</span><span class="chip">JAMA Netw Open 2025</span></div></div>
+      </div>
+
+      <div class="res-panel" id="res-ai">
+        <div class="res-card"><h4>What we study</h4><p>We apply machine learning, large language models (ChatGPT, GPT-4), and virtual reality to improve liver disease diagnosis, patient education, multilingual health communication, and clinical decision support.</p></div>
+        <div class="res-card"><h4>Key projects</h4><p>AI-powered cirrhosis Q&amp;A evaluation; multilingual LLM patient communication; VR interventions for ALD; ML prediction of ACLF; multimodal AI for SLD screening (Nature Communications, accepted).</p></div>
+        <div class="res-card"><h4>Awards &amp; recognition</h4><p>AGA Innovation Fellow 2025. Biomedical AI Symposium UCLA 2024. Chapter on VR and mental health in Routledge textbook.</p></div>
+        <div class="res-card"><h4>Selected publications</h4><div class="chips"><span class="chip">Clin Mol Hepatol 2023</span><span class="chip">Clin Mol Hepatol 2024</span><span class="chip">Clin Mol Hepatol 2025</span><span class="chip">Nat Commun (accepted)</span></div></div>
+      </div>
+
+      <div class="res-panel" id="res-cirrh">
+        <div class="res-card"><h4>What we study</h4><p>We investigate HCC surveillance gaps, sarcopenia, portal hypertension management, decompensation risk, hepatic encephalopathy, and the role of non-selective beta-blockers and rifaximin in advanced liver disease.</p></div>
+        <div class="res-card"><h4>Key research questions</h4><p>Who is missed by HCC surveillance? Does carvedilol outperform other NSBBs? How does rifaximin affect antimicrobial resistance? What drives ACLF clustering?</p></div>
+        <div class="res-card"><h4>Methods</h4><p>Systematic review and meta-analysis, target trial emulation, real-world nationwide datasets, multicenter clinical cohorts, and dynamic biomarker modeling (FIB-4).</p></div>
+        <div class="res-card"><h4>Selected publications</h4><div class="chips"><span class="chip">J Hepatol 2021</span><span class="chip">JAMA Oncol 2023</span><span class="chip">Hepatology 2025</span><span class="chip">Nat Commun (accepted)</span></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ PROJECTS ══════════ -->
+<div id="page-projects" class="page">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="section-eyebrow">Active &amp; completed work</div>
+      <h1>Projects</h1>
+    </div>
+  </div>
+  <div class="section section-alt">
+    <div class="section-inner">
+      <div class="section-eyebrow" style="margin-bottom:16px">Current projects</div>
+      <div class="proj-grid" style="margin-bottom:36px">
+
+        <div class="proj-card">
+          <span class="proj-status status-active">Active</span>
+          <h3>Multimodal AI for steatotic liver disease screening</h3>
+          <p>Developing and validating a multimodal machine learning model integrating clinical, imaging, and laboratory data for early detection of MASLD and MASH. Accepted in Nature Communications.</p>
+          <div class="proj-tags"><span class="chip">AI / ML</span><span class="chip">MASLD</span><span class="chip">Nat Commun</span></div>
+        </div>
+
+        <div class="proj-card">
+          <span class="proj-status status-active">Active</span>
+          <h3>LLM evaluation in hepatology clinical practice</h3>
+          <p>Evaluating the accuracy, safety, and readability of large language models (ChatGPT, GPT-4) for answering patient and clinician questions about cirrhosis, HCC, and ALD across multiple languages.</p>
+          <div class="proj-tags"><span class="chip">AI / LLM</span><span class="chip">Cirrhosis</span><span class="chip">Patient Education</span></div>
+        </div>
+
+        <div class="proj-card">
+          <span class="proj-status status-active">Active</span>
+          <h3>AI bias in mental health support for liver disease</h3>
+          <p>Investigating potential biases in AI-generated mental health support content for patients with alcohol-associated liver disease, including language, cultural, and demographic disparities.</p>
+          <div class="proj-tags"><span class="chip">AI / Digital</span><span class="chip">ALD</span><span class="chip">Mental Health</span></div>
+        </div>
+
+        <div class="proj-card">
+          <span class="proj-status status-ongoing">Ongoing</span>
+          <h3>Rifaximin and antimicrobial resistance in cirrhosis</h3>
+          <p>Nationwide cohort study examining the impact of long-term rifaximin use on antimicrobial resistance patterns in patients with cirrhosis and hepatic encephalopathy. Accepted in Nature Communications.</p>
+          <div class="proj-tags"><span class="chip">Cirrhosis</span><span class="chip">Nat Commun</span><span class="chip">Hepatic Encephalopathy</span></div>
+        </div>
+
+        <div class="proj-card">
+          <span class="proj-status status-ongoing">Ongoing</span>
+          <h3>Dynamic FIB-4 and HCC risk stratification</h3>
+          <p>Longitudinal analysis of serial FIB-4 measurements as a dynamic predictor of hepatocellular carcinoma risk in patients with chronic liver disease across multiple etiologies.</p>
+          <div class="proj-tags"><span class="chip">HCC</span><span class="chip">Cirrhosis</span><span class="chip">Biomarkers</span></div>
+        </div>
+
+        <div class="proj-card">
+          <span class="proj-status status-ongoing">Ongoing</span>
+          <h3>Virtual reality for ALD and cirrhosis</h3>
+          <p>Pilot study of immersive virtual reality interventions to improve patient understanding, reduce anxiety, and support shared decision-making in patients with alcohol-associated liver disease and cirrhosis.</p>
+          <div class="proj-tags"><span class="chip">AI / Digital</span><span class="chip">ALD</span><span class="chip">Patient Education</span></div>
+        </div>
+      </div>
+
+      <div class="section-eyebrow" style="margin-bottom:16px">Completed projects</div>
+      <div class="proj-grid">
+        <div class="proj-card">
+          <span class="proj-status status-complete">Complete</span>
+          <h3>ALD mortality trends during COVID-19</h3>
+          <p>Nationwide analysis of alcohol use disorder-related mortality patterns during the COVID-19 pandemic using death certificate data. Published in JAMA Network Open 2022.</p>
+          <div class="proj-tags"><span class="chip">ALD</span><span class="chip">JAMA Netw Open</span></div>
+        </div>
+        <div class="proj-card">
+          <span class="proj-status status-complete">Complete</span>
+          <h3>HCC surveillance gaps in cirrhosis</h3>
+          <p>Systematic analysis of disparities in hepatocellular carcinoma surveillance uptake among patients with cirrhosis in the United States. Published in Journal of Hepatology 2021.</p>
+          <div class="proj-tags"><span class="chip">HCC</span><span class="chip">J Hepatol</span></div>
+        </div>
+        <div class="proj-card">
+          <span class="proj-status status-complete">Complete</span>
+          <h3>Carvedilol vs. NSBBs in cirrhosis — target trial emulation</h3>
+          <p>Target trial emulation comparing carvedilol with other non-selective beta-blockers for prevention of decompensation in cirrhosis. Published in Hepatology 2025.</p>
+          <div class="proj-tags"><span class="chip">Cirrhosis</span><span class="chip">Hepatology</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ PEOPLE ══════════ -->
+<div id="page-people" class="page">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="section-eyebrow">The team</div>
+      <h1>People</h1>
+    </div>
+  </div>
+  <div class="section section-alt">
+    <div class="section-inner">
+      <div class="section-eyebrow" style="margin-bottom:16px">Principal investigator</div>
+      <div class="pi-card">
+        <div class="pi-avatar">YHY</div>
+        <div>
+          <div class="pi-name">Dr. Yee Hui Yeo, MD, MSc (Oxford)</div>
+          <div class="pi-title">Transplant Hepatologist · Physician-Scientist</div>
+          <div class="pi-tags">
+            <span class="tag">Liver Disease</span><span class="tag">AI &amp; Digital Health</span>
+            <span class="tag">Cirrhosis</span><span class="tag">Clinical Epidemiology</span>
+            <span class="tag">ALD</span><span class="tag">HCC</span>
+          </div>
+          <p class="pi-bio">Dr. Yeo is a transplant hepatologist and physician-scientist. He completed his MSc at the University of Oxford and his residency and fellowship training at Cedars-Sinai Medical Center. He has authored 152 peer-reviewed publications (H-index 44, 10,247 citations), with work published in JAMA, Nature Reviews Gastroenterology &amp; Hepatology, Lancet Gastroenterology &amp; Hepatology, Gut, and Journal of Hepatology. He is the recipient of the ACG Junior Faculty Research Award (2026), AGA Innovation Fellow (2025), and AASLD Emerging Liver Scholar designation.</p>
+          <div class="pi-links">
+            <a class="pi-link" href="mailto:yeehui.yeo@cshs.org">Email →</a>
+            <a class="pi-link" href="https://scholar.google.com" target="_blank">Google Scholar →</a>
+            <a class="pi-link" href="https://pubmed.ncbi.nlm.nih.gov" target="_blank">PubMed →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-eyebrow" style="margin-bottom:14px">Lab members</div>
+      <div class="team-grid" style="margin-bottom:36px">
+        <div class="team-card"><div class="team-avatar">—</div><div class="team-name">Open position</div><div class="team-role">Postdoctoral Fellow</div></div>
+        <div class="team-card"><div class="team-avatar">—</div><div class="team-name">Open position</div><div class="team-role">Research Staff</div></div>
+        <div class="team-card"><div class="team-avatar">—</div><div class="team-name">Open position</div><div class="team-role">Graduate Student</div></div>
+        <div class="team-card"><div class="team-avatar">—</div><div class="team-name">Open position</div><div class="team-role">Clinical Coordinator</div></div>
+      </div>
+
+      <div class="section-eyebrow" style="margin-bottom:12px">Join the lab</div>
+      <div style="background:var(--white);border:.5px solid var(--border);border-radius:10px;padding:22px;max-width:520px;">
+        <p style="font-size:13px;color:var(--text-secondary);line-height:1.75;margin-bottom:14px;">We welcome trainees and researchers interested in hepatology, clinical epidemiology, and artificial intelligence. We particularly encourage applicants from underrepresented backgrounds.</p>
+        <a class="btn-primary" href="#" onclick="showPage('contact')">Get in touch →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ MAP CLINIC ══════════ -->
+<div id="page-map" class="page">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="section-eyebrow">Clinical program</div>
+      <h1>MAP Clinic</h1>
+    </div>
+  </div>
+  <div class="section section-alt">
+    <div class="section-inner">
+      <div class="section-eyebrow" style="margin-bottom:10px">About the program</div>
+      <h2 class="section-title">Metabolic &amp; Alcohol-associated liver disease Program</h2>
+      <p class="section-sub">A multidisciplinary program integrating hepatology, addiction medicine, nutrition, and mental health to deliver comprehensive care for patients with metabolic and alcohol-related liver disease.</p>
+      <div class="info-grid">
+        <div class="info-card">
+          <h4>Services offered</h4>
+          <ul>
+            <li>Diagnostic workup for ALD and MASLD</li>
+            <li>Clinical trial enrollment</li>
+            <li>Longitudinal follow-up care</li>
+            <li>Dietitian and addiction medicine referral</li>
+            <li>Mental health integration</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h4>Who should be referred</h4>
+          <ul>
+            <li>Suspected alcohol-associated liver disease</li>
+            <li>Metabolic-associated steatotic liver disease (MASLD)</li>
+            <li>Metabolic-associated steatohepatitis (MASH)</li>
+            <li>Elevated liver enzymes with alcohol history</li>
+            <li>Patients interested in clinical trials</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h4>How to refer</h4>
+          <p>Referring physicians may contact us via Epic referral, fax, or email.</p>
+          <p style="margin-top:10px"><strong style="color:var(--primary)">Email:</strong> yeehui.yeo@cshs.org</p>
+          <p style="margin-top:6px;font-size:12px;color:var(--text-muted)">Location details will be updated shortly.</p>
+        </div>
+        <div class="info-card">
+          <h4>The multidisciplinary team</h4>
+          <p>Our team includes transplant hepatologists, addiction medicine specialists, registered dietitians, and mental health professionals working collaboratively around each patient.</p>
+          <a style="display:block;margin-top:12px;font-size:12px;color:var(--primary);font-weight:600;text-decoration:none;" href="#" onclick="showPage('people')">Meet the team →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ PUBLICATIONS ══════════ -->
+<div id="page-publications" class="page">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="section-eyebrow">Research output</div>
+      <h1>Publications</h1>
+    </div>
+  </div>
+  <div class="section section-alt">
+    <div class="section-inner">
+      <div class="pub-stats-bar">
+        <div><span class="pub-stat-num">152</span><span class="pub-stat-label">Publications</span></div>
+        <div><span class="pub-stat-num">10,247</span><span class="pub-stat-label">Citations</span></div>
+        <div><span class="pub-stat-num">44</span><span class="pub-stat-label">H-index</span></div>
+        <div><span class="pub-stat-num">34</span><span class="pub-stat-label">i10-index</span></div>
+      </div>
+      <div class="pub-filters">
+        <button class="pub-filter-btn on" onclick="filterPubs(this,'all')">All</button>
+        <button class="pub-filter-btn" onclick="filterPubs(this,'ald')">ALD</button>
+        <button class="pub-filter-btn" onclick="filterPubs(this,'ai')">AI / Digital</button>
+        <button class="pub-filter-btn" onclick="filterPubs(this,'cirrh')">Cirrhosis</button>
+        <button class="pub-filter-btn" onclick="filterPubs(this,'hcc')">HCC</button>
+        <button class="pub-filter-btn" onclick="filterPubs(this,'masld')">MASLD</button>
+      </div>
+      <h2 style="font-family:var(--serif);font-size:22px;color:var(--text-primary);margin-bottom:18px;">Publication highlights</h2>
+      <div class="pub-list" id="pub-list">
+        <div class="pub-item" data-cat="hcc"><span class="pub-year-badge">2024</span><div><div class="pub-title">Current and emerging strategies for the prevention of hepatocellular carcinoma<span class="pub-tag">HCC</span></div><div class="pub-meta"><span class="pub-journal">Nature Reviews Gastroenterology &amp; Hepatology</span> · Yeo YH et al.</div></div></div>
+        <div class="pub-item" data-cat="hcc"><span class="pub-year-badge">2023</span><div><div class="pub-title">Efficacy of immune checkpoint inhibitors for advanced hepatocellular carcinoma with Child-Pugh Class B<span class="pub-tag">HCC</span></div><div class="pub-meta"><span class="pub-journal">JAMA Oncology</span> · Xie E*, Yeo YH* et al.</div></div></div>
+        <div class="pub-item" data-cat="ai"><span class="pub-year-badge">2023</span><div><div class="pub-title">Assessing the performance of ChatGPT in answering questions regarding cirrhosis and HCC<span class="pub-tag ai">AI / Digital</span></div><div class="pub-meta"><span class="pub-journal">Clinical &amp; Molecular Hepatology</span> · Yeo YH*, Samaan JS* et al.</div></div></div>
+        <div class="pub-item" data-cat="ald"><span class="pub-year-badge">2022</span><div><div class="pub-title">Trends in alcohol use disorder-related mortality in the US during the COVID-19 pandemic<span class="pub-tag">ALD</span></div><div class="pub-meta"><span class="pub-journal">JAMA Network Open</span> · Yeo YH et al.</div></div></div>
+        <div class="pub-item" data-cat="ald"><span class="pub-year-badge">2023</span><div><div class="pub-title">Alcohol threshold and risk of liver disease progression in metabolic-associated steatotic liver disease<span class="pub-tag">ALD</span></div><div class="pub-meta"><span class="pub-journal">JAMA Network Open</span> · Yeo YH et al.</div></div></div>
+        <div class="pub-item" data-cat="cirrh"><span class="pub-year-badge">2021</span><div><div class="pub-title">Gaps in surveillance for hepatocellular carcinoma in patients with cirrhosis<span class="pub-tag">Cirrhosis</span></div><div class="pub-meta"><span class="pub-journal">Journal of Hepatology</span> · Yeo YH et al.</div></div></div>
+        <div class="pub-item" data-cat="cirrh"><span class="pub-year-badge">2025</span><div><div class="pub-title">Carvedilol versus other non-selective beta-blockers for prevention of decompensation in cirrhosis<span class="pub-tag">Cirrhosis</span></div><div class="pub-meta"><span class="pub-journal">Hepatology</span> · Yeo YH et al.</div></div></div>
+        <div class="pub-item" data-cat="ai"><span class="pub-year-badge">2024</span><div><div class="pub-title">GPT-4 for multilingual patient communication about cirrhosis: evaluation of accuracy and readability<span class="pub-tag ai">AI / Digital</span></div><div class="pub-meta"><span class="pub-journal">Clinical &amp; Molecular Hepatology</span> · Yeo YH et al.</div></div></div>
+        <div class="pub-item" data-cat="masld"><span class="pub-year-badge">2023</span><div><div class="pub-title">Prevalence of NAFLD and advanced fibrosis in the US population using database analyses<span class="pub-tag">MASLD</span></div><div class="pub-meta"><span class="pub-journal">Gut</span> · Yeo YH et al.</div></div></div>
+        <div class="pub-item" data-cat="ai"><span class="pub-year-badge">2025</span><div><div class="pub-title">Machine learning model for prediction of acute-on-chronic liver failure<span class="pub-tag ai">AI / Digital</span></div><div class="pub-meta"><span class="pub-journal">Clinical &amp; Molecular Hepatology</span> · Yeo YH et al.</div></div></div>
+        <div class="pub-item" data-cat="ald"><span class="pub-year-badge">2022</span><div><div class="pub-title">Alcohol-associated liver disease mortality in the United States<span class="pub-tag">ALD</span></div><div class="pub-meta"><span class="pub-journal">Journal of Internal Medicine</span> · Yeo YH et al.</div></div></div>
+        <div class="pub-item" data-cat="masld"><span class="pub-year-badge">2023</span><div><div class="pub-title">Lean NAFLD: prevalence, risk factors, and outcomes in the United States<span class="pub-tag">MASLD</span></div><div class="pub-meta"><span class="pub-journal">Hepatology</span> · Yeo YH et al.</div></div></div>
+      </div>
+      <div style="margin-top:22px;padding-top:18px;border-top:.5px solid var(--border);">
+        <p style="font-size:13px;color:var(--text-secondary);margin-bottom:12px">This is a selection. For the complete list of 152 publications:</p>
+        <a class="btn-primary" href="https://pubmed.ncbi.nlm.nih.gov/?term=Yeo+Yee+Hui&sort=date" target="_blank">View all on PubMed →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ DATA & CODE — empty ══════════ -->
+<div id="page-data" class="page">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="section-eyebrow">Open science</div>
+      <h1>Data &amp; Code</h1>
+    </div>
+  </div>
+  <div class="section section-alt">
+    <div class="section-inner">
+      <div class="empty-state">
+        <h3>Content coming soon</h3>
+        <p>Datasets, code repositories, and analysis pipelines will be listed here.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ PATIENT EDUCATION ══════════ -->
+<div id="page-patient" class="page">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="section-eyebrow">For patients and families</div>
+      <h1>Patient Education</h1>
+    </div>
+  </div>
+  <div class="section section-alt">
+    <div class="section-inner">
+      <div class="patient-grid" style="margin-bottom:36px">
+        <div class="patient-card"><h3>What is fatty liver disease (MASLD)?</h3><p>Metabolic-associated steatotic liver disease means fat has built up in the liver. It is common and often has no symptoms early on. Lifestyle changes — especially diet and exercise — can reverse it in many cases.</p></div>
+        <div class="patient-card"><h3>Alcohol and your liver</h3><p>The liver processes alcohol, but too much over time causes damage. Alcohol-associated liver disease ranges from fatty liver to hepatitis to cirrhosis. Stopping or reducing alcohol consumption is the most important step.</p></div>
+        <div class="patient-card"><h3>What is cirrhosis?</h3><p>Cirrhosis is scarring of the liver that builds up over years. Complications can include fluid build-up (ascites), confusion (hepatic encephalopathy), bleeding from enlarged veins (varices), and increased risk of liver cancer.</p></div>
+        <div class="patient-card"><h3>Clinical trials</h3><p>Our lab is involved in clinical research that tests new approaches to treatment. Joining a trial may give you access to new therapies. You can always withdraw. Contact the MAP Clinic to learn about open studies.</p></div>
+      </div>
+      <div class="section-eyebrow" style="margin-bottom:14px">Frequently asked questions</div>
+      <div style="background:var(--white);border:.5px solid var(--border);border-radius:10px;padding:6px 22px;margin-bottom:28px;">
+        <div class="faq-item"><div class="faq-q">Can fatty liver be reversed?</div><div class="faq-a">Yes, in many cases — especially if caught early. Losing 7–10% of body weight, improving diet, and increasing physical activity can significantly reduce liver fat.</div></div>
+        <div class="faq-item"><div class="faq-q">When should I see a liver specialist?</div><div class="faq-a">See a hepatologist if you have persistently elevated liver enzymes, a history of heavy alcohol use, a diagnosis of cirrhosis or MASLD, or are at risk for liver cancer.</div></div>
+        <div class="faq-item"><div class="faq-q">What is a liver biopsy and do I need one?</div><div class="faq-a">A liver biopsy takes a small tissue sample to look for scarring or inflammation. It is not always needed — doctors often use blood tests and imaging first.</div></div>
+        <div class="faq-item"><div class="faq-q">Is liver cancer screenable?</div><div class="faq-a">Yes. Patients with cirrhosis should have an ultrasound every 6 months to check for hepatocellular carcinoma (HCC). Catching it early greatly improves treatment options.</div></div>
+      </div>
+      <div class="section-eyebrow" style="margin-bottom:14px">Trusted resources</div>
+      <div class="info-grid">
+        <div class="info-card"><h4>AASLD</h4><p>American Association for the Study of Liver Diseases — patient resources.<br><a href="https://www.aasld.org" target="_blank" style="color:var(--primary);">aasld.org →</a></p></div>
+        <div class="info-card"><h4>American Liver Foundation</h4><p>Patient support and liver health education.<br><a href="https://liverfoundation.org" target="_blank" style="color:var(--primary);">liverfoundation.org →</a></p></div>
+        <div class="info-card"><h4>NIH MedlinePlus</h4><p>Plain-language health information from the US National Institutes of Health.<br><a href="https://medlineplus.gov" target="_blank" style="color:var(--primary);">medlineplus.gov →</a></p></div>
+        <div class="info-card"><h4>NIAAA</h4><p>Resources on alcohol and health from the National Institute on Alcohol Abuse and Alcoholism.<br><a href="https://www.niaaa.nih.gov" target="_blank" style="color:var(--primary);">niaaa.nih.gov →</a></p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ NEWS ══════════ -->
+<div id="page-news" class="page">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="section-eyebrow">Lab updates</div>
+      <h1>News</h1>
+    </div>
+  </div>
+  <div class="section section-alt">
+    <div class="section-inner">
+      <div class="news-list">
+        <div class="news-full-item"><div class="news-full-date">2026</div><div class="news-full-content"><span class="news-badge badge-award">Award</span><h4>ACG Junior Faculty Research Award</h4><p>Dr. Yeo receives the American College of Gastroenterology Junior Faculty Research Award for outstanding contributions to clinical research in hepatology.</p></div></div>
+        <div class="news-full-item"><div class="news-full-date">2026</div><div class="news-full-content"><span class="news-badge badge-talk">Talk</span><h4>Grand Rounds — Singapore General Hospital &amp; University of Michigan</h4><p>Invited Grand Rounds presentations on AI implementation in hepatology.</p></div></div>
+        <div class="news-full-item"><div class="news-full-date">2025</div><div class="news-full-content"><span class="news-badge badge-award">Award</span><h4>AGA Innovation Fellow 2025</h4><p>Named an American Gastroenterological Association Innovation Fellow for pioneering work applying AI to liver disease.</p></div></div>
+        <div class="news-full-item"><div class="news-full-date">2025</div><div class="news-full-content"><span class="news-badge badge-award">Award</span><h4>Kimberly A. Brown Transplant Hepatology Fellow Award</h4><p>Honored for excellence in clinical training and research during transplant hepatology fellowship.</p></div></div>
+        <div class="news-full-item"><div class="news-full-date">2025</div><div class="news-full-content"><span class="news-badge badge-paper">Publication</span><h4>DDW Poster of Distinction</h4><p>Research recognized with Poster of Distinction at Digestive Disease Week 2025.</p></div></div>
+        <div class="news-full-item"><div class="news-full-date">2024</div><div class="news-full-content"><span class="news-badge badge-paper">Publication</span><h4>Nature Reviews Gastroenterology &amp; Hepatology — HCC prevention review</h4><p>Comprehensive review on current and emerging strategies for hepatocellular carcinoma prevention.</p></div></div>
+        <div class="news-full-item"><div class="news-full-date">2024</div><div class="news-full-content"><span class="news-badge badge-award">Award</span><h4>Vinay Sundaram Trainee Research Award</h4><p>Receives award for outstanding research contributions during fellowship training.</p></div></div>
+        <div class="news-full-item"><div class="news-full-date">2024</div><div class="news-full-content"><span class="news-badge badge-talk">Talk</span><h4>Biomedical AI Symposium — UCLA 2024</h4><p>Invited presentation on large language models in hepatology at the UCLA Biomedical AI Symposium.</p></div></div>
+        <div class="news-full-item"><div class="news-full-date">2024</div><div class="news-full-content"><span class="news-badge badge-award">Award</span><h4>EASL Top Posters (×2) &amp; AASLD Foundation Abstract Award</h4><p>Two abstracts named Top Posters at EASL; additionally receives the AASLD Foundation Abstract Award.</p></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ CONTACT ══════════ -->
+<div id="page-contact" class="page">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="section-eyebrow">Get in touch</div>
+      <h1>Contact</h1>
+    </div>
+  </div>
+  <div class="section section-alt">
+    <div class="section-inner">
+      <div class="contact-grid">
+        <div class="contact-card">
+          <h4>Email</h4>
+          <p><a href="mailto:yeehui.yeo@cshs.org">yeehui.yeo@cshs.org</a></p>
+        </div>
+        <div class="contact-card">
+          <h4>Location</h4>
+          <p>Location details will be updated soon.</p>
+        </div>
+        <div class="contact-card">
+          <h4>Academic profiles</h4>
+          <p>
+            <a href="https://scholar.google.com" target="_blank" style="color:var(--primary);display:block;margin-bottom:6px;">Google Scholar →</a>
+            <a href="https://pubmed.ncbi.nlm.nih.gov" target="_blank" style="color:var(--primary);display:block;margin-bottom:6px;">PubMed →</a>
+            <a href="https://github.com/Yeo-Hui-Yee" target="_blank" style="color:var(--primary);display:block;">GitHub →</a>
+          </p>
+        </div>
+        <div class="contact-card">
+          <h4>Join the lab</h4>
+          <p>We welcome applicants interested in hepatology, AI, and clinical epidemiology. Please send your CV and a brief statement of interest to the email above.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <div class="footer-inner">
+    <a class="nav-logo" href="#" onclick="showPage('home')">
+      <div class="nav-logo-mark">YL</div>
+      <div><div class="footer-name">Yeo Lab</div><div class="footer-sub">Hepatology · AI · Cirrhosis</div></div>
+    </a>
+    <div class="footer-right">
+      <p><a href="mailto:yeehui.yeo@cshs.org">yeehui.yeo@cshs.org</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  const map = {
+    home:'page-home', research:'page-research', projects:'page-projects',
+    people:'page-people', map:'page-map', publications:'page-publications',
+    data:'page-data', patient:'page-patient', news:'page-news', contact:'page-contact'
+  };
+  const el = document.getElementById(map[id]);
+  if (el) { el.classList.add('active'); window.scrollTo(0,0); }
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    if (a.getAttribute('onclick') && a.getAttribute('onclick').includes("'"+id+"'")) a.classList.add('active');
+  });
+  document.getElementById('nav-links').classList.remove('open');
+}
+function toggleNav() { document.getElementById('nav-links').classList.toggle('open'); }
+function showRes(btn, id) {
+  document.querySelectorAll('.res-tab').forEach(t => t.classList.remove('on'));
+  document.querySelectorAll('.res-panel').forEach(p => p.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('res-'+id).classList.add('on');
+}
+function filterPubs(btn, cat) {
+  document.querySelectorAll('.pub-filter-btn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('.pub-item').forEach(item => {
+    item.style.display = (cat === 'all' || item.dataset.cat === cat) ? 'flex' : 'none';
+  });
+}
+</script>
+</body>
+</html>
