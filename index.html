@@ -10,7 +10,7 @@
 <style>
   :root {
     /* UPDATED PALETTE — deep slate-navy + warm gold accent, distinct from green Garrett */
-    --primary:     #1e2d40;   /* deep slate navy — nav, headers, buttons               */
+    --primary:     #002147;   /* deep slate navy — nav, headers, buttons               */
     --primary-mid: #2e4460;   /* mid navy — hover states                                */
     --accent:      #c9a84c;   /* warm gold — logo mark, links, active states            */
     --accent-light:#f5ecd0;   /* pale gold — tags, badges, light fills                  */
@@ -60,7 +60,7 @@
 
   /* ── HERO ── */
   .hero {
-    background: #080f18;
+    background: #002147;
     padding: 0;
     position: relative; overflow: hidden;
     min-height: 520px; display: flex; align-items: center;
@@ -235,7 +235,7 @@
   .empty-state p  { font-size: 13px; color: var(--text-muted); }
 
   /* ── FOOTER ── */
-  footer { background: var(--hero-bg); padding: 32px 2rem; border-top: 1px solid rgba(201,168,76,.08); }
+  footer { background: #002147; padding: 32px 2rem; border-top: 1px solid rgba(201,168,76,.08); }
   .footer-inner { max-width: 860px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; }
   .footer-name { color: #e8edf3; font-size: 13px; font-weight: 600; }
   .footer-sub  { color: rgba(201,168,76,.7); font-size: 10px; }
@@ -286,7 +286,7 @@
     <!-- AI / Data Network SVG background -->
     <svg class="hero-svg" viewBox="0 0 1200 520" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <radialGradient id="hbg" cx="70%" cy="40%"><stop offset="0%" stop-color="#1a2a3f"/><stop offset="100%" stop-color="#080f18"/></radialGradient>
+        <radialGradient id="hbg" cx="70%" cy="40%"><stop offset="0%" stop-color="#002147"/><stop offset="100%" stop-color="#002147"/></radialGradient>
         <radialGradient id="hglow" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#c9a84c" stop-opacity=".13"/><stop offset="100%" stop-color="#c9a84c" stop-opacity="0"/></radialGradient>
         <radialGradient id="hglow2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#4a8ab5" stop-opacity=".1"/><stop offset="100%" stop-color="#4a8ab5" stop-opacity="0"/></radialGradient>
       </defs>
@@ -294,9 +294,9 @@
       <!-- left fade so text is readable -->
       <rect width="1200" height="520" fill="url(#hbg)" opacity=".0"/>
       <linearGradient id="lfade" x1="0" y1="0" x2="1" y2="0">
-        <stop offset="0%" stop-color="#080f18" stop-opacity="1"/>
-        <stop offset="45%" stop-color="#080f18" stop-opacity=".85"/>
-        <stop offset="100%" stop-color="#080f18" stop-opacity="0"/>
+        <stop offset="0%" stop-color="#002147" stop-opacity="1"/>
+        <stop offset="45%" stop-color="#002147" stop-opacity=".85"/>
+        <stop offset="100%" stop-color="#002147" stop-opacity="0"/>
       </linearGradient>
       <rect width="1200" height="520" fill="url(#lfade)"/>
       <!-- glow centres -->
