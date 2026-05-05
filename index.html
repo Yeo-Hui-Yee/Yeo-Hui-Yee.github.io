@@ -247,18 +247,22 @@
   .discover-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: 260px;
+    grid-auto-rows: auto;
     gap: 14px;
   }
   .dc-card {
     background: var(--white);
     border: .5px solid var(--border);
     border-radius: 14px;
-    overflow: hidden;
+    overflow: visible;
     display: flex;
     flex-direction: column;
     transition: box-shadow .18s, transform .18s;
-    cursor: pointer;
+    cursor: default;
+  }
+  .dc-img-wrap {
+    border-radius: 14px 14px 0 0;
+    overflow: hidden;
   }
   .dc-card:hover { box-shadow: 0 6px 24px rgba(0,33,71,.10); transform: translateY(-2px); }
   /* sizes */
@@ -266,9 +270,9 @@
   .dc-tall  { grid-row: span 2; }
   .dc-std   { grid-column: span 1; }
   /* image area */
-  .dc-img-wrap { position: relative; flex-shrink: 0; overflow: hidden; }
+  .dc-img-wrap { position: relative; flex-shrink: 0; }
   .dc-std  .dc-img-wrap { height: 130px; }
-  .dc-wide .dc-img-wrap { height: 140px; }
+  .dc-wide .dc-img-wrap { height: 160px; }
   .dc-tall .dc-img-wrap { height: 220px; }
   .dc-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .3s; }
   .dc-card:hover .dc-img { transform: scale(1.04); }
@@ -279,7 +283,7 @@
     padding: 3px 9px; border-radius: 99px;
   }
   /* body */
-  .dc-body { padding: 14px 16px; display: flex; flex-direction: column; flex: 1; overflow: hidden; }
+  .dc-body { padding: 14px 16px 18px; display: flex; flex-direction: column; gap: 8px; }
   .dc-question {
     font-size: 13px; font-weight: 600; color: var(--text-primary);
     line-height: 1.4; margin-bottom: 6px;
@@ -737,7 +741,7 @@
         <!-- ═══ QUESTION CARDS GO HERE ═══ -->
 
         <!-- CARD 1: Who gets fatty liver disease -->
-        <div class="dc-card dc-std">
+        <div class="dc-card dc-wide">
           <div class="dc-img-wrap">
             <img src="https://cdn.openviowebsites.com/source/sites/5fffbbb1-4aa2-401c-9b6f-663be1605a7b/images/childhood-obesity-and-fast-food-how-everyday-choices-shape-kids-health.jpg?v=083620251136085758981" alt="Childhood obesity and fast food food choices" class="dc-img">
             <span class="dc-topic">Fatty Liver</span>
@@ -745,7 +749,7 @@
           <div class="dc-body">
             <h3 class="dc-question">Who is more likely to get fatty liver disease?</h3>
             <p class="dc-answer">People with obesity, type 2 diabetes, or high blood fats are most at risk. But fatty liver can also affect people who appear slim if they have metabolic problems.</p>
-            <a class="dc-more-btn" href="#" onclick="openDetail(event, 'detail-fatty-liver-risk')" style="display:inline-flex;align-items:center;gap:4px;text-decoration:none;">Read more ↗</a>
+            <a class="dc-more-btn" href="#" onclick="openDetail(event, 'detail-fatty-liver-risk')" style="display:inline-flex;align-items:center;gap:6px;text-decoration:none;margin-top:10px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;flex-shrink:0;">Read more ↗</a>
           </div>
         </div>
         <!-- Add new cards here -->
