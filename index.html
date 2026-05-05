@@ -736,6 +736,22 @@
       <div class="discover-grid" id="discover-grid">
 
         <!-- ═══ QUESTION CARDS GO HERE ═══ -->
+
+        <!-- CARD 1: Who gets fatty liver disease -->
+        <div class="dc-card dc-std">
+          <div class="dc-img-wrap">
+            <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&auto=format&fit=crop&q=80" alt="Healthy and unhealthy food choices" class="dc-img">
+            <span class="dc-topic">Fatty Liver</span>
+          </div>
+          <div class="dc-body">
+            <h3 class="dc-question">Who is more likely to get fatty liver disease?</h3>
+            <p class="dc-answer">People with obesity, type 2 diabetes, or high blood fats are most at risk. But fatty liver can also affect people who appear slim if they have metabolic problems.</p>
+            <button class="dc-more-btn" onclick="toggleDetail(this)">Read more</button>
+            <div class="dc-detail">
+              <p>Fatty liver disease — now called metabolic dysfunction-associated steatotic liver disease (MASLD) — affects about 1 in 3 adults worldwide. The strongest risk factors are obesity, type 2 diabetes, high triglycerides, high blood pressure, and insulin resistance, which together make up what is called metabolic syndrome. People with obesity have up to a 75% chance of having MASLD. However, fatty liver is not limited to people with excess weight — studies show it affects around 40% of people who are not obese, particularly if they carry extra fat around the abdomen or have a genetic predisposition (such as the PNPLA3 gene variant). Men, middle-aged adults, and people of Hispanic or Asian ethnicity are also at higher risk. Diets high in calories, red meat, processed foods, and sugary drinks further raise the risk. Early detection through routine blood tests and imaging is important, as MASLD can progress silently to serious liver scarring if left unaddressed.</p>
+            </div>
+          </div>
+        </div>
         <!-- Each card follows this template:
 
         <div class="dc-card dc-SIZE">
@@ -819,60 +835,4 @@
           <p>We welcome applicants interested in hepatology, AI, and clinical epidemiology. Please send your CV and a brief statement of interest to the email above.</p>
         </div>
       </div>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════ FOOTER ══════════ -->
-<footer>
-  <div class="footer-inner">
-    <a class="nav-logo" href="#" onclick="showPage('home')">
-      <div class="nav-logo-mark">YL</div>
-      <div><div class="footer-name">Yeo Lab</div></div>
-    </a>
-    <div class="footer-right">
-      <p><a href="mailto:yeehui.yeo@cshs.org">yeehui.yeo@cshs.org</a></p>
-    </div>
-  </div>
-</footer>
-
-<script>
-function showPage(id) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-  const map = {
-    home:'page-home', research:'page-research', projects:'page-projects',
-    people:'page-people', map:'page-map', publications:'page-publications',
-    data:'page-data', patient:'page-patient', news:'page-news', contact:'page-contact'
-  };
-  const el = document.getElementById(map[id]);
-  if (el) { el.classList.add('active'); window.scrollTo(0,0); }
-  document.querySelectorAll('.nav-links a').forEach(a => {
-    if (a.getAttribute('onclick') && a.getAttribute('onclick').includes("'"+id+"'")) a.classList.add('active');
-  });
-  document.getElementById('nav-links').classList.remove('open');
-}
-function toggleNav() { document.getElementById('nav-links').classList.toggle('open'); }
-function showRes(btn, id) {
-  document.querySelectorAll('.res-tab').forEach(t => t.classList.remove('on'));
-  document.querySelectorAll('.res-panel').forEach(p => p.classList.remove('on'));
-  btn.classList.add('on');
-  document.getElementById('res-'+id).classList.add('on');
-}
-function toggleDetail(btn) {
-  const detail = btn.nextElementSibling;
-  detail.classList.toggle('open');
-  btn.classList.toggle('open');
-  btn.textContent = btn.classList.contains('open') ? 'Read less' : 'Read more';
-  if (btn.classList.contains('open')) btn.insertAdjacentText('beforeend', '');
-}
-function filterPubs(btn, cat) {
-  document.querySelectorAll('.pub-filter-btn').forEach(b => b.classList.remove('on'));
-  btn.classList.add('on');
-  document.querySelectorAll('.pub-item').forEach(item => {
-    item.style.display = (cat === 'all' || item.dataset.cat === cat) ? 'flex' : 'none';
-  });
-}
-</script>
-</body>
-</html>
+ 
