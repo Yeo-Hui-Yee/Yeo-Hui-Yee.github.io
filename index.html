@@ -242,6 +242,76 @@
   .footer-right p { font-size: 11px; color: #8fa3bc; text-align: right; }
   .footer-right a { color: rgba(201,168,76,.75); text-decoration: none; }
 
+
+  /* ── PATIENT EDUCATION — DISCOVER FEED ── */
+  .discover-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 260px;
+    gap: 14px;
+  }
+  .dc-card {
+    background: var(--white);
+    border: .5px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow .18s, transform .18s;
+    cursor: pointer;
+  }
+  .dc-card:hover { box-shadow: 0 6px 24px rgba(0,33,71,.10); transform: translateY(-2px); }
+  /* sizes */
+  .dc-wide { grid-column: span 2; }
+  .dc-tall  { grid-row: span 2; }
+  .dc-std   { grid-column: span 1; }
+  /* image area */
+  .dc-img-wrap { position: relative; flex-shrink: 0; overflow: hidden; }
+  .dc-std  .dc-img-wrap { height: 130px; }
+  .dc-wide .dc-img-wrap { height: 140px; }
+  .dc-tall .dc-img-wrap { height: 220px; }
+  .dc-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .3s; }
+  .dc-card:hover .dc-img { transform: scale(1.04); }
+  .dc-topic {
+    position: absolute; top: 10px; left: 10px;
+    background: #002147; color: #c9a84c;
+    font-size: 10px; font-weight: 600; letter-spacing: .06em;
+    padding: 3px 9px; border-radius: 99px;
+  }
+  /* body */
+  .dc-body { padding: 14px 16px; display: flex; flex-direction: column; flex: 1; overflow: hidden; }
+  .dc-question {
+    font-size: 13px; font-weight: 600; color: var(--text-primary);
+    line-height: 1.4; margin-bottom: 6px;
+  }
+  .dc-wide .dc-question, .dc-tall .dc-question { font-size: 14px; }
+  .dc-answer {
+    font-size: 12px; color: var(--text-secondary); line-height: 1.6;
+    flex: 1; overflow: hidden;
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+  }
+  .dc-more-btn {
+    margin-top: 8px; font-size: 11px; font-weight: 600;
+    color: #002147; background: none; border: none; cursor: pointer;
+    padding: 0; text-align: left; letter-spacing: .02em;
+    display: flex; align-items: center; gap: 4px;
+  }
+  .dc-more-btn::after { content: '↓'; font-size: 11px; transition: transform .2s; }
+  .dc-more-btn.open::after { transform: rotate(180deg); }
+  .dc-detail {
+    display: none; margin-top: 10px;
+    padding-top: 10px; border-top: .5px solid var(--border);
+    font-size: 12px; color: var(--text-secondary); line-height: 1.7;
+    animation: fadeIn .2s ease;
+  }
+  .dc-detail.open { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+  /* responsive */
+  @media (max-width: 680px) {
+    .discover-grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
+    .dc-wide, .dc-tall { grid-column: span 1; grid-row: span 1; }
+    .dc-std .dc-img-wrap, .dc-wide .dc-img-wrap, .dc-tall .dc-img-wrap { height: 160px; }
+  }
   /* ── RESPONSIVE ── */
   @media (max-width: 680px) {
     .nav-links { display: none; flex-direction: column; position: absolute; top: 56px; left: 0; right: 0; background: var(--primary); padding: 10px 0; }
@@ -656,30 +726,38 @@
     <div class="page-header-inner">
       <div class="section-eyebrow">For patients and families</div>
       <h1>Patient Education</h1>
+      <p style="color:#8fa3bc;font-size:13px;margin-top:10px;max-width:560px;">Real questions from real patients — answered simply and clearly.</p>
     </div>
   </div>
   <div class="section section-alt">
     <div class="section-inner">
-      <div class="patient-grid" style="margin-bottom:36px">
-        <div class="patient-card"><h3>What is fatty liver disease (MASLD)?</h3><p>Metabolic-associated steatotic liver disease means fat has built up in the liver. It is common and often has no symptoms early on. Lifestyle changes — especially diet and exercise — can reverse it in many cases.</p></div>
-        <div class="patient-card"><h3>Alcohol and your liver</h3><p>The liver processes alcohol, but too much over time causes damage. Alcohol-associated liver disease ranges from fatty liver to hepatitis to cirrhosis. Stopping or reducing alcohol consumption is the most important step.</p></div>
-        <div class="patient-card"><h3>What is cirrhosis?</h3><p>Cirrhosis is scarring of the liver that builds up over years. Complications can include fluid build-up (ascites), confusion (hepatic encephalopathy), bleeding from enlarged veins (varices), and increased risk of liver cancer.</p></div>
-        <div class="patient-card"><h3>Clinical trials</h3><p>Our lab is involved in clinical research that tests new approaches to treatment. Joining a trial may give you access to new therapies. You can always withdraw. Contact the MAP Clinic to learn about open studies.</p></div>
-      </div>
-      <div class="section-eyebrow" style="margin-bottom:14px">Frequently asked questions</div>
-      <div style="background:var(--white);border:.5px solid var(--border);border-radius:10px;padding:6px 22px;margin-bottom:28px;">
-        <div class="faq-item"><div class="faq-q">Can fatty liver be reversed?</div><div class="faq-a">Yes, in many cases — especially if caught early. Losing 7–10% of body weight, improving diet, and increasing physical activity can significantly reduce liver fat.</div></div>
-        <div class="faq-item"><div class="faq-q">When should I see a liver specialist?</div><div class="faq-a">See a hepatologist if you have persistently elevated liver enzymes, a history of heavy alcohol use, a diagnosis of cirrhosis or MASLD, or are at risk for liver cancer.</div></div>
-        <div class="faq-item"><div class="faq-q">What is a liver biopsy and do I need one?</div><div class="faq-a">A liver biopsy takes a small tissue sample to look for scarring or inflammation. It is not always needed — doctors often use blood tests and imaging first.</div></div>
-        <div class="faq-item"><div class="faq-q">Is liver cancer screenable?</div><div class="faq-a">Yes. Patients with cirrhosis should have an ultrasound every 6 months to check for hepatocellular carcinoma (HCC). Catching it early greatly improves treatment options.</div></div>
-      </div>
-      <div class="section-eyebrow" style="margin-bottom:14px">Trusted resources</div>
-      <div class="info-grid">
-        <div class="info-card"><h4>AASLD</h4><p>American Association for the Study of Liver Diseases — patient resources.<br><a href="https://www.aasld.org" target="_blank" style="color:var(--primary);">aasld.org →</a></p></div>
-        <div class="info-card"><h4>American Liver Foundation</h4><p>Patient support and liver health education.<br><a href="https://liverfoundation.org" target="_blank" style="color:var(--primary);">liverfoundation.org →</a></p></div>
-        <div class="info-card"><h4>NIH MedlinePlus</h4><p>Plain-language health information from the US National Institutes of Health.<br><a href="https://medlineplus.gov" target="_blank" style="color:var(--primary);">medlineplus.gov →</a></p></div>
-        <div class="info-card"><h4>NIAAA</h4><p>Resources on alcohol and health from the National Institute on Alcohol Abuse and Alcoholism.<br><a href="https://www.niaaa.nih.gov" target="_blank" style="color:var(--primary);">niaaa.nih.gov →</a></p></div>
-      </div>
+
+      <!-- DISCOVER FEED -->
+      <div class="discover-grid" id="discover-grid">
+
+        <!-- ═══ QUESTION CARDS GO HERE ═══ -->
+        <!-- Each card follows this template:
+
+        <div class="dc-card dc-SIZE">
+          <div class="dc-img-wrap">
+            <img src="IMAGE_URL" alt="ALT TEXT" class="dc-img">
+            <span class="dc-topic">TOPIC LABEL</span>
+          </div>
+          <div class="dc-body">
+            <h3 class="dc-question">PATIENT QUESTION?</h3>
+            <p class="dc-answer">SHORT ANSWER IN 2 SENTENCES.</p>
+            <button class="dc-more-btn" onclick="toggleDetail(this)">Read more</button>
+            <div class="dc-detail">
+              <p>DETAILED SCIENTIFIC PARAGRAPH HERE.</p>
+            </div>
+          </div>
+        </div>
+
+        SIZE options: dc-wide (wide card), dc-tall (tall card), dc-std (standard square card)
+        -->
+
+      </div><!-- end discover-grid -->
+
     </div>
   </div>
 </div>
@@ -780,6 +858,13 @@ function showRes(btn, id) {
   document.querySelectorAll('.res-panel').forEach(p => p.classList.remove('on'));
   btn.classList.add('on');
   document.getElementById('res-'+id).classList.add('on');
+}
+function toggleDetail(btn) {
+  const detail = btn.nextElementSibling;
+  detail.classList.toggle('open');
+  btn.classList.toggle('open');
+  btn.textContent = btn.classList.contains('open') ? 'Read less' : 'Read more';
+  if (btn.classList.contains('open')) btn.insertAdjacentText('beforeend', '');
 }
 function filterPubs(btn, cat) {
   document.querySelectorAll('.pub-filter-btn').forEach(b => b.classList.remove('on'));
