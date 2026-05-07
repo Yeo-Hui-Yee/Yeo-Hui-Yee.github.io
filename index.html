@@ -749,7 +749,22 @@
           <div class="dc-body">
             <h3 class="dc-question">Who is more likely to get fatty liver disease?</h3>
             <p class="dc-answer">People with obesity, type 2 diabetes, or high blood fats are most at risk. But fatty liver can also affect people who appear slim if they have metabolic problems.</p>
-            <a class="dc-more-btn" href="#" onclick="openDetail(event, 'detail-fatty-liver-risk')" style="display:inline-flex;align-items:center;gap:6px;text-decoration:none;margin-top:10px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;flex-shrink:0;">Read more ↗</a>
+            <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more ▾</button>
+            <div class="dc-detail" style="display:none;">
+              <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+                <li style="font-size:12px;color:#374151;line-height:1.65;">Fatty liver disease — now called <strong>MASLD</strong> — affects about 1 in 3 adults worldwide, and its prevalence is rising with the global obesity epidemic.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">The strongest risk factors are <strong>obesity, type 2 diabetes, high triglycerides, high blood pressure, and insulin resistance</strong> — together known as metabolic syndrome.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">People with obesity have up to a <strong>75% chance</strong> of having MASLD.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">Fatty liver is <strong>not limited to overweight people</strong> — it affects around 40% of people who are not obese, especially those with abdominal fat or a genetic predisposition (PNPLA3 gene variant).</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Men, middle-aged adults, and people of Hispanic or Asian ethnicity</strong> are at higher risk.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">Diets high in calories, red and processed meats, fructose, and sugary drinks further raise the risk.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">MASLD can <strong>progress silently</strong> to serious liver scarring (cirrhosis) without symptoms — early detection through routine blood tests and imaging is important.</li>
+              </ul>
+              <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+                <span title="Younossi ZM et al., Hepatology 2023 · EASL-AASLD Guidelines 2024 · Riazi K et al., Lancet Gastroenterology 2022" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+                <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+              </div>
+            </div>
           </div>
         </div>
         <!-- Add new cards here -->
@@ -859,10 +874,9 @@ function showRes(btn, id) {
 }
 function toggleDetail(btn) {
   const detail = btn.nextElementSibling;
-  const isOpen = detail.classList.contains('open');
-  detail.classList.toggle('open');
-  btn.classList.toggle('open');
-  btn.textContent = isOpen ? 'Read more' : 'Read less';
+  const isOpen = detail.style.display === 'block';
+  detail.style.display = isOpen ? 'none' : 'block';
+  btn.innerHTML = isOpen ? 'Read more &#9662;' : 'Read less &#9652;';
 }
 function filterPubs(btn, cat) {
   document.querySelectorAll('.pub-filter-btn').forEach(b => b.classList.remove('on'));
@@ -873,48 +887,8 @@ function filterPubs(btn, cat) {
 }
 </script>
 
-<!-- ── DETAIL OVERLAY ── -->
-<div id="detail-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:200;align-items:center;justify-content:center;padding:20px;" onclick="closeDetail(event)">
-  <div id="detail-panel" style="background:#fff;border-radius:14px;max-width:680px;width:100%;max-height:88vh;overflow-y:auto;padding:32px 36px;position:relative;box-shadow:0 20px 60px rgba(0,33,71,.25);">
-    <button onclick="closeDetail(null,true)" style="position:absolute;top:14px;right:18px;background:none;border:none;font-size:22px;cursor:pointer;color:#6b7280;line-height:1;">×</button>
-    <div id="detail-content"></div>
-  </div>
-</div>
 
-<!-- ── DETAIL CONTENT STORE ── -->
-<div style="display:none">
 
-  <div id="detail-fatty-liver-risk">
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
-      <span style="background:#002147;color:#c9a84c;font-size:10px;font-weight:600;letter-spacing:.06em;padding:3px 10px;border-radius:99px;">Fatty Liver</span>
-    </div>
-    <h2 style="font-family:Georgia,serif;font-size:22px;color:#002147;line-height:1.3;margin-bottom:12px;">Who is more likely to get fatty liver disease?</h2>
-    <p style="font-size:14px;color:#374151;line-height:1.75;margin-bottom:16px;">Fatty liver disease — now called metabolic dysfunction-associated steatotic liver disease (MASLD) — affects about 1 in 3 adults worldwide and its prevalence is rising in parallel with the global obesity epidemic. The strongest risk factors are obesity, type 2 diabetes, high triglycerides, high blood pressure, and insulin resistance, which together make up what is called metabolic syndrome. People with obesity have up to a 75% chance of having MASLD. However, fatty liver is not limited to people with excess weight — studies show it affects around 40% of people who are not obese, particularly if they carry extra fat around the abdomen or have a genetic predisposition, such as a variant in the PNPLA3 gene. Men, middle-aged adults, and people of Hispanic or Asian ethnicity are also at higher risk. Diets high in calories, red and processed meats, fructose, and sugary drinks further raise the risk. Because MASLD can progress silently to serious liver inflammation and scarring (cirrhosis) without causing symptoms, early detection through routine blood tests and liver imaging is important — especially for anyone with diabetes, obesity, or high blood fats.</p>
-    <div style="background:#f0f4fa;border-radius:8px;padding:12px 16px;font-size:12px;color:#6b7280;line-height:1.6;">
-      <strong style="color:#002147;">Sources:</strong> Younossi ZM et al., <em>Hepatology</em> 2023 · EASL-AASLD Clinical Practice Guidelines 2024 · Riazi K et al., <em>Lancet Gastroenterology &amp; Hepatology</em> 2022
-    </div>
-  </div>
 
-</div>
-<!-- ── END DETAIL CONTENT STORE ── -->
-
-<script>
-function openDetail(e, id) {
-  e.preventDefault();
-  const src = document.getElementById(id);
-  if (!src) return;
-  document.getElementById('detail-content').innerHTML = src.innerHTML;
-  const overlay = document.getElementById('detail-overlay');
-  overlay.style.display = 'flex';
-  document.body.style.overflow = 'hidden';
-}
-function closeDetail(e, force) {
-  if (force || (e && e.target === document.getElementById('detail-overlay'))) {
-    document.getElementById('detail-overlay').style.display = 'none';
-    document.body.style.overflow = '';
-  }
-}
-document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeDetail(null,true); });
-</script>
 </body>
 </html>
