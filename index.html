@@ -781,6 +781,72 @@
         </div>
         <!-- Add new cards here -->
 
+        <!-- CARD 8: Imaging tests for fatty liver -->
+        <div class="dc-card dc-tall">
+          <div class="dc-img-wrap" style="background:#0a1628;display:flex;align-items:center;justify-content:center;position:relative;">
+            <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:200px;display:block;">
+              <!-- dark background -->
+              <rect width="400" height="200" fill="#0a1628"/>
+              <!-- ultrasound screen area -->
+              <rect x="60" y="20" width="200" height="150" rx="6" fill="#0d2137" stroke="#1e4060" stroke-width="1.5"/>
+              <!-- scan lines effect -->
+              <g opacity="0.15">
+                <line x1="160" y1="20" x2="80" y2="170" stroke="#4a9eff" stroke-width="0.5"/>
+                <line x1="160" y1="20" x2="100" y2="170" stroke="#4a9eff" stroke-width="0.5"/>
+                <line x1="160" y1="20" x2="120" y2="170" stroke="#4a9eff" stroke-width="0.5"/>
+                <line x1="160" y1="20" x2="140" y2="170" stroke="#4a9eff" stroke-width="0.5"/>
+                <line x1="160" y1="20" x2="160" y2="170" stroke="#4a9eff" stroke-width="0.5"/>
+                <line x1="160" y1="20" x2="180" y2="170" stroke="#4a9eff" stroke-width="0.5"/>
+                <line x1="160" y1="20" x2="200" y2="170" stroke="#4a9eff" stroke-width="0.5"/>
+                <line x1="160" y1="20" x2="220" y2="170" stroke="#4a9eff" stroke-width="0.5"/>
+                <line x1="160" y1="20" x2="240" y2="170" stroke="#4a9eff" stroke-width="0.5"/>
+              </g>
+              <!-- liver shape on screen -->
+              <ellipse cx="155" cy="105" rx="55" ry="35" fill="#1a5c8a" opacity="0.6"/>
+              <ellipse cx="155" cy="105" rx="55" ry="35" fill="none" stroke="#4a9eff" stroke-width="1" opacity="0.8"/>
+              <!-- fat deposits (bright spots = echogenic) -->
+              <ellipse cx="145" cy="98" rx="28" ry="18" fill="#c9a84c" opacity="0.25"/>
+              <ellipse cx="160" cy="108" rx="20" ry="12" fill="#c9a84c" opacity="0.2"/>
+              <!-- measurement arrows -->
+              <line x1="100" y1="140" x2="210" y2="140" stroke="#4a9eff" stroke-width="0.8" opacity="0.6"/>
+              <polygon points="100,137 100,143 94,140" fill="#4a9eff" opacity="0.6"/>
+              <polygon points="210,137 210,143 216,140" fill="#4a9eff" opacity="0.6"/>
+              <!-- screen text -->
+              <text x="68" y="35" font-family="Courier New" font-size="7" fill="#4a9eff" opacity="0.8">LIVER  US</text>
+              <text x="68" y="45" font-family="Courier New" font-size="6" fill="#4a9eff" opacity="0.6">CAP: 285 dB/m</text>
+              <text x="68" y="155" font-family="Courier New" font-size="6" fill="#c9a84c" opacity="0.8">STEATOSIS S1</text>
+              <text x="180" y="155" font-family="Courier New" font-size="6" fill="#4a9eff" opacity="0.6">11.2 cm</text>
+              <!-- probe handle on right -->
+              <rect x="278" y="70" width="22" height="70" rx="8" fill="#1e3a5a" stroke="#2e5a8a" stroke-width="1"/>
+              <rect x="281" y="90" width="16" height="30" rx="3" fill="#0d2137"/>
+              <rect x="282" y="135" width="14" height="8" rx="2" fill="#c9a84c" opacity="0.6"/>
+              <!-- cable -->
+              <path d="M289,140 Q310,160 330,155 Q360,148 370,170" fill="none" stroke="#1e3a5a" stroke-width="3"/>
+              <!-- label -->
+              <text x="200" y="188" text-anchor="middle" font-family="Arial" font-size="10" font-weight="600" fill="#4a9eff" letter-spacing="2" opacity="0.9">LIVER ULTRASOUND</text>
+            </svg>
+            <span class="dc-topic">Diagnosis</span>
+          </div>
+          <div class="dc-body">
+            <h3 class="dc-question">What is the role of ultrasound, MRI, or CT scan in diagnosing fatty liver?</h3>
+            <p class="dc-answer">Imaging tests are the most important tools for detecting fatty liver disease without a biopsy. Ultrasound is the first-line test, while MRI is the most accurate for measuring liver fat.</p>
+            <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+            <div class="dc-detail" style="display:none;">
+              <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Ultrasound</strong> is the recommended first-line test — it is widely available, inexpensive, and radiation-free. It detects moderate-to-severe liver fat reliably, but may miss mild steatosis (sensitivity 53–76% for mild fat).</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>FibroScan (transient elastography)</strong> is a specialised ultrasound that measures both liver stiffness (fibrosis) and fat content (CAP score) simultaneously — increasingly used in hepatology clinics as a non-invasive first-line tool.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>MRI-PDFF</strong> (MRI proton density fat fraction) is the non-invasive gold standard for accurately measuring liver fat — used in clinical trials and when precise fat quantification is needed. It is more expensive and less widely available.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>CT scan</strong> can detect liver fat incidentally during scans done for other reasons — an important opportunity for early diagnosis. However, it involves radiation and is not recommended as a routine screening tool for MASLD.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">Imaging alone <strong>cannot diagnose MASH or measure fibrosis grade</strong> with high accuracy — a liver biopsy or MR elastography may still be needed in some cases to assess the severity of liver damage.</li>
+              </ul>
+              <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+                <span title="EASL–EASD–EASO Guidelines J Hepatol 2024 · PMC Imaging Evaluation for SLD 2025 · CAR MASLD Imaging Guidelines 2025 · AASLD Practice Guidelines 2024 · Guideline Prevention & Treatment MASLD 2024" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+                <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- CARD 7: Types of fatty liver disease -->
         <div class="dc-card dc-wide">
           <div class="dc-img-wrap">
