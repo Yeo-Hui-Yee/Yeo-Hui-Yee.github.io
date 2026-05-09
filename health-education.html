@@ -533,49 +533,51 @@ function showTopic(btn, topic) {
   });
   btn.classList.add('active');
 
-  // Get all sections
-  var grid      = document.getElementById('discover-grid');
-  var cancer    = document.getElementById('topic-liver-cancer');
-  var hepatitis = document.getElementById('topic-hepatitis');
-  var prevention= document.getElementById('topic-prevention');
-  var label     = document.getElementById('topic-label');
+  // All named sections
+  var grid       = document.getElementById('discover-grid');
+  var cancer     = document.getElementById('topic-liver-cancer');
+  var hepatitis  = document.getElementById('topic-hepatitis');
+  var prevention = document.getElementById('topic-prevention');
+  var label      = document.getElementById('topic-label');
 
-  // Hide all sections first
-  if (grid)       grid.style.display       = 'none';
-  if (cancer)     cancer.style.display     = 'none';
-  if (hepatitis)  hepatitis.style.display  = 'none';
-  if (prevention) prevention.style.display = 'none';
-
-  // Reset all cards to visible
-  document.querySelectorAll('.dc-card').forEach(function(c) {
-    c.style.display = 'flex';
-  });
+  // Hide every section completely
+  if (grid)       { grid.style.display       = 'none'; }
+  if (cancer)     { cancer.style.display     = 'none'; }
+  if (hepatitis)  { hepatitis.style.display  = 'none'; }
+  if (prevention) { prevention.style.display = 'none'; }
 
   if (topic === 'all') {
-    if (grid) grid.style.display = 'grid';
-    if (label) label.textContent = 'All questions';
-  } else if (topic === 'fatty-liver') {
-    if (grid) grid.style.display = 'grid';
-    if (label) label.textContent = 'Fatty Liver';
-    document.querySelectorAll('.dc-card').forEach(function(c) {
-      if (c.dataset.topic && c.dataset.topic !== 'fatty-liver') {
-        c.style.display = 'none';
-      }
+    // Show main grid, all cards visible
+    if (grid) { grid.style.display = 'grid'; }
+    if (label) { label.textContent = 'All questions'; }
+    document.querySelectorAll('#discover-grid .dc-card').forEach(function(c) {
+      c.style.display = 'flex';
     });
+
+  } else if (topic === 'fatty-liver') {
+    // Show main grid, only fatty-liver cards
+    if (grid) { grid.style.display = 'grid'; }
+    if (label) { label.textContent = 'Fatty Liver'; }
+    document.querySelectorAll('#discover-grid .dc-card').forEach(function(c) {
+      c.style.display = (c.dataset.topic === 'fatty-liver') ? 'flex' : 'none';
+    });
+
   } else if (topic === 'liver-cancer') {
-    if (cancer) cancer.style.display = 'block';
-    if (label) label.textContent = 'Liver Cancer';
+    if (cancer) { cancer.style.display = 'block'; }
+    if (label)  { label.textContent = 'Liver Cancer'; }
+
   } else if (topic === 'hepatitis') {
-    if (hepatitis) hepatitis.style.display = 'block';
-    if (label) label.textContent = 'Hepatitis';
+    if (hepatitis) { hepatitis.style.display = 'block'; }
+    if (label)     { label.textContent = 'Hepatitis'; }
+
   } else if (topic === 'prevention') {
-    if (prevention) prevention.style.display = 'block';
-    if (label) label.textContent = 'Prevention';
+    if (prevention) { prevention.style.display = 'block'; }
+    if (label)      { label.textContent = 'Prevention'; }
   }
 
-  // Close mobile menu
+  // Close mobile menu and scroll to top
   var navLinks = document.getElementById('hed-nav-links');
-  if (navLinks) navLinks.classList.remove('open');
+  if (navLinks) { navLinks.classList.remove('open'); }
   window.scrollTo(0, 0);
 }
 
