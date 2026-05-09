@@ -526,7 +526,65 @@
 </footer>
 
 <script>
+function showTopic(btn, topic) {
+  // Update active nav tab
+  document.querySelectorAll('.hed-tab').forEach(function(t) {
+    t.classList.remove('active');
+  });
+  btn.classList.add('active');
 
+  // Get all sections
+  var grid      = document.getElementById('discover-grid');
+  var cancer    = document.getElementById('topic-liver-cancer');
+  var hepatitis = document.getElementById('topic-hepatitis');
+  var prevention= document.getElementById('topic-prevention');
+  var label     = document.getElementById('topic-label');
+
+  // Hide all sections first
+  if (grid)       grid.style.display       = 'none';
+  if (cancer)     cancer.style.display     = 'none';
+  if (hepatitis)  hepatitis.style.display  = 'none';
+  if (prevention) prevention.style.display = 'none';
+
+  // Reset all cards to visible
+  document.querySelectorAll('.dc-card').forEach(function(c) {
+    c.style.display = 'flex';
+  });
+
+  if (topic === 'all') {
+    if (grid) grid.style.display = 'grid';
+    if (label) label.textContent = 'All questions';
+  } else if (topic === 'fatty-liver') {
+    if (grid) grid.style.display = 'grid';
+    if (label) label.textContent = 'Fatty Liver';
+    document.querySelectorAll('.dc-card').forEach(function(c) {
+      if (c.dataset.topic && c.dataset.topic !== 'fatty-liver') {
+        c.style.display = 'none';
+      }
+    });
+  } else if (topic === 'liver-cancer') {
+    if (cancer) cancer.style.display = 'block';
+    if (label) label.textContent = 'Liver Cancer';
+  } else if (topic === 'hepatitis') {
+    if (hepatitis) hepatitis.style.display = 'block';
+    if (label) label.textContent = 'Hepatitis';
+  } else if (topic === 'prevention') {
+    if (prevention) prevention.style.display = 'block';
+    if (label) label.textContent = 'Prevention';
+  }
+
+  // Close mobile menu
+  var navLinks = document.getElementById('hed-nav-links');
+  if (navLinks) navLinks.classList.remove('open');
+  window.scrollTo(0, 0);
+}
+
+function toggleDetail(btn) {
+  var detail = btn.nextElementSibling;
+  var isOpen = detail.style.display === 'block';
+  detail.style.display = isOpen ? 'none' : 'block';
+  btn.innerHTML = isOpen ? 'Read more &#9662;' : 'Read less &#9652;';
+}
 </script>
 </body>
 </html>
