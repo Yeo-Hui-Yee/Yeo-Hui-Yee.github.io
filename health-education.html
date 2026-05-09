@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liver Health Education — Yeo Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary:      #002147;
+    --accent:       #c9a84c;
+    --accent-light: #f5ecd0;
+    --white:        #ffffff;
+    --off-white:    #f7f8fa;
+    --text-primary: #111827;
+    --text-secondary:#4b5563;
+    --text-muted:   #9ca3af;
+    --border:       #e2e8f0;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans:  'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--off-white); color: var(--text-primary); line-height: 1.6; }
+
+  /* ── NAV ── */
+  nav {
+    background: var(--primary); position: sticky; top: 0; z-index: 100;
+    padding: 0 2rem; display: flex; align-items: center; justify-content: space-between;
+    height: 56px; box-shadow: 0 1px 0 rgba(201,168,76,.12);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-logo-mark {
+    width: 28px; height: 28px; background: var(--accent);
+    border-radius: 5px; display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 600; color: var(--primary); flex-shrink: 0;
+  }
+  .nav-logo-text { color: #e8edf3; font-size: 13px; font-weight: 600; }
+  .nav-back { color: rgba(232,237,243,.65); font-size: 11px; text-decoration: none; letter-spacing: .04em; transition: color .15s; }
+  .nav-back:hover { color: var(--accent); }
+
+  /* ── HERO ── */
+  .hero {
+    background: #0a1628;
+    padding: 56px 2rem 48px;
+    border-bottom: 1px solid rgba(201,168,76,.1);
+  }
+  .hero-inner { max-width: 860px; margin: 0 auto; }
+  .hero-eyebrow { font-size: 10px; letter-spacing: .14em; color: var(--accent); font-weight: 500; margin-bottom: 12px; }
+  .hero-h1 { font-family: var(--serif); font-size: clamp(24px,4vw,36px); color: #e8edf3; line-height: 1.25; margin-bottom: 12px; }
+  .hero-sub { font-size: 14px; color: #8fa3bc; line-height: 1.75; max-width: 520px; margin-bottom: 20px; }
+  .hero-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+  .hero-tag {
+    font-size: 11px; background: rgba(201,168,76,.12); color: var(--accent);
+    padding: 4px 12px; border-radius: 99px; border: .5px solid rgba(201,168,76,.25);
+  }
+
+  /* ── MAIN CONTENT ── */
+  .main { max-width: 960px; margin: 0 auto; padding: 40px 2rem 80px; }
+  .section-label {
+    font-size: 10px; font-weight: 600; letter-spacing: .1em;
+    color: var(--accent); border-left: 2px solid var(--accent);
+    padding-left: 9px; margin-bottom: 20px;
+  }
+
+  /* ── DISCOVER FEED ── */
+  /* ── PATIENT EDUCATION — DISCOVER FEED ── */
+  .discover-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    grid-auto-flow: dense;
+    align-items: stretch;
+  }
+  .dc-card {
+    background: var(--white);
+    border: .5px solid var(--border);
+    border-radius: 14px;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow .18s, transform .18s;
+    cursor: default;
+    height: 100%;
+  }
+  .dc-img-wrap {
+    border-radius: 14px 14px 0 0;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .dc-tall .dc-img-wrap {
+    flex: 1;
+    border-radius: 0;
+    position: relative;
+  }
+  .dc-tall .dc-body {
+    flex: 0 0 auto;
+  }
+  .dc-card:hover { box-shadow: 0 6px 24px rgba(0,33,71,.10); transform: translateY(-2px); }
+  /* sizes */
+  .dc-wide { grid-column: span 2; }
+  .dc-tall  { grid-row: span 2; }
+  .dc-std   { grid-column: span 1; }
+  /* image area */
+  .dc-img-wrap { position: relative; flex-shrink: 0; }
+  .dc-std  .dc-img-wrap { height: 160px; }
+  .dc-wide .dc-img-wrap { height: 180px; }
+  .dc-tall .dc-img-wrap { height: 100%; min-height: 280px; }
+  .dc-tall { min-height: 420px; }
+  .dc-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .3s; }
+  .dc-card:hover .dc-img { transform: scale(1.04); }
+  .dc-topic {
+    position: absolute; top: 10px; left: 10px;
+    background: #002147; color: #c9a84c;
+    font-size: 10px; font-weight: 600; letter-spacing: .06em;
+    padding: 3px 9px; border-radius: 99px;
+  }
+  /* body */
+  .dc-body { padding: 14px 16px 18px; display: flex; flex-direction: column; gap: 8px; }
+  .dc-question {
+    font-size: 13px; font-weight: 600; color: var(--text-primary);
+    line-height: 1.4; margin-bottom: 6px;
+  }
+  .dc-wide .dc-question, .dc-tall .dc-question { font-size: 14px; }
+  .dc-answer {
+    font-size: 12px; color: var(--text-secondary); line-height: 1.6;
+    margin-bottom: 4px;
+  }
+  .dc-more-btn {
+    margin-top: 8px; font-size: 11px; font-weight: 600;
+    color: #002147; background: none; border: none; cursor: pointer;
+    padding: 0; text-align: left; letter-spacing: .02em;
+    display: flex; align-items: center; gap: 4px;
+  }
+  .dc-more-btn::after { content: '↓'; font-size: 11px; transition: transform .2s; }
+  .dc-more-btn.open::after { transform: rotate(180deg); }
+  .dc-detail {
+    display: none; margin-top: 10px;
+    padding-top: 10px; border-top: .5px solid var(--border);
+    font-size: 12px; color: var(--text-secondary); line-height: 1.7;
+    animation: fadeIn .2s ease;
+  }
+  .dc-detail.open { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+  /* responsive */
+  @media (max-width: 680px) {
+    .discover-grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
+    .dc-wide, .dc-tall { grid-column: span 1; grid-row: span 1; }
+    .dc-std .dc-img-wrap, .dc-wide .dc-img-wrap, .dc-tall .dc-img-wrap { height: 160px; }
+  }
+  
+
+  /* ── FOOTER ── */
+  footer {
+    background: #002147;
+    padding: 28px 2rem;
+    border-top: 1px solid rgba(201,168,76,.08);
+  }
+  .footer-inner {
+    max-width: 860px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+  }
+  .footer-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+  .footer-name { color: #e8edf3; font-size: 13px; font-weight: 600; }
+  .footer-sub { color: rgba(201,168,76,.7); font-size: 10px; }
+  .footer-right p { font-size: 11px; color: #8fa3bc; text-align: right; }
+  .footer-right a { color: rgba(201,168,76,.75); text-decoration: none; }
+  .disclaimer {
+    max-width: 860px; margin: 0 auto 0;
+    padding: 16px 2rem;
+    font-size: 11px; color: #8fa3bc; line-height: 1.65;
+    border-top: .5px solid rgba(255,255,255,.06);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 680px) {
+    .discover-grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
+    .dc-wide, .dc-tall { grid-column: span 1; grid-row: span 1; }
+    .dc-std .dc-img-wrap, .dc-wide .dc-img-wrap, .dc-tall .dc-img-wrap { height: 160px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="nav-logo-mark">YL</div>
+    <div><div class="nav-logo-text">Liver Health Education</div></div>
+  </a>
+  <a class="nav-back" href="index.html">← Back to Yeo Lab</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Patient Education · Yeo Lab</div>
+    <h1 class="hero-h1">Understanding liver disease — in plain language</h1>
+    <p class="hero-sub">Real questions from real patients, answered simply and clearly by the Yeo Lab team. All content is evidence-based and regularly updated.</p>
+    <div class="hero-tags">
+      <span class="hero-tag">Fatty Liver</span>
+      <span class="hero-tag">Diet & Lifestyle</span>
+      <span class="hero-tag">Exercise</span>
+      <span class="hero-tag">Diagnosis</span>
+      <span class="hero-tag">Alcohol & Liver</span>
+      <span class="hero-tag">Symptoms</span>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="section-label">Browse questions</div>
+  <div class="discover-grid" id="discover-grid">
+
+        <!-- ═══ QUESTION CARDS GO HERE ═══ -->
+
+        <!-- CARD 1: Who gets fatty liver disease -->
+        <div class="dc-card dc-tall">
+          <div class="dc-img-wrap">
+            <img src="https://cdn.openviowebsites.com/source/sites/5fffbbb1-4aa2-401c-9b6f-663be1605a7b/images/childhood-obesity-and-fast-food-how-everyday-choices-shape-kids-health.jpg?v=083620251136085758981" alt="Childhood obesity and fast food food choices" class="dc-img">
+            <span class="dc-topic">Fatty Liver</span>
+          </div>
+          <div class="dc-body">
+            <h3 class="dc-question">Who is more likely to get fatty liver disease?</h3>
+            <p class="dc-answer">People with obesity, type 2 diabetes, or high blood fats are most at risk. But fatty liver can also affect people who appear slim if they have metabolic problems.</p>
+            <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more ▾</button>
+            <div class="dc-detail" style="display:none;">
+              <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+                <li style="font-size:12px;color:#374151;line-height:1.65;">Fatty liver disease — now called <strong>MASLD</strong> — affects about 1 in 3 adults worldwide, and its prevalence is rising with the global obesity epidemic.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">The strongest risk factors are <strong>obesity, type 2 diabetes, high triglycerides, high blood pressure, and insulin resistance</strong> — together known as metabolic syndrome.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">People with obesity have up to a <strong>75% chance</strong> of having MASLD.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">Fatty liver is <strong>not limited to overweight people</strong> — it affects around 40% of people who are not obese, especially those with abdominal fat or a genetic predisposition (PNPLA3 gene variant).</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Men, middle-aged adults, and people of Hispanic or Asian ethnicity</strong> are at higher risk.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">Diets high in calories, red and processed meats, fructose, and sugary drinks further raise the risk.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">MASLD can <strong>progress silently</strong> to serious liver scarring (cirrhosis) without symptoms — early detection through routine blood tests and imaging is important.</li>
+              </ul>
+              <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+                <span title="Younossi ZM et al., Hepatology 2023 · EASL-AASLD Guidelines 2024 · Riazi K et al., Lancet Gastroenterology 2022" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+                <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Add new cards here -->
+
+        <!-- CARD 8: Imaging tests for fatty liver -->
+        <div class="dc-card dc-tall">
+          <div class="dc-img-wrap" style="background:#0a1628;display:flex;align-items:center;justify-content:center;position:relative;">
+            <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:200px;display:block;">
+              <!-- dark background -->
+              <rect width="400" height="200" fill="#0a1628"/>
+              <!-- ultrasound screen area -->
+              <rect x="60" y="20" width="200" height="150" rx="6" fill="#0d2137" stroke="#1e4060" stroke-width="1.5"/>
+              <!-- scan lines effect -->
+              <g opacity="0.15">
+                <line x1="160" y1="20" x2="80" y2="170" stroke="#4a9eff" stroke-width="0.5"/>
+                <line x1="160" y1="20" x2="100" y2="170" stroke="#4a9eff" stroke-width="0.5"/>
+                <line x1="160" y1="20" x2="120" y2="170" stroke="#4a9eff" stroke-width="0.5"/>
+                <line x1="160" y1="20" x2="140" y2="170" stroke="#4a9eff" stroke-width="0.5"/>
+                <line x1="160" y1="20" x2="160" y2="170" stroke="#4a9eff" stroke-width="0.5"/>
+                <line x1="160" y1="20" x2="180" y2="170" stroke="#4a9eff" stroke-width="0.5"/>
+                <line x1="160" y1="20" x2="200" y2="170" stroke="#4a9eff" stroke-width="0.5"/>
+                <line x1="160" y1="20" x2="220" y2="170" stroke="#4a9eff" stroke-width="0.5"/>
+                <line x1="160" y1="20" x2="240" y2="170" stroke="#4a9eff" stroke-width="0.5"/>
+              </g>
+              <!-- liver shape on screen -->
+              <ellipse cx="155" cy="105" rx="55" ry="35" fill="#1a5c8a" opacity="0.6"/>
+              <ellipse cx="155" cy="105" rx="55" ry="35" fill="none" stroke="#4a9eff" stroke-width="1" opacity="0.8"/>
+              <!-- fat deposits (bright spots = echogenic) -->
+              <ellipse cx="145" cy="98" rx="28" ry="18" fill="#c9a84c" opacity="0.25"/>
+              <ellipse cx="160" cy="108" rx="20" ry="12" fill="#c9a84c" opacity="0.2"/>
+              <!-- measurement arrows -->
+              <line x1="100" y1="140" x2="210" y2="140" stroke="#4a9eff" stroke-width="0.8" opacity="0.6"/>
+              <polygon points="100,137 100,143 94,140" fill="#4a9eff" opacity="0.6"/>
+              <polygon points="210,137 210,143 216,140" fill="#4a9eff" opacity="0.6"/>
+              <!-- screen text -->
+              <text x="68" y="35" font-family="Courier New" font-size="7" fill="#4a9eff" opacity="0.8">LIVER  US</text>
+              <text x="68" y="45" font-family="Courier New" font-size="6" fill="#4a9eff" opacity="0.6">CAP: 285 dB/m</text>
+              <text x="68" y="155" font-family="Courier New" font-size="6" fill="#c9a84c" opacity="0.8">STEATOSIS S1</text>
+              <text x="180" y="155" font-family="Courier New" font-size="6" fill="#4a9eff" opacity="0.6">11.2 cm</text>
+              <!-- probe handle on right -->
+              <rect x="278" y="70" width="22" height="70" rx="8" fill="#1e3a5a" stroke="#2e5a8a" stroke-width="1"/>
+              <rect x="281" y="90" width="16" height="30" rx="3" fill="#0d2137"/>
+              <rect x="282" y="135" width="14" height="8" rx="2" fill="#c9a84c" opacity="0.6"/>
+              <!-- cable -->
+              <path d="M289,140 Q310,160 330,155 Q360,148 370,170" fill="none" stroke="#1e3a5a" stroke-width="3"/>
+              <!-- label -->
+              <text x="200" y="188" text-anchor="middle" font-family="Arial" font-size="10" font-weight="600" fill="#4a9eff" letter-spacing="2" opacity="0.9">LIVER ULTRASOUND</text>
+            </svg>
+            <span class="dc-topic">Diagnosis</span>
+          </div>
+          <div class="dc-body">
+            <h3 class="dc-question">What is the role of ultrasound, MRI, or CT scan in diagnosing fatty liver?</h3>
+            <p class="dc-answer">Imaging tests are the most important tools for detecting fatty liver disease without a biopsy. Ultrasound is the first-line test, while MRI is the most accurate for measuring liver fat.</p>
+            <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+            <div class="dc-detail" style="display:none;">
+              <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Ultrasound</strong> is the recommended first-line test — it is widely available, inexpensive, and radiation-free. It detects moderate-to-severe liver fat reliably, but may miss mild steatosis (sensitivity 53–76% for mild fat).</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>FibroScan (transient elastography)</strong> is a specialised ultrasound that measures both liver stiffness (fibrosis) and fat content (CAP score) simultaneously — increasingly used in hepatology clinics as a non-invasive first-line tool.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>MRI-PDFF</strong> (MRI proton density fat fraction) is the non-invasive gold standard for accurately measuring liver fat — used in clinical trials and when precise fat quantification is needed. It is more expensive and less widely available.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>CT scan</strong> can detect liver fat incidentally during scans done for other reasons — an important opportunity for early diagnosis. However, it involves radiation and is not recommended as a routine screening tool for MASLD.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">Imaging alone <strong>cannot diagnose MASH or measure fibrosis grade</strong> with high accuracy — a liver biopsy or MR elastography may still be needed in some cases to assess the severity of liver damage.</li>
+              </ul>
+              <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+                <span title="EASL–EASD–EASO Guidelines J Hepatol 2024 · PMC Imaging Evaluation for SLD 2025 · CAR MASLD Imaging Guidelines 2025 · AASLD Practice Guidelines 2024 · Guideline Prevention & Treatment MASLD 2024" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+                <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 7: Types of fatty liver disease -->
+        <div class="dc-card dc-wide">
+          <div class="dc-img-wrap">
+            <img src="https://images.unsplash.com/photo-1631815588090-d4bfec5b1ccb?w=600&auto=format&fit=crop&q=80" alt="Healthy liver vs cirrhosis comparison" class="dc-img">
+            <span class="dc-topic">Types of SLD</span>
+          </div>
+          <div class="dc-body">
+            <h3 class="dc-question">Are there different types of fatty liver disease, and how do they differ?</h3>
+            <p class="dc-answer">Yes — fatty liver disease is now grouped under a term called Steatotic Liver Disease (SLD), with several types based on the cause and severity. The most common type is MASLD, which is linked to metabolic risk factors like obesity and diabetes.</p>
+            <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+            <div class="dc-detail" style="display:none;">
+              <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>MASLD</strong> (Metabolic dysfunction-associated steatotic liver disease) — the most common type, formerly called NAFLD. Caused by metabolic risk factors such as obesity, diabetes, and high blood fats. No or minimal alcohol use.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>MASH</strong> (Metabolic dysfunction-associated steatohepatitis) — a more severe form of MASLD where fat in the liver causes inflammation and cell damage. Previously called NASH. Can progress to scarring and cirrhosis.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>MetALD</strong> — a new category for people who have both metabolic risk factors AND drink moderate-to-significant amounts of alcohol. Both factors contribute to liver damage.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>ALD</strong> (Alcohol-associated liver disease) — caused primarily by heavy alcohol use, without metabolic risk factors driving the disease.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">All types share the same <strong>spectrum of progression</strong>: simple fat accumulation → inflammation → fibrosis (scarring) → cirrhosis → liver cancer (HCC). Early stages are reversible; advanced stages are not.</li>
+              </ul>
+              <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+                <span title="AASLD New MASLD Nomenclature 2023 · EASL–EASD–EASO Guidelines J Hepatol 2024 · Rinella ME et al., J Lipid Research 2023 · Tandfonline MASLD & MASH Nomenclature Review 2024" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+                <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 6: Early symptoms of fatty liver -->
+        <div class="dc-card dc-wide">
+          <div class="dc-img-wrap">
+            <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&auto=format&fit=crop&q=80" alt="Person experiencing right upper quadrant abdominal pain" class="dc-img">
+            <span class="dc-topic">Symptoms</span>
+          </div>
+          <div class="dc-body">
+            <h3 class="dc-question">What are the early signs of fatty liver disease I should know about?</h3>
+            <p class="dc-answer">Fatty liver disease is usually silent — most people have no symptoms at all. When symptoms do appear, fatigue and mild discomfort in the upper right abdomen are the most common early signs.</p>
+            <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+            <div class="dc-detail" style="display:none;">
+              <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Most people with MASLD have no symptoms</strong> — the disease is often discovered incidentally through abnormal liver blood tests or imaging done for another reason.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Fatigue</strong> is the most commonly reported symptom, often described as persistent tiredness that does not improve with rest.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Mild discomfort or dull ache</strong> in the upper right abdomen (where the liver sits) may occur, especially after eating — but is often vague and easy to dismiss.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">Some people notice <strong>bloating, nausea, or a feeling of fullness</strong> after small meals, particularly in early-stage disease.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Do not wait for symptoms to seek testing</strong> — by the time symptoms appear, the liver may already have significant scarring. Anyone with obesity, diabetes, or high blood fats should be screened proactively.</li>
+              </ul>
+              <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+                <span title="StatPearls MASLD 2024 · Cleveland Clinic MASLD 2024 · World Journal of Hepatology 2025 · EASL–EASD–EASO Guidelines 2024" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+                <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 4: Physical activity -->
+        <div class="dc-card dc-std">
+          <div class="dc-img-wrap">
+            <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&auto=format&fit=crop&q=80" alt="Person walking briskly for exercise" class="dc-img">
+            <span class="dc-topic">Exercise</span>
+          </div>
+          <div class="dc-body">
+            <h3 class="dc-question">What type and amount of exercise is recommended for fatty liver disease?</h3>
+            <p class="dc-answer">At least 150 minutes of moderate exercise per week — such as brisk walking — is recommended. Adding resistance training gives extra benefit for the liver and muscles.</p>
+            <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+            <div class="dc-detail" style="display:none;">
+              <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+                <li style="font-size:12px;color:#374151;line-height:1.65;">Aim for <strong>150–240 minutes of moderate aerobic exercise per week</strong> — brisk walking, cycling, swimming, or dancing.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">Add <strong>resistance training</strong> (weights or bodyweight) to protect muscle mass and further improve liver metabolism.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">Exercise reduces liver fat and improves insulin sensitivity <strong>even without weight loss</strong>.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Break up long sitting periods</strong> — standing or walking briefly every hour helps independently of formal exercise.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">Start with <strong>10–15 minutes daily</strong> and build gradually — consistency matters more than intensity.</li>
+              </ul>
+              <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+                <span title="ACSM International Multidisciplinary Roundtable on NAFLD & Physical Activity · EASL–EASD–EASO Guidelines 2024 · Keating SE et al., Hepatol Int 2024 · Frontiers in Nutrition 2024" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+                <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 5: Lean MASLD -->
+        <div class="dc-card dc-wide">
+          <div class="dc-img-wrap">
+            <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&auto=format&fit=crop&q=80" alt="Lean body type man" class="dc-img">
+            <span class="dc-topic">Lean MASLD</span>
+          </div>
+          <div class="dc-body">
+            <h3 class="dc-question">I have a lean build — how did I develop fatty liver disease?</h3>
+            <p class="dc-answer">Fatty liver disease can develop in slim people too, affecting up to 20% of all MASLD patients with a normal body weight. Hidden fat around the organs, genetics, and diet all play a role.</p>
+            <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+            <div class="dc-detail" style="display:none;">
+              <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>20% of MASLD patients have a normal BMI</strong> — being slim does not protect against fatty liver disease.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Visceral fat</strong> (hidden fat around internal organs) is the key driver — it is not visible from the outside.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Genetics</strong> (PNPLA3 and TM6SF2 gene variants) and <strong>insulin resistance</strong> can cause liver fat accumulation regardless of body weight.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">A diet high in <strong>fructose, refined carbs, and processed foods</strong> promotes liver fat even without weight gain.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">Lean MASLD can be <strong>more aggressive</strong> — treatment and monitoring are just as important as in overweight patients.</li>
+              </ul>
+              <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+                <span title="Younossi ZM et al., J Clin Med 2024 · PMC10327437 (Lean NAFLD & Sarcopenia) · PMC10989317 (Lean MASLD Update 2024) · Springer Hepatology International 2024 · MDPI J Clin Med 2024" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+                <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        </div>
+
+        <!-- CARD 2: Diet for fatty liver -->
+        <div class="dc-card dc-std">
+          <div class="dc-img-wrap">
+            <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&auto=format&fit=crop&q=80" alt="Colorful Mediterranean vegetables and olive oil" class="dc-img">
+            <span class="dc-topic">Fatty Liver</span>
+          </div>
+          <div class="dc-body">
+            <h3 class="dc-question">What type of diet can help better manage fatty liver disease?</h3>
+            <p class="dc-answer">The Mediterranean diet is the most effective and recommended diet for fatty liver disease. It reduces liver fat, lowers inflammation, and can even help reverse early liver damage.</p>
+            <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+            <div class="dc-detail" style="display:none;">
+              <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+                <li style="font-size:12px;color:#374151;line-height:1.65;">The <strong>Mediterranean diet</strong> is the top recommended diet — it reduced liver fat by <strong>39% in 12 weeks</strong> in clinical trials.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Eat more:</strong> olive oil, vegetables, fruits, whole grains, fish, legumes, nuts, and unsweetened coffee or green tea.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Avoid:</strong> sugary drinks, white bread, fried foods, processed meats, and saturated fats.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">Losing <strong>7–10% of body weight</strong> significantly improves liver inflammation and scarring.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Alcohol must be avoided entirely</strong>, even though wine is part of the traditional Mediterranean diet.</li>
+              </ul>
+              <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+                <span title="EASL-EASD-EASO Clinical Practice Guidelines 2024 · PMC12608193 · PMC12388246 · Mayo Clinic MASLD Diet 2024 · Hepatology 2024" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+                <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- end discover-grid -->
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <a class="footer-logo" href="#">
+      <div class="nav-logo-mark">YL</div>
+      <div>
+        <div class="footer-name">Yeo Lab</div>
+        <div class="footer-sub">Patient Education</div>
+      </div>
+    </a>
+    <div class="footer-right">
+      <p>For clinical inquiries: <a href="mailto:yeehui.yeo@cshs.org">yeehui.yeo@cshs.org</a></p>
+      <p><a href="index.html">← Back to Yeo Lab website</a></p>
+    </div>
+  </div>
+  <div class="disclaimer">
+    ⚠️ This content is for educational purposes only and does not replace professional medical advice. Always consult your doctor or a qualified healthcare provider for diagnosis and treatment decisions.
+  </div>
+</footer>
+
+<script>
+
+</script>
+</body>
+</html>
