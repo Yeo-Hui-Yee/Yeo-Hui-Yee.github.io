@@ -276,7 +276,7 @@
 <!-- MAIN -->
 <div class="main">
   <div class="section-label" id="topic-label">Fatty Liver — All questions</div>
-  <div class="discover-grid" id="discover-grid">
+  <div id="section-fatty-liver" style="display:block;"><div class="discover-grid" id="discover-grid">
 
         <!-- ═══ QUESTION CARDS GO HERE ═══ -->
 
@@ -507,7 +507,7 @@
           </div>
         </div>
 
-      </div><!-- end discover-grid -->
+      </div><!-- end discover-grid --></div><!-- end section-fatty-liver -->
 </div>
 
   <!-- LIVER CANCER PAGE -->
@@ -567,51 +567,43 @@ function showTopic(btn, topic) {
   });
   btn.classList.add('active');
 
-  // All named sections
-  var grid       = document.getElementById('discover-grid');
-  var cancer     = document.getElementById('topic-liver-cancer');
-  var hepatitis  = document.getElementById('topic-hepatitis');
-  var prevention = document.getElementById('topic-prevention');
-  var label      = document.getElementById('topic-label');
+  // All sections — use the wrapper div for fatty liver, not the grid itself
+  var fattySection = document.getElementById('section-fatty-liver');
+  var cancer       = document.getElementById('topic-liver-cancer');
+  var hepatitis    = document.getElementById('topic-hepatitis');
+  var prevention   = document.getElementById('topic-prevention');
+  var label        = document.getElementById('topic-label');
 
-  // Hide every section completely
-  if (grid)       { grid.style.display       = 'none'; }
-  if (cancer)     { cancer.style.display     = 'none'; }
-  if (hepatitis)  { hepatitis.style.display  = 'none'; }
-  if (prevention) { prevention.style.display = 'none'; }
+  // Hide ALL sections first
+  [fattySection, cancer, hepatitis, prevention].forEach(function(s) {
+    if (s) s.style.display = 'none';
+  });
 
-  if (topic === 'all') {
-    // Show main grid, all cards visible
-    if (grid) { grid.style.display = 'grid'; }
-    if (label) { label.textContent = 'All questions'; }
+  // Show only the selected section
+  if (topic === 'all' || topic === 'fatty-liver') {
+    if (fattySection) fattySection.style.display = 'block';
+    if (label) label.textContent = topic === 'all' ? 'All questions' : 'Fatty Liver';
+    // Filter cards if fatty-liver only
     document.querySelectorAll('#discover-grid .dc-card').forEach(function(c) {
-      c.style.display = 'flex';
-    });
-
-  } else if (topic === 'fatty-liver') {
-    // Show main grid, only fatty-liver cards
-    if (grid) { grid.style.display = 'grid'; }
-    if (label) { label.textContent = 'Fatty Liver'; }
-    document.querySelectorAll('#discover-grid .dc-card').forEach(function(c) {
-      c.style.display = (c.dataset.topic === 'fatty-liver') ? 'flex' : 'none';
+      c.style.display = (topic === 'all' || c.dataset.topic === 'fatty-liver') ? 'flex' : 'none';
     });
 
   } else if (topic === 'liver-cancer') {
-    if (cancer) { cancer.style.display = 'block'; }
-    if (label)  { label.textContent = 'Liver Cancer'; }
+    if (cancer) cancer.style.display = 'block';
+    if (label)  label.textContent = 'Liver Cancer';
 
   } else if (topic === 'hepatitis') {
-    if (hepatitis) { hepatitis.style.display = 'block'; }
-    if (label)     { label.textContent = 'Hepatitis'; }
+    if (hepatitis) hepatitis.style.display = 'block';
+    if (label)     label.textContent = 'Hepatitis';
 
   } else if (topic === 'prevention') {
-    if (prevention) { prevention.style.display = 'block'; }
-    if (label)      { label.textContent = 'Prevention'; }
+    if (prevention) prevention.style.display = 'block';
+    if (label)      label.textContent = 'Prevention';
   }
 
   // Close mobile menu and scroll to top
   var navLinks = document.getElementById('hed-nav-links');
-  if (navLinks) { navLinks.classList.remove('open'); }
+  if (navLinks) navLinks.classList.remove('open');
   window.scrollTo(0, 0);
 }
 
