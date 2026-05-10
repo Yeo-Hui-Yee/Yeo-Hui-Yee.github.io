@@ -102,14 +102,6 @@
     overflow: hidden;
     flex-shrink: 0;
   }
-  .dc-tall .dc-img-wrap {
-    flex-shrink: 0;
-    border-radius: 14px 14px 0 0;
-    position: relative;
-  }
-  .dc-tall .dc-body {
-    flex: 1 1 auto;
-  }
   .dc-card:hover { box-shadow: 0 6px 24px rgba(0,33,71,.10); transform: translateY(-2px); }
   /* sizes */
   .dc-wide { grid-column: span 2; }
@@ -119,7 +111,7 @@
   .dc-img-wrap { position: relative; flex-shrink: 0; }
   .dc-std  .dc-img-wrap { height: 160px; }
   .dc-wide .dc-img-wrap { height: 180px; }
-  .dc-tall .dc-img-wrap { height: 100%; min-height: 280px; }
+  .dc-tall .dc-img-wrap { height: 320px; flex-shrink: 0; }
   .dc-tall { min-height: 420px; }
   .dc-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .3s; }
   .dc-card:hover .dc-img { transform: scale(1.04); }
@@ -513,4 +505,4 @@
           <div class="dc-body">
             <h3 class="dc-question">What type of diet can help better manage fatty liver disease?</h3>
             <p class="dc-answer">The Mediterranean diet is the most effective and recommended diet for fatty liver disease. It reduces liver fat, lowers inflammation, and can even help reverse early liver damage.</p>
-            <button class="dc-more-btn" onclick="to
+            <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;b
