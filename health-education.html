@@ -141,12 +141,11 @@
   .dc-more-btn::after { content: '↓'; font-size: 11px; transition: transform .2s; }
   .dc-more-btn.open::after { transform: rotate(180deg); }
   .dc-detail {
-    display: none; margin-top: 10px;
+    display: none !important; margin-top: 10px;
     padding-top: 10px; border-top: .5px solid var(--border);
     font-size: 12px; color: var(--text-secondary); line-height: 1.7;
-    animation: fadeIn .2s ease;
   }
-  .dc-detail.open { display: block; }
+  .dc-detail.open { display: block !important; animation: fadeIn .2s ease; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
   /* responsive */
   .coming-soon-box {
@@ -255,7 +254,7 @@
             <h3 class="dc-question">Who is more likely to get fatty liver disease?</h3>
             <p class="dc-answer">People with obesity, type 2 diabetes, or high blood fats are most at risk. But fatty liver can also affect people who appear slim if they have metabolic problems.</p>
             <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
-            <div class="dc-detail" style="display:none;">
+            <div class="dc-detail">
               <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
                 <li style="font-size:12px;color:#374151;line-height:1.65;">Fatty liver disease — now called <strong>MASLD</strong> — affects about 1 in 3 adults worldwide, and its prevalence is rising with the global obesity epidemic.</li>
                 <li style="font-size:12px;color:#374151;line-height:1.65;">The strongest risk factors are <strong>obesity, type 2 diabetes, high triglycerides, high blood pressure, and insulin resistance</strong> — together known as metabolic syndrome.</li>
@@ -282,7 +281,7 @@
             <h3 class="dc-question">I have fatty liver and my ALT is 100 U/L — what does this mean?</h3>
             <p class="dc-answer">An ALT of 100 U/L is about 2–3 times the upper limit of normal and signals active liver inflammation. It means your liver needs closer attention, but it does not automatically mean severe damage.</p>
             <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
-            <div class="dc-detail" style="display:none;">
+            <div class="dc-detail">
               <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
                 <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>ALT (alanine aminotransferase)</strong> is a liver enzyme that leaks into the blood when liver cells are inflamed or damaged. The normal upper limit is approximately 35–40 U/L for men and 25–35 U/L for women.</li>
                 <li style="font-size:12px;color:#374151;line-height:1.65;">An ALT of 100 U/L (2–3× upper limit of normal) in the setting of fatty liver most likely reflects <strong>active liver inflammation (MASH)</strong> — the more serious form of fatty liver disease — rather than simple fat accumulation.</li>
@@ -308,7 +307,7 @@
             <h3 class="dc-question">When is a liver biopsy recommended for fatty liver disease?</h3>
             <p class="dc-answer">A liver biopsy is not needed for most people with fatty liver disease. It is recommended only when non-invasive tests give uncertain results or when the diagnosis of MASH and the degree of scarring need to be confirmed precisely.</p>
             <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
-            <div class="dc-detail" style="display:none;">
+            <div class="dc-detail">
               <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
                 <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Liver biopsy is the gold standard</strong> for diagnosing MASH and accurately staging fibrosis — but it is invasive, carries small risks (bleeding, pain, rare serious complications), and is not routinely needed.</li>
                 <li style="font-size:12px;color:#374151;line-height:1.65;">The <strong>2024 EASL–EASD–EASO guidelines</strong> state that in most cases, liver biopsy is not required for clinical management of MASLD — non-invasive tests (FIB-4, FibroScan, MR elastography) are used first.</li>
@@ -374,7 +373,7 @@
             <h3 class="dc-question">What is the role of ultrasound, MRI, or CT scan in diagnosing fatty liver?</h3>
             <p class="dc-answer">Imaging tests are the most important tools for detecting fatty liver disease without a biopsy. Ultrasound is the first-line test, while MRI is the most accurate for measuring liver fat.</p>
             <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
-            <div class="dc-detail" style="display:none;">
+            <div class="dc-detail">
               <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
                 <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Ultrasound</strong> is the recommended first-line test — it is widely available, inexpensive, and radiation-free. It detects moderate-to-severe liver fat reliably, but may miss mild steatosis (sensitivity 53–76% for mild fat).</li>
                 <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>FibroScan (transient elastography)</strong> is a specialised ultrasound that measures both liver stiffness (fibrosis) and fat content (CAP score) simultaneously — increasingly used in hepatology clinics as a non-invasive first-line tool.</li>
@@ -400,7 +399,7 @@
             <h3 class="dc-question">Are there different types of fatty liver disease, and how do they differ?</h3>
             <p class="dc-answer">Yes — fatty liver disease is now grouped under a term called Steatotic Liver Disease (SLD), with several types based on the cause and severity. The most common type is MASLD, which is linked to metabolic risk factors like obesity and diabetes.</p>
             <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
-            <div class="dc-detail" style="display:none;">
+            <div class="dc-detail">
               <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
                 <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>MASLD</strong> (Metabolic dysfunction-associated steatotic liver disease) — the most common type, formerly called NAFLD. Caused by metabolic risk factors such as obesity, diabetes, and high blood fats. No or minimal alcohol use.</li>
                 <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>MASH</strong> (Metabolic dysfunction-associated steatohepatitis) — a more severe form of MASLD where fat in the liver causes inflammation and cell damage. Previously called NASH. Can progress to scarring and cirrhosis.</li>
@@ -426,7 +425,7 @@
             <h3 class="dc-question">What are the early signs of fatty liver disease I should know about?</h3>
             <p class="dc-answer">Fatty liver disease is usually silent — most people have no symptoms at all. When symptoms do appear, fatigue and mild discomfort in the upper right abdomen are the most common early signs.</p>
             <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
-            <div class="dc-detail" style="display:none;">
+            <div class="dc-detail">
               <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
                 <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Most people with MASLD have no symptoms</strong> — the disease is often discovered incidentally through abnormal liver blood tests or imaging done for another reason.</li>
                 <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Fatigue</strong> is the most commonly reported symptom, often described as persistent tiredness that does not improve with rest.</li>
@@ -452,7 +451,7 @@
             <h3 class="dc-question">What type and amount of exercise is recommended for fatty liver disease?</h3>
             <p class="dc-answer">At least 150 minutes of moderate exercise per week — such as brisk walking — is recommended. Adding resistance training gives extra benefit for the liver and muscles.</p>
             <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
-            <div class="dc-detail" style="display:none;">
+            <div class="dc-detail">
               <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
                 <li style="font-size:12px;color:#374151;line-height:1.65;">Aim for <strong>150–240 minutes of moderate aerobic exercise per week</strong> — brisk walking, cycling, swimming, or dancing.</li>
                 <li style="font-size:12px;color:#374151;line-height:1.65;">Add <strong>resistance training</strong> (weights or bodyweight) to protect muscle mass and further improve liver metabolism.</li>
@@ -478,7 +477,7 @@
             <h3 class="dc-question">I have a lean build — how did I develop fatty liver disease?</h3>
             <p class="dc-answer">Fatty liver disease can develop in slim people too, affecting up to 20% of all MASLD patients with a normal body weight. Hidden fat around the organs, genetics, and diet all play a role.</p>
             <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
-            <div class="dc-detail" style="display:none;">
+            <div class="dc-detail">
               <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
                 <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>20% of MASLD patients have a normal BMI</strong> — being slim does not protect against fatty liver disease.</li>
                 <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Visceral fat</strong> (hidden fat around internal organs) is the key driver — it is not visible from the outside.</li>
@@ -505,4 +504,131 @@
           <div class="dc-body">
             <h3 class="dc-question">What type of diet can help better manage fatty liver disease?</h3>
             <p class="dc-answer">The Mediterranean diet is the most effective and recommended diet for fatty liver disease. It reduces liver fat, lowers inflammation, and can even help reverse early liver damage.</p>
-            <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;b
+            <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+            <div class="dc-detail">
+              <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+                <li style="font-size:12px;color:#374151;line-height:1.65;">The <strong>Mediterranean diet</strong> is the top recommended diet — it reduced liver fat by <strong>39% in 12 weeks</strong> in clinical trials.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Eat more:</strong> olive oil, vegetables, fruits, whole grains, fish, legumes, nuts, and unsweetened coffee or green tea.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Avoid:</strong> sugary drinks, white bread, fried foods, processed meats, and saturated fats.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">Losing <strong>7–10% of body weight</strong> significantly improves liver inflammation and scarring.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Alcohol must be avoided entirely</strong>, even though wine is part of the traditional Mediterranean diet.</li>
+              </ul>
+              <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+                <span title="EASL-EASD-EASO Clinical Practice Guidelines 2024 · PMC12608193 · PMC12388246 · Mayo Clinic MASLD Diet 2024 · Hepatology 2024" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+                <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ ADD NEW CARDS ABOVE THIS LINE ═══ -->
+
+      </div><!-- end discover-grid --></div><!-- end section-fatty-liver -->
+</div>
+
+  <!-- LIVER CANCER PAGE -->
+  <div id="topic-liver-cancer" style="display:none;">
+    <div class="section-label">Liver Cancer</div>
+    <div class="coming-soon-box">
+      <p class="coming-soon-title">Coming soon</p>
+      <p class="coming-soon-sub">Questions and answers about liver cancer will be added here shortly.</p>
+    </div>
+  </div>
+
+  <!-- HEPATITIS PAGE -->
+  <div id="topic-hepatitis" style="display:none;">
+    <div class="section-label">Hepatitis</div>
+    <div class="coming-soon-box">
+      <p class="coming-soon-title">Coming soon</p>
+      <p class="coming-soon-sub">Questions and answers about hepatitis will be added here shortly.</p>
+    </div>
+  </div>
+
+  <!-- PREVENTION PAGE -->
+  <div id="topic-prevention" style="display:none;">
+    <div class="section-label">Prevention</div>
+    <div class="coming-soon-box">
+      <p class="coming-soon-title">Coming soon</p>
+      <p class="coming-soon-sub">Questions and answers about liver disease prevention will be added here shortly.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <a class="footer-logo" href="#">
+      <div class="nav-logo-mark">YL</div>
+      <div>
+        <div class="footer-name">Yeo Lab</div>
+        <div class="footer-sub">Patient Education</div>
+      </div>
+    </a>
+    <div class="footer-right">
+      <p>For clinical inquiries: <a href="mailto:yeehui.yeo@cshs.org">yeehui.yeo@cshs.org</a></p>
+      <p><a href="index.html">← Back to Yeo Lab website</a></p>
+    </div>
+  </div>
+  <div class="disclaimer">
+    ⚠️ This content is for educational purposes only and does not replace professional medical advice. Always consult your doctor or a qualified healthcare provider for diagnosis and treatment decisions.
+  </div>
+</footer>
+
+<script>
+function showTopic(btn, topic) {
+  // Update active nav tab
+  document.querySelectorAll('.hed-tab').forEach(function(t) {
+    t.classList.remove('active');
+  });
+  btn.classList.add('active');
+
+  // All sections — use the wrapper div for fatty liver, not the grid itself
+  var fattySection = document.getElementById('section-fatty-liver');
+  var cancer       = document.getElementById('topic-liver-cancer');
+  var hepatitis    = document.getElementById('topic-hepatitis');
+  var prevention   = document.getElementById('topic-prevention');
+  var label        = document.getElementById('topic-label');
+
+  // Hide ALL sections first
+  [fattySection, cancer, hepatitis, prevention].forEach(function(s) {
+    if (s) s.style.display = 'none';
+  });
+
+  // Show only the selected section
+  if (topic === 'all' || topic === 'fatty-liver') {
+    if (fattySection) fattySection.style.display = 'block';
+    if (label) label.textContent = topic === 'all' ? 'All questions' : 'Fatty Liver';
+    // Filter cards if fatty-liver only
+    document.querySelectorAll('#discover-grid .dc-card').forEach(function(c) {
+      c.style.display = (topic === 'all' || c.dataset.topic === 'fatty-liver') ? 'flex' : 'none';
+    });
+
+  } else if (topic === 'liver-cancer') {
+    if (cancer) cancer.style.display = 'block';
+    if (label)  label.textContent = 'Liver Cancer';
+
+  } else if (topic === 'hepatitis') {
+    if (hepatitis) hepatitis.style.display = 'block';
+    if (label)     label.textContent = 'Hepatitis';
+
+  } else if (topic === 'prevention') {
+    if (prevention) prevention.style.display = 'block';
+    if (label)      label.textContent = 'Prevention';
+  }
+
+  // Close mobile menu and scroll to top
+  var navLinks = document.getElementById('hed-nav-links');
+  if (navLinks) navLinks.classList.remove('open');
+  window.scrollTo(0, 0);
+}
+
+function toggleDetail(btn) {
+  var detail = btn.nextElementSibling;
+  var isOpen = detail.classList.contains('open');
+  detail.classList.toggle('open');
+  btn.innerHTML = isOpen ? 'Read more &#9662;' : 'Read less &#9652;';
+}
+</script>
+</body>
+</html>
