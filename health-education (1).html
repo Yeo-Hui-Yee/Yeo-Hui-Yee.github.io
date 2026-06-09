@@ -1,0 +1,1606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liver Health Education — Yeo Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary:      #002147;
+    --accent:       #c9a84c;
+    --accent-light: #f5ecd0;
+    --white:        #ffffff;
+    --off-white:    #f7f8fa;
+    --text-primary: #111827;
+    --text-secondary:#4b5563;
+    --text-muted:   #9ca3af;
+    --border:       #e2e8f0;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans:  'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--off-white); color: var(--text-primary); line-height: 1.6; }
+
+  /* ── NAV ── */
+  nav {
+    background: var(--primary); position: sticky; top: 0; z-index: 100;
+    padding: 0 2rem; display: flex; align-items: center; justify-content: space-between;
+    height: 56px; box-shadow: 0 1px 0 rgba(201,168,76,.12);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-logo-mark {
+    width: 28px; height: 28px; background: var(--accent);
+    border-radius: 5px; display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 600; color: var(--primary); flex-shrink: 0;
+  }
+  .nav-logo-text { color: #e8edf3; font-size: 13px; font-weight: 600; }
+  .nav-back { color: rgba(232,237,243,.65); font-size: 11px; text-decoration: none; letter-spacing: .04em; transition: color .15s; }
+  .nav-back:hover { color: var(--accent); }
+
+  .nav-links { display: flex; }
+  .nav-links a, .hed-tab {
+    color: rgba(232,237,243,.55); font-size: 11px; letter-spacing: .04em;
+    text-decoration: none; padding: 0 13px; height: 56px;
+    display: flex; align-items: center; transition: color .15s;
+    border-bottom: 2px solid transparent;
+  }
+  .hed-tab:hover { color: var(--accent); }
+  .hed-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 6px; }
+  .nav-toggle span { display: block; width: 20px; height: 1.5px; background: #e8edf3; margin: 4px 0; }
+
+  /* ── HERO ── */
+  .hero {
+    background: #0a1628;
+    padding: 56px 2rem 48px;
+    border-bottom: 1px solid rgba(201,168,76,.1);
+  }
+  .hero-inner { max-width: 860px; margin: 0 auto; }
+  .hero-eyebrow { font-size: 10px; letter-spacing: .14em; color: var(--accent); font-weight: 500; margin-bottom: 12px; }
+  .hero-h1 { font-family: var(--serif); font-size: clamp(24px,4vw,36px); color: #e8edf3; line-height: 1.25; margin-bottom: 12px; }
+  .hero-sub { font-size: 14px; color: #8fa3bc; line-height: 1.75; max-width: 520px; margin-bottom: 20px; }
+  .hero-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+  .hero-tag {
+    font-size: 11px; background: rgba(201,168,76,.12); color: var(--accent);
+    padding: 4px 12px; border-radius: 99px; border: .5px solid rgba(201,168,76,.25);
+  }
+
+  /* ── MAIN CONTENT ── */
+  .main { max-width: 960px; margin: 0 auto; padding: 40px 2rem 80px; }
+  .section-label {
+    font-size: 10px; font-weight: 600; letter-spacing: .1em;
+    color: var(--accent); border-left: 2px solid var(--accent);
+    padding-left: 9px; margin-bottom: 20px;
+  }
+
+  /* ── DISCOVER FEED ── */
+  /* ── PATIENT EDUCATION — DISCOVER FEED ── */
+  .discover-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    grid-auto-flow: dense;
+    align-items: stretch;
+  }
+  .dc-card {
+    background: var(--white);
+    border: .5px solid var(--border);
+    border-radius: 14px;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow .18s, transform .18s;
+    cursor: default;
+    height: 100%;
+  }
+  .dc-img-wrap {
+    border-radius: 14px 14px 0 0;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .dc-tall .dc-img-wrap {
+    flex: 1;
+    border-radius: 0;
+    position: relative;
+  }
+  .dc-tall .dc-body {
+    flex: 0 0 auto;
+  }
+  .dc-card:hover { box-shadow: 0 6px 24px rgba(0,33,71,.10); transform: translateY(-2px); }
+  /* sizes */
+  .dc-wide { grid-column: span 2; }
+  .dc-tall  { grid-row: span 2; }
+  .dc-std   { grid-column: span 1; }
+  /* image area */
+  .dc-img-wrap { position: relative; flex-shrink: 0; }
+  .dc-std  .dc-img-wrap { height: 160px; }
+  .dc-wide .dc-img-wrap { height: 180px; }
+  .dc-tall .dc-img-wrap { height: 100%; min-height: 280px; }
+  .dc-tall { min-height: 420px; }
+  .dc-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .3s; }
+  .dc-card:hover .dc-img { transform: scale(1.04); }
+  .dc-topic {
+    position: absolute; top: 10px; left: 10px;
+    background: #002147; color: #c9a84c;
+    font-size: 10px; font-weight: 600; letter-spacing: .06em;
+    padding: 3px 9px; border-radius: 99px;
+  }
+  /* body */
+  .dc-body { padding: 14px 16px 18px; display: flex; flex-direction: column; gap: 8px; }
+  .dc-question {
+    font-size: 13px; font-weight: 600; color: var(--text-primary);
+    line-height: 1.4; margin-bottom: 6px;
+  }
+  .dc-wide .dc-question, .dc-tall .dc-question { font-size: 14px; }
+  .dc-answer {
+    font-size: 12px; color: var(--text-secondary); line-height: 1.6;
+    margin-bottom: 4px;
+  }
+  .dc-more-btn {
+    margin-top: 8px; font-size: 11px; font-weight: 600;
+    color: #002147; background: none; border: none; cursor: pointer;
+    padding: 0; text-align: left; letter-spacing: .02em;
+    display: flex; align-items: center; gap: 4px;
+  }
+  .dc-more-btn::after { content: '↓'; font-size: 11px; transition: transform .2s; }
+  .dc-more-btn.open::after { transform: rotate(180deg); }
+  .dc-detail {
+    display: none; margin-top: 10px;
+    padding-top: 10px; border-top: .5px solid var(--border);
+    font-size: 12px; color: var(--text-secondary); line-height: 1.7;
+    animation: fadeIn .2s ease;
+  }
+  .dc-detail.open { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+  /* empty photo placeholder */
+  .dc-img-placeholder {
+    height: 160px; background: #f0f4f8;
+    border-radius: 14px 14px 0 0;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; flex-shrink: 0;
+  }
+  .dc-img-placeholder.wide { height: 180px; }
+
+  /* responsive */
+  .coming-soon-box {
+    background: var(--white);
+    border: .5px solid var(--border);
+    border-radius: 14px;
+    padding: 60px 32px;
+    text-align: center;
+    margin-top: 8px;
+  }
+  .coming-soon-title {
+    font-family: var(--serif);
+    font-size: 24px;
+    color: #002147;
+    margin-bottom: 10px;
+  }
+  .coming-soon-sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 680px) {
+    .nav-links { display: none; flex-direction: column; position: absolute; top: 56px; left: 0; right: 0; background: #002147; padding: 10px 0; }
+    .nav-links.open { display: flex; }
+    .hed-tab { height: auto; padding: 10px 20px; }
+    .nav-toggle { display: block; }
+    .discover-grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
+    .dc-wide, .dc-tall { grid-column: span 1; grid-row: span 1; }
+    .dc-std .dc-img-wrap, .dc-wide .dc-img-wrap, .dc-tall .dc-img-wrap { height: 160px; }
+  }
+  
+
+  /* ── FOOTER ── */
+  footer {
+    background: #002147;
+    padding: 28px 2rem;
+    border-top: 1px solid rgba(201,168,76,.08);
+  }
+  .footer-inner {
+    max-width: 860px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+  }
+  .footer-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+  .footer-name { color: #e8edf3; font-size: 13px; font-weight: 600; }
+  .footer-sub { color: rgba(201,168,76,.7); font-size: 10px; }
+  .footer-right p { font-size: 11px; color: #8fa3bc; text-align: right; }
+  .footer-right a { color: rgba(201,168,76,.75); text-decoration: none; }
+  .disclaimer {
+    max-width: 860px; margin: 0 auto 0;
+    padding: 16px 2rem;
+    font-size: 11px; color: #8fa3bc; line-height: 1.65;
+    border-top: .5px solid rgba(255,255,255,.06);
+  }
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="health-education.html">
+    <div class="nav-logo-mark">YL</div>
+    <div><div class="nav-logo-text">Liver Health Education</div></div>
+  </a>
+  <div class="nav-links" id="hed-nav-links">
+    <a href="#" class="hed-tab active" onclick="showTopic(this,'all');return false;">All</a>
+    <a href="#" class="hed-tab" onclick="showTopic(this,'fatty-liver');return false;">Fatty Liver</a>
+    <a href="#" class="hed-tab" onclick="showTopic(this,'liver-cancer');return false;">Liver Cancer</a>
+    <a href="#" class="hed-tab" onclick="showTopic(this,'hepatitis');return false;">Hepatitis</a>
+    <a href="#" class="hed-tab" onclick="showTopic(this,'prevention');return false;">Prevention</a>
+    <a href="#" class="hed-tab" onclick="showTopic(this,'cirrhosis');return false;">Cirrhosis</a>
+    <a href="index.html" class="hed-tab" style="color:rgba(232,237,243,.4);border-bottom:none;">← Yeo Lab</a>
+  </div>
+  <button class="nav-toggle" onclick="document.getElementById('hed-nav-links').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Patient Education · Yeo Lab</div>
+    <h1 class="hero-h1">Understanding liver disease — in plain language</h1>
+    <p class="hero-sub">Real questions from real patients, answered simply and clearly by the Yeo Lab team. All content is evidence-based and regularly updated.</p>
+
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="section-label" id="topic-label">All questions</div>
+  <div id="section-fatty-liver" style="display:block;"><div class="discover-grid" id="discover-grid">
+
+        <!-- ═══ QUESTION CARDS GO HERE ═══ -->
+
+        <!-- CARD 1: Who gets fatty liver disease -->
+        <div class="dc-card dc-tall" data-topic="fatty-liver">
+          <div class="dc-img-wrap">
+            <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&auto=format&fit=crop&q=80" alt="Doctor discussing health risks with patient" class="dc-img">
+            <span class="dc-topic">Fatty Liver</span>
+          </div>
+          <div class="dc-body">
+            <h3 class="dc-question">Who is more likely to get fatty liver disease?</h3>
+            <p class="dc-answer">People with obesity, type 2 diabetes, or high blood fats are most at risk. But fatty liver can also affect people who appear slim if they have metabolic problems.</p>
+            <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more ▾</button>
+            <div class="dc-detail" style="display:none;">
+              <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+                <li style="font-size:12px;color:#374151;line-height:1.65;">Fatty liver disease — now called <strong>MASLD</strong> — affects about 1 in 3 adults worldwide, and its prevalence is rising with the global obesity epidemic.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">The strongest risk factors are <strong>obesity, type 2 diabetes, high triglycerides, high blood pressure, and insulin resistance</strong> — together known as metabolic syndrome.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">People with obesity have up to a <strong>75% chance</strong> of having MASLD.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">Fatty liver is <strong>not limited to overweight people</strong> — it affects around 40% of people who are not obese, especially those with abdominal fat or a genetic predisposition (PNPLA3 gene variant).</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Men, middle-aged adults, and people of Hispanic or Asian ethnicity</strong> are at higher risk.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">Diets high in calories, red and processed meats, fructose, and sugary drinks further raise the risk.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">MASLD can <strong>progress silently</strong> to serious liver scarring (cirrhosis) without symptoms — early detection through routine blood tests and imaging is important.</li>
+              </ul>
+              <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+                <span title="Younossi ZM et al., Hepatology 2023 · EASL-AASLD Guidelines 2024 · Riazi K et al., Lancet Gastroenterology 2022" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+                <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Add new cards here -->
+
+        <!-- CARD 9: ALT 100 interpretation -->
+        <div class="dc-card dc-wide" data-topic="fatty-liver">
+                              <div class="dc-img-wrap">
+            <img src="https://images.unsplash.com/photo-1542884841-9f546e727bca?w=600&auto=format&fit=crop&q=80" alt="Blood draw syringe for liver enzyme ALT blood test" class="dc-img">
+            <span class="dc-topic">Lab Tests</span>
+          </div>
+          <div class="dc-body">
+            <h3 class="dc-question">I have fatty liver and my ALT is 100 U/L — what does this mean?</h3>
+            <p class="dc-answer">An ALT of 100 U/L is about 2–3 times the upper limit of normal and signals active liver inflammation. It means your liver needs closer attention, but it does not automatically mean severe damage.</p>
+            <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+            <div class="dc-detail" style="display:none;">
+              <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>ALT (alanine aminotransferase)</strong> is a liver enzyme that leaks into the blood when liver cells are inflamed or damaged. The normal upper limit is approximately 35–40 U/L for men and 25–35 U/L for women.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">An ALT of 100 U/L (2–3× upper limit of normal) in the setting of fatty liver most likely reflects <strong>active liver inflammation (MASH)</strong> — the more serious form of fatty liver disease — rather than simple fat accumulation.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">However, ALT level <strong>does not reliably reflect fibrosis severity</strong> — some patients with advanced scarring have normal ALT, while others with mild disease have elevated levels. ALT alone cannot tell your doctor how much scarring is present.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">Your doctor will likely request <strong>additional tests</strong> including AST, GGT, platelet count, and a FIB-4 score calculation to assess the risk of advanced fibrosis. A FibroScan or liver MRI may also be recommended.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Other causes of elevated ALT</strong> — such as alcohol use, medications, thyroid disease, or other liver conditions — should also be excluded by your doctor before attributing it solely to fatty liver.</li>
+              </ul>
+              <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+                <span title="EASL–EASD–EASO Guidelines J Hepatol 2024 · AASLD Practice Guidance 2023 · Frontiers in Medicine: Non-invasive Testing in MASLD 2024 · PMC11598437" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+                <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 10: Liver biopsy indications -->
+        <div class="dc-card dc-std" data-topic="fatty-liver">
+          <div class="dc-img-wrap">
+            <img src="https://images.unsplash.com/photo-1579154204601-01588f351e67?w=600&auto=format&fit=crop&q=80" alt="Medical professional preparing a biopsy procedure" class="dc-img">
+            <span class="dc-topic">Diagnosis</span>
+          </div>
+          <div class="dc-body">
+            <h3 class="dc-question">When is a liver biopsy recommended for fatty liver disease?</h3>
+            <p class="dc-answer">A liver biopsy is not needed for most people with fatty liver disease. It is recommended only when non-invasive tests give uncertain results or when the diagnosis of MASH and the degree of scarring need to be confirmed precisely.</p>
+            <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+            <div class="dc-detail" style="display:none;">
+              <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Liver biopsy is the gold standard</strong> for diagnosing MASH and accurately staging fibrosis — but it is invasive, carries small risks (bleeding, pain, rare serious complications), and is not routinely needed.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">The <strong>2024 EASL–EASD–EASO guidelines</strong> state that in most cases, liver biopsy is not required for clinical management of MASLD — non-invasive tests (FIB-4, FibroScan, MR elastography) are used first.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">A biopsy is recommended when: <strong>non-invasive tests give conflicting or inconclusive results</strong>, another liver disease needs to be ruled out, or precise staging is needed before starting a clinical trial or new drug therapy.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">Biopsy may also be considered when <strong>FIB-4 falls in the indeterminate range (1.3–2.67)</strong> and FibroScan results are inconclusive — particularly in patients with obesity or diabetes where non-invasive tests are less reliable.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">If your doctor recommends a biopsy, ask about the <strong>specific reason, the alternatives, and the risks</strong> — a second non-invasive test (such as MR elastography) may sometimes replace the need for biopsy.</li>
+              </ul>
+              <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+                <span title="EASL–EASD–EASO Guidelines J Hepatol 2024 (PMC11519095) · AASLD Guidance 2023 · Frontiers in Medicine 2024 (PMC11598437) · SAGE Journals: Modernizing MASLD Diagnostics 2024" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+                <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 8: Imaging tests for fatty liver -->
+        <div class="dc-card dc-tall" data-topic="fatty-liver">
+          <div class="dc-img-wrap">
+            <img src="https://images.unsplash.com/photo-1691933880037-ce9d151ab922?w=600&auto=format&fit=crop&q=80" alt="Person in blue gloves operating an ultrasound imaging machine" class="dc-img">
+            <span class="dc-topic">Diagnosis</span>
+          </div>
+          <div class="dc-body">
+            <h3 class="dc-question">What is the role of ultrasound, MRI, or CT scan in diagnosing fatty liver?</h3>
+            <p class="dc-answer">Imaging tests are the most important tools for detecting fatty liver disease without a biopsy. Ultrasound is the first-line test, while MRI is the most accurate for measuring liver fat.</p>
+            <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+            <div class="dc-detail" style="display:none;">
+              <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Ultrasound</strong> is the recommended first-line test — it is widely available, inexpensive, and radiation-free. It detects moderate-to-severe liver fat reliably, but may miss mild steatosis (sensitivity 53–76% for mild fat).</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>FibroScan (transient elastography)</strong> is a specialised ultrasound that measures both liver stiffness (fibrosis) and fat content (CAP score) simultaneously — increasingly used in hepatology clinics as a non-invasive first-line tool.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>MRI-PDFF</strong> (MRI proton density fat fraction) is the non-invasive gold standard for accurately measuring liver fat — used in clinical trials and when precise fat quantification is needed. It is more expensive and less widely available.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>CT scan</strong> can detect liver fat incidentally during scans done for other reasons — an important opportunity for early diagnosis. However, it involves radiation and is not recommended as a routine screening tool for MASLD.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">Imaging alone <strong>cannot diagnose MASH or measure fibrosis grade</strong> with high accuracy — a liver biopsy or MR elastography may still be needed in some cases to assess the severity of liver damage.</li>
+              </ul>
+              <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+                <span title="EASL–EASD–EASO Guidelines J Hepatol 2024 · PMC Imaging Evaluation for SLD 2025 · CAR MASLD Imaging Guidelines 2025 · AASLD Practice Guidelines 2024 · Guideline Prevention & Treatment MASLD 2024" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+                <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 7: Types of fatty liver disease -->
+        <div class="dc-card dc-wide" data-topic="fatty-liver">
+          <div class="dc-img-wrap">
+            <img src="https://images.unsplash.com/photo-1631815588090-d4bfec5b1ccb?w=800&auto=format&fit=crop&q=80" alt="Doctor explaining liver disease stages to a patient" class="dc-img">
+            <span class="dc-topic">Types of SLD</span>
+          </div>
+          <div class="dc-body">
+            <h3 class="dc-question">Are there different types of fatty liver disease, and how do they differ?</h3>
+            <p class="dc-answer">Yes — fatty liver disease is now grouped under a term called Steatotic Liver Disease (SLD), with several types based on the cause and severity. The most common type is MASLD, which is linked to metabolic risk factors like obesity and diabetes.</p>
+            <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+            <div class="dc-detail" style="display:none;">
+              <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>MASLD</strong> (Metabolic dysfunction-associated steatotic liver disease) — the most common type, formerly called NAFLD. Caused by metabolic risk factors such as obesity, diabetes, and high blood fats. No or minimal alcohol use.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>MASH</strong> (Metabolic dysfunction-associated steatohepatitis) — a more severe form of MASLD where fat in the liver causes inflammation and cell damage. Previously called NASH. Can progress to scarring and cirrhosis.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>MetALD</strong> — a new category for people who have both metabolic risk factors AND drink moderate-to-significant amounts of alcohol. Both factors contribute to liver damage.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>ALD</strong> (Alcohol-associated liver disease) — caused primarily by heavy alcohol use, without metabolic risk factors driving the disease.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">All types share the same <strong>spectrum of progression</strong>: simple fat accumulation → inflammation → fibrosis (scarring) → cirrhosis → liver cancer (HCC). Early stages are reversible; advanced stages are not.</li>
+              </ul>
+              <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+                <span title="AASLD New MASLD Nomenclature 2023 · EASL–EASD–EASO Guidelines J Hepatol 2024 · Rinella ME et al., J Lipid Research 2023 · Tandfonline MASLD & MASH Nomenclature Review 2024" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+                <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 6: Early symptoms of fatty liver -->
+        <div class="dc-card dc-wide" data-topic="fatty-liver">
+          <div class="dc-img-wrap">
+            <img src="https://images.unsplash.com/photo-1713947503867-3b27964f042b?w=800&auto=format&fit=crop&q=80" alt="Person sitting at desk with head in hands, experiencing fatigue and distress" class="dc-img">
+            <span class="dc-topic">Symptoms</span>
+          </div>
+          <div class="dc-body">
+            <h3 class="dc-question">What are the early signs of fatty liver disease I should know about?</h3>
+            <p class="dc-answer">Fatty liver disease is usually silent — most people have no symptoms at all. When symptoms do appear, fatigue and mild discomfort in the upper right abdomen are the most common early signs.</p>
+            <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+            <div class="dc-detail" style="display:none;">
+              <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Most people with MASLD have no symptoms</strong> — the disease is often discovered incidentally through abnormal liver blood tests or imaging done for another reason.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Fatigue</strong> is the most commonly reported symptom, often described as persistent tiredness that does not improve with rest.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Mild discomfort or dull ache</strong> in the upper right abdomen (where the liver sits) may occur, especially after eating — but is often vague and easy to dismiss.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">Some people notice <strong>bloating, nausea, or a feeling of fullness</strong> after small meals, particularly in early-stage disease.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Do not wait for symptoms to seek testing</strong> — by the time symptoms appear, the liver may already have significant scarring. Anyone with obesity, diabetes, or high blood fats should be screened proactively.</li>
+              </ul>
+              <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+                <span title="StatPearls MASLD 2024 · Cleveland Clinic MASLD 2024 · World Journal of Hepatology 2025 · EASL–EASD–EASO Guidelines 2024" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+                <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 4: Physical activity -->
+        <div class="dc-card dc-std" data-topic="fatty-liver">
+          <div class="dc-img-wrap">
+            <img src="https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=600&auto=format&fit=crop&q=80" alt="Person jogging outdoors in a park" class="dc-img">
+            <span class="dc-topic">Exercise</span>
+          </div>
+          <div class="dc-body">
+            <h3 class="dc-question">What type and amount of exercise is recommended for fatty liver disease?</h3>
+            <p class="dc-answer">At least 150 minutes of moderate exercise per week — such as brisk walking — is recommended. Adding resistance training gives extra benefit for the liver and muscles.</p>
+            <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+            <div class="dc-detail" style="display:none;">
+              <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+                <li style="font-size:12px;color:#374151;line-height:1.65;">Aim for <strong>150–240 minutes of moderate aerobic exercise per week</strong> — brisk walking, cycling, swimming, or dancing.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">Add <strong>resistance training</strong> (weights or bodyweight) to protect muscle mass and further improve liver metabolism.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">Exercise reduces liver fat and improves insulin sensitivity <strong>even without weight loss</strong>.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Break up long sitting periods</strong> — standing or walking briefly every hour helps independently of formal exercise.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">Start with <strong>10–15 minutes daily</strong> and build gradually — consistency matters more than intensity.</li>
+              </ul>
+              <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+                <span title="ACSM International Multidisciplinary Roundtable on NAFLD & Physical Activity · EASL–EASD–EASO Guidelines 2024 · Keating SE et al., Hepatol Int 2024 · Frontiers in Nutrition 2024" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+                <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 5: Lean MASLD -->
+        <div class="dc-card dc-wide" data-topic="fatty-liver">
+          <div class="dc-img-wrap">
+            <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&auto=format&fit=crop&q=80" alt="Fit-looking person at the gym — lean build does not rule out fatty liver" class="dc-img">
+            <span class="dc-topic">Lean MASLD</span>
+          </div>
+          <div class="dc-body">
+            <h3 class="dc-question">I have a lean build — how did I develop fatty liver disease?</h3>
+            <p class="dc-answer">Fatty liver disease can develop in slim people too, affecting up to 20% of all MASLD patients with a normal body weight. Hidden fat around the organs, genetics, and diet all play a role.</p>
+            <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+            <div class="dc-detail" style="display:none;">
+              <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>20% of MASLD patients have a normal BMI</strong> — being slim does not protect against fatty liver disease.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Visceral fat</strong> (hidden fat around internal organs) is the key driver — it is not visible from the outside.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Genetics</strong> (PNPLA3 and TM6SF2 gene variants) and <strong>insulin resistance</strong> can cause liver fat accumulation regardless of body weight.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">A diet high in <strong>fructose, refined carbs, and processed foods</strong> promotes liver fat even without weight gain.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">Lean MASLD can be <strong>more aggressive</strong> — treatment and monitoring are just as important as in overweight patients.</li>
+              </ul>
+              <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+                <span title="Younossi ZM et al., J Clin Med 2024 · PMC10327437 (Lean NAFLD & Sarcopenia) · PMC10989317 (Lean MASLD Update 2024) · Springer Hepatology International 2024 · MDPI J Clin Med 2024" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+                <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        </div>
+
+        <!-- CARD 2: Diet for fatty liver -->
+        <div class="dc-card dc-std" data-topic="fatty-liver">
+          <div class="dc-img-wrap">
+            <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&auto=format&fit=crop&q=80" alt="Colorful Mediterranean diet bowl with vegetables and grains" class="dc-img">
+            <span class="dc-topic">Diet</span>
+          </div>
+          <div class="dc-body">
+            <h3 class="dc-question">What type of diet can help better manage fatty liver disease?</h3>
+            <p class="dc-answer">The Mediterranean diet is the most effective and recommended diet for fatty liver disease. It reduces liver fat, lowers inflammation, and can even help reverse early liver damage.</p>
+            <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+            <div class="dc-detail" style="display:none;">
+              <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+                <li style="font-size:12px;color:#374151;line-height:1.65;">The <strong>Mediterranean diet</strong> is the top recommended diet — it reduced liver fat by <strong>39% in 12 weeks</strong> in clinical trials.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Eat more:</strong> olive oil, vegetables, fruits, whole grains, fish, legumes, nuts, and unsweetened coffee or green tea.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Avoid:</strong> sugary drinks, white bread, fried foods, processed meats, and saturated fats.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;">Losing <strong>7–10% of body weight</strong> significantly improves liver inflammation and scarring.</li>
+                <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Alcohol must be avoided entirely</strong>, even though wine is part of the traditional Mediterranean diet.</li>
+              </ul>
+              <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+                <span title="EASL-EASD-EASO Clinical Practice Guidelines 2024 · PMC12608193 · PMC12388246 · Mayo Clinic MASLD Diet 2024 · Hepatology 2024" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+                <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- end discover-grid --></div><!-- end section-fatty-liver -->
+</div>
+
+  <!-- LIVER CANCER PAGE -->
+  <div id="topic-liver-cancer" style="display:block;">
+    <div class="section-label">Liver Cancer</div>
+    <div class="discover-grid">
+
+      <!-- LC CARD 1: What is HCC — tall hero -->
+      <div class="dc-card dc-tall" data-topic="liver-cancer">
+        <div class="dc-img-wrap">
+          <img src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=600&auto=format&fit=crop&q=80" alt="Oncologist reviewing liver imaging scans with a patient" class="dc-img">
+          <span class="dc-topic">Liver Cancer</span>
+        </div>
+        <div class="dc-body">
+          <h3 class="dc-question">What is hepatocellular carcinoma (HCC) and who is at risk?</h3>
+          <p class="dc-answer">Hepatocellular carcinoma (HCC) is the most common type of primary liver cancer. It usually arises in a liver that is already damaged by cirrhosis, chronic hepatitis, or advanced fatty liver disease.</p>
+          <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+          <div class="dc-detail" style="display:none;">
+            <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>HCC is the 6th most common cancer worldwide</strong> and the 3rd leading cause of cancer-related death globally, with incidence rising in the United States due to the obesity epidemic.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">The strongest risk factor is <strong>cirrhosis</strong> from any cause — including hepatitis B, hepatitis C, alcohol-related liver disease, and MASLD/MASH. About 80–90% of HCC cases arise in cirrhotic livers.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>MASLD is now a leading cause of HCC</strong> in the US and Europe, and HCC can occasionally develop in MASLD patients even without cirrhosis — making broad surveillance important.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">Other risk factors include <strong>diabetes, obesity, heavy alcohol use, aflatoxin exposure</strong> (a mold toxin in certain foods), and a family history of liver cancer.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Men are 2–3 times more likely</strong> than women to develop HCC. Asian and African Americans have higher rates due to higher rates of viral hepatitis.</li>
+            </ul>
+            <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+              <span title="AASLD HCC Guidance 2023 · EASL Clinical Practice Guidelines HCC 2022 · Rumgay H et al., JHEP Reports 2022 · Singal AG et al., CA Cancer J Clin 2023 · AASLD Practice Guidance MASLD 2023" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+              <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LC CARD 2: Surveillance — wide -->
+      <div class="dc-card dc-wide" data-topic="liver-cancer">
+        <div class="dc-img-wrap">
+          <img src="https://images.unsplash.com/photo-1666214280391-8ff5bd3c0bf0?w=800&auto=format&fit=crop&q=80" alt="Ultrasound abdominal scan being performed in a clinic" class="dc-img">
+          <span class="dc-topic">Surveillance</span>
+        </div>
+        <div class="dc-body">
+          <h3 class="dc-question">Who should be screened for liver cancer, and how often?</h3>
+          <p class="dc-answer">People with cirrhosis from any cause should have an ultrasound every 6 months to detect liver cancer early, when it is most treatable. Some high-risk patients also get an AFP blood test alongside the ultrasound.</p>
+          <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+          <div class="dc-detail" style="display:none;">
+            <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Liver ultrasound every 6 months</strong> is the standard surveillance recommendation for all patients with cirrhosis, regardless of cause.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>AFP (alpha-fetoprotein)</strong> is a blood tumour marker that may be added to ultrasound in high-risk patients. The 2023 AASLD guidance supports combined ultrasound + AFP surveillance over ultrasound alone.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">In patients with obesity or poor ultrasound quality, <strong>CT or MRI surveillance</strong> may be considered instead of ultrasound.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Hepatitis B patients without cirrhosis</strong> may also qualify for surveillance if they are over 40 (Asian men), over 50 (Asian women), or have a family history of HCC.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">Early-stage HCC detected by surveillance has <strong>5-year survival rates exceeding 70%</strong> with curative treatments, compared to &lt;15% for symptomatic, late-stage detection.</li>
+            </ul>
+            <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+              <span title="AASLD HCC Practice Guidance 2023 · Singal AG et al., J Hepatol 2023 · EASL HCC Clinical Guidelines 2022 · AASLD Guidance on MASLD 2023" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+              <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LC CARD 3: Stages and treatment — std -->
+      <div class="dc-card dc-std" data-topic="liver-cancer">
+        <div class="dc-img-wrap">
+          <img src="https://images.unsplash.com/photo-1584515933487-779824d29309?w=600&auto=format&fit=crop&q=80" alt="Couple clasping hands in a cancer care setting" class="dc-img">
+          <span class="dc-topic">Staging</span>
+        </div>
+        <div class="dc-body">
+          <h3 class="dc-question">How is liver cancer staged and what are the treatment options?</h3>
+          <p class="dc-answer">Liver cancer is staged using the BCLC system, which guides treatment decisions based on tumour size, liver function, and overall health. Early-stage cancer can be cured; advanced stages are managed but not cured.</p>
+          <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+          <div class="dc-detail" style="display:none;">
+            <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>BCLC 0 / A (very early / early):</strong> Small tumours ≤5 cm, good liver function. Curative options — surgical resection, liver transplantation, or thermal ablation (radiofrequency or microwave).</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>BCLC B (intermediate):</strong> Multiple tumours, no vascular invasion. TACE (transarterial chemoembolization) or TARE (radioembolization with Y-90) blocks blood supply to tumours.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>BCLC C (advanced):</strong> Vascular invasion or spread to other organs. Systemic therapy — immunotherapy combinations (atezolizumab + bevacizumab) are now the preferred first-line treatment per 2022 EASL guidelines.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Liver transplantation</strong> offers the best long-term cure for patients meeting Milan criteria (1 tumour ≤5 cm or 3 tumours ≤3 cm each), removing both the cancer and the diseased liver.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">Treatment decisions are made by a <strong>multidisciplinary team</strong> including hepatology, oncology, radiology, and surgery — always ask about clinical trials at an academic centre.</li>
+            </ul>
+            <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+              <span title="EASL Clinical Practice Guidelines HCC 2022 · AASLD HCC Practice Guidance 2023 · Llovet JM et al., Nature Reviews 2021 · Finn RS et al., NEJM 2020 (IMbrave150)" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+              <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LC CARD 4: Symptoms of HCC — std -->
+      <div class="dc-card dc-std" data-topic="liver-cancer">
+        <div class="dc-img-wrap" style="background:#0a0e1a;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
+          <img src="https://images.unsplash.com/photo-1493836512294-502baa1986e2?w=600&auto=format&fit=crop&q=80" alt="Man holding his head while sitting on a sofa, experiencing distress" class="dc-img">
+          <span class="dc-topic">Symptoms</span>
+        </div>
+        <div class="dc-body">
+          <h3 class="dc-question">What symptoms does liver cancer cause?</h3>
+          <p class="dc-answer">Early liver cancer almost never causes symptoms — which is why regular surveillance is essential. By the time symptoms appear, the cancer is often at an advanced stage.</p>
+          <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+          <div class="dc-detail" style="display:none;">
+            <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Most early HCC causes no symptoms</strong> — the cancer is found on routine surveillance imaging in patients with cirrhosis or chronic hepatitis.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">When symptoms appear, the most common are <strong>unexplained weight loss, loss of appetite, and persistent fatigue</strong>.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Upper right abdominal pain or a palpable mass</strong> may occur as the tumour grows and presses on nearby structures.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Jaundice</strong> (yellowing of the skin and eyes), <strong>abdominal swelling</strong> from fluid (ascites), and <strong>easy bruising</strong> may signal that liver function is worsening.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">If you have cirrhosis or chronic hepatitis and develop any of these symptoms, <strong>contact your doctor promptly</strong> — do not wait for your next scheduled visit.</li>
+            </ul>
+            <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+              <span title="EASL HCC Guidelines 2022 · AASLD HCC Guidance 2023 · Singal AG et al., CA Cancer J Clin 2023" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+              <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LC CARD 5: MASLD → HCC link — wide -->
+      <div class="dc-card dc-wide" data-topic="liver-cancer">
+        <div class="dc-img-wrap">
+          <img src="https://images.unsplash.com/photo-1715529282082-87e4334283e2?w=800&auto=format&fit=crop&q=80" alt="Medical illustration relevant to cancer and organ disease" class="dc-img">
+          <span class="dc-topic">MASLD &amp; Cancer</span>
+        </div>
+        <div class="dc-body">
+          <h3 class="dc-question">Can fatty liver disease cause liver cancer even without cirrhosis?</h3>
+          <p class="dc-answer">Yes — MASLD is now one of the fastest-growing causes of liver cancer, and HCC can occasionally develop even in people with fatty liver who have not yet developed cirrhosis. This makes regular monitoring important for all high-risk patients.</p>
+          <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+          <div class="dc-detail" style="display:none;">
+            <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>MASLD-related HCC is rising rapidly</strong> — it is now the fastest-growing indication for liver transplantation and liver cancer in the United States.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">While most MASLD-related HCC occurs in patients with advanced fibrosis or cirrhosis, approximately <strong>20–30% of cases arise in non-cirrhotic MASLD</strong> — unlike HCC from viral hepatitis where cirrhosis is nearly universal.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">Risk factors for MASLD-HCC without cirrhosis include <strong>obesity, type 2 diabetes, male sex, older age, and specific genetic variants</strong> (PNPLA3 and TM6SF2).</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">The 2023 AASLD guidance acknowledges uncertainty around surveillance in <strong>non-cirrhotic MASLD with advanced fibrosis (F3)</strong> and recommends individualised risk assessment.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>The best protection</strong> is to treat fatty liver disease early through weight loss, diet, and management of metabolic conditions — and never miss a surveillance appointment if you have cirrhosis.</li>
+            </ul>
+            <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+              <span title="Kanwal F et al., Hepatology 2022 · AASLD HCC Guidance 2023 · Huang DQ et al., Nat Rev Gastroenterol Hepatol 2023 · Villanueva A, NEJM 2019" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+              <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end liver-cancer grid -->
+  </div>
+
+  <!-- HEPATITIS PAGE -->
+  <div id="topic-hepatitis" style="display:block;">
+    <div class="section-label">Hepatitis</div>
+    <div class="discover-grid">
+
+      <!-- HEP CARD 1: Hep B vs Hep C — tall -->
+      <div class="dc-card dc-tall" data-topic="hepatitis">
+        <div class="dc-img-wrap" style="background:#0a1a10;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
+          <svg viewBox="0 0 400 340" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;">
+            <rect width="400" height="340" fill="#0a1a10"/>
+            <ellipse cx="310" cy="170" rx="120" ry="110" fill="#27ae60" opacity=".05"/>
+            <!-- Hep B virus (icosahedral) -->
+            <polygon points="130,60 165,75 175,110 150,135 115,135 90,110 100,75" fill="#0d3320" stroke="#27ae60" stroke-width="1.5" opacity=".9"/>
+            <polygon points="130,60 165,75 175,110 150,135 115,135 90,110 100,75" fill="none" stroke="#27ae60" stroke-width=".5" opacity=".4" transform="scale(0.7) translate(57,52)"/>
+            <text x="132" y="155" text-anchor="middle" font-family="Arial" font-size="9" fill="#27ae60" font-weight="600">Hepatitis B</text>
+            <text x="132" y="167" text-anchor="middle" font-family="Arial" font-size="8" fill="#8fa3bc">DNA virus</text>
+            <!-- HBV spikes -->
+            <g stroke="#27ae60" stroke-width=".8" opacity=".6">
+              <line x1="130" y1="60" x2="130" y2="48"/><line x1="165" y1="75" x2="175" y2="66"/>
+              <line x1="175" y1="110" x2="188" y2="110"/><line x1="90" y1="110" x2="77" y2="110"/>
+              <line x1="100" y1="75" x2="88" y2="65"/>
+            </g>
+
+            <!-- Hep C virus (enveloped sphere) -->
+            <circle cx="268" cy="97" r="40" fill="#0d1a3a" stroke="#3498db" stroke-width="1.5" opacity=".9"/>
+            <circle cx="268" cy="97" r="28" fill="#0d1a3a" stroke="#3498db" stroke-width=".5" opacity=".4"/>
+            <g stroke="#3498db" stroke-width="1" opacity=".7">
+              <line x1="268" y1="57" x2="268" y2="47"/><line x1="305" y1="72" x2="313" y2="64"/>
+              <line x1="308" y1="97" x2="320" y2="97"/><line x1="228" y1="97" x2="216" y2="97"/>
+              <line x1="231" y1="72" x2="223" y2="64"/><line x1="268" y1="137" x2="268" y2="147"/>
+              <line x1="231" y1="122" x2="223" y2="130"/><line x1="305" y1="122" x2="313" y2="130"/>
+            </g>
+            <text x="268" y="157" text-anchor="middle" font-family="Arial" font-size="9" fill="#3498db" font-weight="600">Hepatitis C</text>
+            <text x="268" y="169" text-anchor="middle" font-family="Arial" font-size="8" fill="#8fa3bc">RNA virus</text>
+
+            <!-- comparison table -->
+            <rect x="30" y="195" width="340" height="105" rx="8" fill="#0d2137" stroke="#1e4060" stroke-width="1"/>
+            <g font-family="Arial" font-size="8" fill="#8fa3bc">
+              <text x="45" y="215" fill="#c9a84c" font-weight="600">Feature</text>
+              <text x="160" y="215" fill="#27ae60" font-weight="600">Hep B</text>
+              <text x="280" y="215" fill="#3498db" font-weight="600">Hep C</text>
+              <line x1="35" y1="220" x2="365" y2="220" stroke="#1e4060" stroke-width=".5"/>
+              <text x="45" y="235">Transmission</text>
+              <text x="160" y="235">Blood, sex, birth</text>
+              <text x="280" y="235">Blood (mainly)</text>
+              <text x="45" y="252">Vaccine?</text>
+              <text x="160" y="252" fill="#27ae60">Yes ✓</text>
+              <text x="280" y="252" fill="#e74c3c">No ✗</text>
+              <text x="45" y="269">Curable?</text>
+              <text x="160" y="269" fill="#c9a84c">Controlled</text>
+              <text x="280" y="269" fill="#27ae60">Yes — 8–12 wks</text>
+              <text x="45" y="286">Treatment</text>
+              <text x="160" y="286">Antivirals (lifelong)</text>
+              <text x="280" y="286">DAAs (short course)</text>
+            </g>
+            <text x="200" y="315" text-anchor="middle" font-family="Arial" font-size="9" fill="#6b7a9a" letter-spacing="2">VIRAL HEPATITIS</text>
+          </svg>
+          <span class="dc-topic">Hepatitis B &amp; C</span>
+        </div>
+        <div class="dc-body">
+          <h3 class="dc-question">What is the difference between hepatitis B and hepatitis C?</h3>
+          <p class="dc-answer">Both are viral infections that inflame the liver, but they differ in how they spread, whether there is a vaccine, and how they are treated. Hepatitis C can now be completely cured in most people within 8–12 weeks.</p>
+          <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+          <div class="dc-detail" style="display:none;">
+            <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Hepatitis B (HBV)</strong> spreads through blood, sexual contact, and from mother to baby at birth. A safe and effective vaccine has existed since 1982 — all unvaccinated adults at risk should be vaccinated.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Hepatitis C (HCV)</strong> spreads mainly through blood-to-blood contact — shared needles, tattooing with unsterile equipment, or rarely through sexual contact. There is no vaccine for HCV.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>HCV is now curable</strong> — direct-acting antivirals (DAAs) achieve sustained virologic response (cure) in over 95% of patients after just 8–12 weeks of oral pills, with minimal side effects.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>HBV cannot be cured</strong> but can be controlled with antiviral medications (tenofovir, entecavir). Treatment suppresses the virus and dramatically reduces the risk of cirrhosis and liver cancer.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">Chronic infection with either virus can silently cause <strong>cirrhosis and liver cancer over decades</strong> — which is why testing and treatment are essential even when there are no symptoms.</li>
+            </ul>
+            <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+              <span title="AASLD HBV Guidance 2023 · AASLD HCV Guidance 2023 · WHO Global Hepatitis Report 2024 · EASL Clinical Practice Guidelines HCV 2022 · EASL HBV Guidelines 2023" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+              <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HEP CARD 2: Hep C cure — wide -->
+      <div class="dc-card dc-wide" data-topic="hepatitis">
+        <div class="dc-img-wrap" style="background:#091520;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
+          <svg viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;">
+            <rect width="400" height="180" fill="#091520"/>
+            <ellipse cx="320" cy="90" rx="110" ry="80" fill="#27ae60" opacity=".05"/>
+            <!-- pill icon -->
+            <ellipse cx="80" cy="90" rx="40" ry="22" fill="#0d2137" stroke="#3498db" stroke-width="1.5"/>
+            <line x1="80" y1="68" x2="80" y2="112" stroke="#3498db" stroke-width="1" stroke-dasharray="3,2"/>
+            <ellipse cx="60" cy="90" rx="20" ry="22" fill="#3498db" opacity=".3"/>
+            <text x="80" y="130" text-anchor="middle" font-family="Arial" font-size="8" fill="#3498db">DAA pill</text>
+            <!-- timeline -->
+            <line x1="140" y1="90" x2="360" y2="90" stroke="#1e4060" stroke-width="1.5"/>
+            <g font-family="Arial" font-size="8">
+              <circle cx="155" cy="90" r="5" fill="#e74c3c"/>
+              <text x="155" y="108" text-anchor="middle" fill="#e74c3c">Start</text>
+              <text x="155" y="118" text-anchor="middle" fill="#8fa3bc">Day 1</text>
+
+              <circle cx="230" cy="90" r="5" fill="#c9a84c"/>
+              <text x="230" y="108" text-anchor="middle" fill="#c9a84c">Virus</text>
+              <text x="230" y="118" text-anchor="middle" fill="#8fa3bc">undetectable</text>
+              <text x="230" y="128" text-anchor="middle" fill="#8fa3bc">Wk 4</text>
+
+              <circle cx="300" cy="90" r="5" fill="#27ae60"/>
+              <text x="300" y="108" text-anchor="middle" fill="#27ae60">EOT</text>
+              <text x="300" y="118" text-anchor="middle" fill="#8fa3bc">Wk 8–12</text>
+
+              <circle cx="360" cy="90" r="8" fill="#27ae60" opacity=".3" stroke="#27ae60" stroke-width="1.5"/>
+              <text x="360" y="87" text-anchor="middle" font-size="10" fill="#27ae60">✓</text>
+              <text x="360" y="108" text-anchor="middle" fill="#27ae60" font-weight="600">SVR</text>
+              <text x="360" y="118" text-anchor="middle" fill="#8fa3bc">Cured</text>
+              <text x="360" y="128" text-anchor="middle" fill="#8fa3bc">Wk 24</text>
+            </g>
+            <!-- SVR rate callout -->
+            <rect x="135" y="30" width="100" height="40" rx="6" fill="#0d3320" stroke="#27ae60" stroke-width="1"/>
+            <text x="185" y="50" text-anchor="middle" font-family="Arial" font-size="14" fill="#27ae60" font-weight="700">&gt;95%</text>
+            <text x="185" y="63" text-anchor="middle" font-family="Arial" font-size="8" fill="#8fa3bc">cure rate (SVR12)</text>
+            <text x="200" y="168" text-anchor="middle" font-family="Arial" font-size="9" fill="#6b7a9a" letter-spacing="2">HEPATITIS C TREATMENT</text>
+          </svg>
+          <span class="dc-topic">Hep C Cure</span>
+        </div>
+        <div class="dc-body">
+          <h3 class="dc-question">Is hepatitis C really curable, and who qualifies for treatment?</h3>
+          <p class="dc-answer">Yes — hepatitis C is now curable for more than 95% of patients using a short course of direct-acting antiviral (DAA) pills taken for 8 to 12 weeks. Almost everyone with chronic hepatitis C should be treated, regardless of fibrosis stage.</p>
+          <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+          <div class="dc-detail" style="display:none;">
+            <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>DAA regimens</strong> such as sofosbuvir/velpatasvir (Epclusa) and glecaprevir/pibrentasvir (Mavyret) achieve cure (SVR12 — no detectable virus 12 weeks after treatment ends) in over 95% of patients.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>All adults with chronic HCV</strong> should receive treatment regardless of fibrosis stage, per 2023 AASLD and 2022 EASL guidelines. There are no longer reasons to defer treatment in stable patients.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">Treatment typically lasts <strong>8 weeks for most genotype 1 patients without cirrhosis</strong> and 12 weeks for those with cirrhosis or other genotypes.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">Cure dramatically reduces the risk of <strong>cirrhosis, liver cancer, and liver-related death</strong>. It also improves fatigue, quality of life, and protects others from transmission.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">After cure, <strong>patients with advanced fibrosis or cirrhosis</strong> still need ongoing liver cancer surveillance and monitoring, as residual risk remains — the cure removes the virus, not the scarring already present.</li>
+            </ul>
+            <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+              <span title="AASLD HCV Guidance 2023 · EASL Recommendations on HCV 2022 · Zeuzem S, J Hepatol 2023 · Polaris Observatory HCV Collaborators, Lancet 2022" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+              <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HEP CARD 3: Hep B treatment — std -->
+      <div class="dc-card dc-std" data-topic="hepatitis">
+        <div class="dc-img-wrap" style="background:#0a1a10;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
+          <img src="https://images.unsplash.com/photo-1638202993928-7267aad84c31?w=600&auto=format&fit=crop&q=80" alt="Female doctor in white shirt holding a stethoscope" class="dc-img">
+          <span class="dc-topic">Hepatitis B</span>
+        </div>
+        <div class="dc-body">
+          <h3 class="dc-question">When is treatment needed for hepatitis B, and what does it involve?</h3>
+          <p class="dc-answer">Not everyone with hepatitis B needs medication immediately, but those with active viral replication, liver inflammation, or advanced fibrosis should receive lifelong antiviral therapy to protect the liver.</p>
+          <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+          <div class="dc-detail" style="display:none;">
+            <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+              <li style="font-size:12px;color:#374151;line-height:1.65;">Treatment is indicated when HBV DNA is high (&gt;2,000 IU/mL) with elevated ALT or significant liver fibrosis. The <strong>2023 AASLD HBV guidance</strong> has expanded treatment thresholds compared to previous guidelines.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">First-line antivirals are <strong>tenofovir alafenamide (TAF) or entecavir</strong> — both are highly effective, well-tolerated, and taken as a single daily pill.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">Treatment is <strong>usually lifelong</strong> — stopping medication can cause dangerous flare-ups. Only a small number of patients who achieve HBsAg (surface antigen) clearance may safely discontinue under close monitoring.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">Even patients not yet needing treatment require <strong>regular monitoring</strong> — HBV DNA, ALT, and liver imaging — as their status can change over time.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">All household contacts and sexual partners of HBV-infected individuals should be <strong>tested and vaccinated</strong> if not immune.</li>
+            </ul>
+            <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+              <span title="AASLD HBV Practice Guidance 2023 · EASL Clinical Practice Guidelines HBV 2023 · Terrault NA et al., Hepatology 2018 · Lok AS, Nat Rev Gastroenterol 2023" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+              <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HEP CARD 4: Autoimmune hepatitis — std -->
+      <div class="dc-card dc-std" data-topic="hepatitis">
+        <div class="dc-img-wrap">
+          <img src="https://images.unsplash.com/photo-1626697556342-2310dbc55428?w=600&auto=format&fit=crop&q=80" alt="Man in brown sweater wearing glasses looking unwell" class="dc-img">
+          <span class="dc-topic">Autoimmune</span>
+        </div>
+        <div class="dc-body">
+          <h3 class="dc-question">What is autoimmune hepatitis and how is it treated?</h3>
+          <p class="dc-answer">Autoimmune hepatitis (AIH) is a chronic condition where the immune system mistakenly attacks liver cells. It is treatable — most patients achieve remission with immunosuppressive medications.</p>
+          <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+          <div class="dc-detail" style="display:none;">
+            <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>AIH</strong> occurs when the immune system produces antibodies (ANA, anti-SMA, anti-LKM1) that target hepatocytes. It can affect all ages but is most common in women.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">Symptoms range from none (found on routine blood tests) to <strong>jaundice, fatigue, abdominal pain, and acute liver failure</strong> in severe cases.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>First-line treatment</strong> is prednisolone (a corticosteroid), usually combined with azathioprine to allow steroid dose reduction. Remission is achieved in over 80% of patients.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">Treatment is often <strong>long-term or lifelong</strong> — relapse is common after stopping medications. Regular blood monitoring is essential.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">If AIH is not treated, it can progress to <strong>cirrhosis and liver failure</strong>. With treatment, most patients have a normal life expectancy.</li>
+            </ul>
+            <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+              <span title="EASL Clinical Practice Guidelines Autoimmune Hepatitis 2015 (reaffirmed 2022) · AASLD AIH Practice Guidelines · Mack CL et al., Hepatology 2020" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+              <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HEP CARD 5: Hep A & E — wide -->
+      <div class="dc-card dc-wide" data-topic="hepatitis">
+        <div class="dc-img-wrap" style="background:#091520;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
+          <img src="https://images.unsplash.com/photo-1706777280252-5de52771cf13?w=800&auto=format&fit=crop&q=80" alt="Woman sitting on examination table with medical professional" class="dc-img">
+          <span class="dc-topic">Hepatitis A &amp; E</span>
+        </div>
+        <div class="dc-body">
+          <h3 class="dc-question">What are hepatitis A and E — are they dangerous?</h3>
+          <p class="dc-answer">Hepatitis A and E are both spread through contaminated food or water and typically cause acute illness that resolves on its own. Unlike hepatitis B and C, they do not cause chronic infection in most people. Hepatitis E can be severe in pregnancy.</p>
+          <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+          <div class="dc-detail" style="display:none;">
+            <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Hepatitis A (HAV)</strong> spreads through contaminated food and water and person-to-person contact. Most people fully recover within 4–8 weeks. A safe, effective vaccine exists — recommended for travellers, food handlers, and those with chronic liver disease.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Hepatitis E (HEV)</strong> is the most common cause of acute viral hepatitis worldwide, spread mainly through contaminated drinking water in low-income countries. In high-income countries, undercooked pork is a common source.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Hepatitis E in pregnancy</strong> carries a mortality risk of up to 25% in the third trimester and requires urgent specialist management. Immunosuppressed patients (e.g., transplant recipients) can also develop chronic HEV.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Symptoms of both</strong> include fatigue, jaundice, dark urine, pale stools, nausea, and upper right abdominal discomfort — similar to many other liver conditions.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">People with <strong>pre-existing chronic liver disease</strong> who develop HAV or HEV face a higher risk of acute-on-chronic liver failure and should avoid exposure through vaccination (HAV) and food hygiene (both).</li>
+            </ul>
+            <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+              <span title="WHO Hepatitis A Fact Sheet 2024 · WHO Hepatitis E Fact Sheet 2023 · EASL CPG Hepatitis E 2018 · AASLD HAV/HEV Practice Guidance 2022" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+              <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end hepatitis grid -->
+  </div>
+
+  <!-- PREVENTION PAGE -->
+  <div id="topic-prevention" style="display:block;">
+    <div class="section-label">Prevention</div>
+    <div class="discover-grid">
+
+      <!-- PREV CARD 1: Alcohol limits — tall -->
+      <div class="dc-card dc-tall" data-topic="prevention">
+        <div class="dc-img-wrap">
+          <img src="https://images.unsplash.com/photo-1586734565008-fbdbc166fd6c?w=600&auto=format&fit=crop&q=80" alt="Clear glass with alcoholic drink and ice cubes" class="dc-img">
+          <span class="dc-topic">Alcohol</span>
+        </div>
+        <div class="dc-body">
+          <h3 class="dc-question">How much alcohol is safe for the liver?</h3>
+          <p class="dc-answer">No amount of alcohol is completely safe for the liver. Current guidelines suggest that if you drink, staying within 14 units per week (both men and women) lowers liver risk — but the safest choice for liver health is not drinking at all.</p>
+          <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+          <div class="dc-detail" style="display:none;">
+            <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+              <li style="font-size:12px;color:#374151;line-height:1.65;">The <strong>2024 World Health Organization report</strong> concluded there is no safe level of alcohol for health. Even low amounts increase the risk of liver injury, some cancers, and other conditions over a lifetime.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Alcohol-associated liver disease (ALD)</strong> progresses from fatty liver → hepatitis → fibrosis → cirrhosis. Continued heavy drinking dramatically accelerates this progression.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">If you already have <strong>fatty liver disease (MASLD)</strong>, alcohol intake — even at moderate levels — can accelerate liver damage. The EASL–EASD–EASO 2024 guidelines recommend complete avoidance.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">The liver can repair itself in the <strong>early stages of alcohol-related damage</strong> — stopping drinking at the fatty liver or early hepatitis stage can fully reverse the injury.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">If you are struggling to cut back on alcohol, your doctor can refer you to <strong>specialist alcohol support services</strong>. Medications like acamprosate and naltrexone are effective aids for alcohol use disorder.</li>
+            </ul>
+            <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+              <span title="WHO No Safe Level Report 2023 · NIAAA Dietary Guidelines 2024 · EASL–EASD–EASO Guidelines 2024 · AASLD Alcohol-Associated Liver Disease Guidance 2023" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+              <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PREV CARD 2: Vaccination — wide -->
+      <div class="dc-card dc-wide" data-topic="prevention">
+        <div class="dc-img-wrap">
+          <img src="https://images.unsplash.com/photo-1631941618536-2979d565b726?w=800&auto=format&fit=crop&q=80" alt="Person in red shirt and white gloves receiving a vaccine injection" class="dc-img">
+          <span class="dc-topic">Vaccination</span>
+        </div>
+        <div class="dc-body">
+          <h3 class="dc-question">Which vaccinations protect the liver, and who should get them?</h3>
+          <p class="dc-answer">Hepatitis A and hepatitis B vaccines provide excellent protection. People with chronic liver disease, including fatty liver, are especially encouraged to be vaccinated against both, as any additional liver injury is more dangerous in an already-damaged liver.</p>
+          <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+          <div class="dc-detail" style="display:none;">
+            <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Hepatitis B vaccine</strong> (3-dose series): recommended for all adults up to age 59 and for those 60+ who choose vaccination. It is especially important for healthcare workers, people with chronic liver disease, and anyone at risk through sexual contact or needle sharing.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Heplisav-B</strong> (2-dose series given 1 month apart) is an alternative approved for adults 18+, offering a faster and more convenient schedule.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Hepatitis A vaccine</strong> (2-dose series): recommended for travellers to higher-risk countries, people with chronic liver disease, people who use drugs, and anyone without prior immunity. Highly effective.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">Both vaccines are <strong>safe for people with fatty liver disease, hepatitis B or C, or cirrhosis</strong> — indeed, vaccination is especially important for these groups because they have limited liver reserve.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">There is currently <strong>no vaccine for hepatitis C</strong>. Prevention relies on avoiding blood-to-blood contact, never sharing needles, and using sterile equipment for tattoos and piercings.</li>
+            </ul>
+            <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+              <span title="CDC Hepatitis A &amp; B Vaccination Recommendations 2023 · ACIP Updated Hep B Recommendations 2022 · WHO Position Papers HAV/HBV 2022 · AASLD Chronic Liver Disease Vaccination Guidance" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+              <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PREV CARD 3: Weight & metabolic risk — std -->
+      <div class="dc-card dc-std" data-topic="prevention">
+        <div class="dc-img-wrap">
+          <img src="https://images.unsplash.com/photo-1646829873498-e874cfa27933?w=600&auto=format&fit=crop&q=80" alt="Bathroom scale on a wooden floor for weight management" class="dc-img">
+          <span class="dc-topic">Weight</span>
+        </div>
+        <div class="dc-body">
+          <h3 class="dc-question">How much weight loss is needed to improve liver health?</h3>
+          <p class="dc-answer">Losing just 5–7% of body weight reduces liver fat, and losing 7–10% can resolve inflammation and halt or reverse early scarring. Even modest weight loss has measurable benefits.</p>
+          <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+          <div class="dc-detail" style="display:none;">
+            <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>5% weight loss</strong> reduces liver fat content measurably. At <strong>7–10%</strong>, liver inflammation (MASH) resolves in most patients. At <strong>≥10%</strong>, fibrosis regression is seen in many patients.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">The best approach is <strong>gradual, sustained weight loss</strong> of 0.5–1 kg per week through a calorie-reduced Mediterranean-style diet combined with regular physical activity.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>GLP-1 receptor agonists</strong> (semaglutide, liraglutide) have shown significant liver fat reduction and MASH resolution in clinical trials — discuss eligibility with your doctor if lifestyle changes alone are insufficient.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Bariatric surgery</strong> (sleeve gastrectomy, Roux-en-Y bypass) leads to dramatic liver improvement in eligible patients and is the most effective intervention for severe obesity with MASLD.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">Even in patients who cannot lose weight, controlling <strong>blood sugar, blood pressure, and lipids</strong> reduces the metabolic drivers of liver disease and slows progression.</li>
+            </ul>
+            <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+              <span title="EASL–EASD–EASO Guidelines 2024 · AASLD MASLD Guidance 2023 · Newsome PN et al., NEJM 2021 (semaglutide trial) · Younossi ZM et al., Hepatology 2023" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+              <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PREV CARD 4: Medications & supplements — std -->
+      <div class="dc-card dc-std" data-topic="prevention">
+        <div class="dc-img-wrap" style="background:#0a0e1a;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
+          <img src="https://images.unsplash.com/photo-1471864190281-a93a3070b6de?w=600&auto=format&fit=crop&q=80" alt="Assorted supplement capsules" class="dc-img">
+          <span class="dc-topic">Medications</span>
+        </div>
+        <div class="dc-body">
+          <h3 class="dc-question">Can any medications or supplements harm the liver?</h3>
+          <p class="dc-answer">Yes — drug-induced liver injury (DILI) is a real risk with both prescription medications and herbal supplements. Some common supplements like high-dose vitamin E, green tea extract, and certain herbal remedies have caused liver damage.</p>
+          <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+          <div class="dc-detail" style="display:none;">
+            <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Drug-induced liver injury (DILI)</strong> can be caused by prescription drugs, over-the-counter medications, and herbal or dietary supplements. The most commonly implicated are antibiotics (amoxicillin-clavulanate), isoniazid, NSAIDs in high doses, and statins (rarely).</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Herbal and dietary supplements</strong> are a growing cause of DILI — accounting for 20% of cases in the US. High-risk products include green tea extract, kava, black cohosh, and bodybuilding supplements containing anabolic steroids.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Acetaminophen (paracetamol/Tylenol)</strong> is the most common cause of acute liver failure in the US when taken in overdose. People with liver disease should keep to the lowest effective dose (≤2 g/day).</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">Always tell your doctor and pharmacist about <strong>all supplements and herbal products</strong> you take — they are not regulated the same way as medications and interactions can be serious.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Statins are generally safe</strong> in patients with fatty liver disease and are often beneficial for cardiovascular protection — do not stop statins because of mild liver enzyme elevations without consulting your doctor.</li>
+            </ul>
+            <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+              <span title="Chalasani N et al., Hepatology 2021 (DILI Guidelines) · LiverTox NIH 2024 · EASL CPG Drug-Induced Liver Injury 2019 · Björnsson ES, J Hepatol 2022" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+              <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PREV CARD 5: Coffee & liver — wide -->
+      <div class="dc-card dc-wide" data-topic="prevention">
+        <div class="dc-img-wrap" style="background:#0a0a08;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
+          <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&auto=format&fit=crop&q=80" alt="Fresh brewed coffee cup" class="dc-img">
+          <span class="dc-topic">Coffee &amp; Liver</span>
+        </div>
+        <div class="dc-body">
+          <h3 class="dc-question">Is coffee actually good for the liver?</h3>
+          <p class="dc-answer">Yes — regular coffee consumption is one of the most consistently proven protective factors for the liver. Drinking 2–3 cups per day is associated with reduced liver inflammation, lower fibrosis risk, and a lower chance of liver cancer.</p>
+          <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+          <div class="dc-detail" style="display:none;">
+            <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Multiple large studies</strong> show that drinking 2–3 cups of coffee per day is associated with 40–50% lower risk of liver cirrhosis, a 40% lower risk of HCC, and reduced liver enzyme levels.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">The benefit appears to come from <strong>cafestol, kahweol, chlorogenic acids, and other compounds</strong> in coffee — not caffeine alone. Decaffeinated coffee also shows benefit, suggesting multiple active components.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Both filtered and unfiltered coffee</strong> (espresso, French press) show liver benefits, though unfiltered coffee contains oils that may raise LDL cholesterol — filtered coffee is preferred for those with high cholesterol.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">The EASL 2024 guidelines acknowledge coffee as having a <strong>hepatoprotective effect</strong> in MASLD patients based on consistent epidemiological evidence.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">This benefit applies to <strong>black coffee without added sugar</strong> — sugary coffeehouse drinks with syrups can negate liver benefits by adding significant amounts of fructose and calories.</li>
+            </ul>
+            <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+              <span title="Kennedy OJ et al., BMJ Open 2021 (meta-analysis) · EASL–EASD–EASO Guidelines 2024 · Sang LX et al., BMC Gastroenterol 2013 · Freedman ND et al., Hepatology 2012" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+              <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end prevention grid -->
+  </div>
+
+  <!-- CIRRHOSIS SECTION -->
+  <div id="topic-cirrhosis" style="display:block;">
+    <div class="section-label">Cirrhosis</div>
+    <div class="discover-grid">
+
+      <!-- Card 1 -->
+      <div class="dc-card dc-tall" data-topic="cirrhosis">
+        <div class="dc-img-wrap">
+          <img src="https://images.unsplash.com/photo-1590086782974-e6e7b85e738e?w=600&auto=format&fit=crop&q=80" alt="Man in gray button up shirt" class="dc-img">
+          <span class="dc-topic">Cirrhosis</span>
+        </div>
+        <div class="dc-body">
+          <h3 class="dc-question">What is cirrhosis and how does it develop?</h3>
+          <p class="dc-answer">Cirrhosis is advanced liver scarring where healthy liver tissue is replaced by fibrous scar tissue. It is the end result of long-term liver damage and can develop from many causes including fatty liver, alcohol, and hepatitis.</p>
+          <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+          <div class="dc-detail" style="display:none;">
+            <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Cirrhosis develops gradually</strong> over years or decades as chronic liver injury triggers repeated cycles of inflammation and healing that replace normal tissue with scar.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">The most common causes worldwide are <strong>alcohol-related liver disease, MASLD (fatty liver), and chronic hepatitis B or C</strong>.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Compensated cirrhosis</strong> means the liver is scarred but still functioning. <strong>Decompensated cirrhosis</strong> occurs when the liver can no longer maintain its essential functions.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">Fibrosis is graded on the <strong>METAVIR scale (F0–F4)</strong> — F4 is cirrhosis. Non-invasive tests (FibroScan, MRI elastography, FIB-4) can often detect it without a liver biopsy.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">Treating the underlying cause can halt further damage and, in some cases, allow partial reversal of early cirrhosis.</li>
+            </ul>
+            <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+              <span title="EASL CPG on Decompensated Cirrhosis 2021 · Ginès P et al., Nature Reviews 2021 · AASLD Practice Guidance on Cirrhosis 2023" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+              <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="dc-card dc-wide" data-topic="cirrhosis">
+        <div class="dc-img-wrap">
+          <img src="https://images.unsplash.com/photo-1556750539-dc6305f4f248?w=800&auto=format&fit=crop&q=80" alt="Person lying on bed covering face with pillow" class="dc-img">
+          <span class="dc-topic">Complications</span>
+        </div>
+        <div class="dc-body">
+          <h3 class="dc-question">What complications can cirrhosis cause?</h3>
+          <p class="dc-answer">Cirrhosis can cause serious complications including fluid accumulation in the abdomen (ascites), internal bleeding from enlarged veins (varices), confusion from toxin build-up (hepatic encephalopathy), and liver cancer.</p>
+          <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+          <div class="dc-detail" style="display:none;">
+            <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Ascites</strong> is the most common complication of decompensated cirrhosis. Managed with low-sodium diet, diuretics, and sometimes fluid drainage (paracentesis).</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Oesophageal and gastric varices</strong> can rupture and bleed life-threateningly. All patients should be screened with endoscopy; beta-blockers or banding prevent bleeding.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Hepatic encephalopathy (HE)</strong> occurs when the liver cannot clear toxins like ammonia. Treated with lactulose and rifaximin.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Spontaneous bacterial peritonitis (SBP)</strong> is a dangerous infection of ascitic fluid requiring immediate antibiotics.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Hepatocellular carcinoma (HCC)</strong> risk is significantly elevated — 6-monthly liver ultrasound surveillance is recommended for all patients.</li>
+            </ul>
+            <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+              <span title="EASL CPG on Decompensated Cirrhosis 2021 · AASLD Cirrhosis Practice Guidance 2023 · Ginès P et al., Nature Reviews Disease Primers 2021" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+              <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="dc-card dc-std" data-topic="cirrhosis">
+        <div class="dc-img-wrap">
+          <img src="https://images.unsplash.com/photo-1571008887538-b36bb32f4571?w=600&auto=format&fit=crop&q=80" alt="Man running on road during daytime" class="dc-img">
+          <span class="dc-topic">Living Well</span>
+        </div>
+        <div class="dc-body">
+          <h3 class="dc-question">How can I slow progression and live well with cirrhosis?</h3>
+          <p class="dc-answer">While cirrhosis cannot always be reversed, treating the underlying cause, avoiding alcohol completely, maintaining a healthy diet, staying active, and attending regular follow-up appointments can greatly slow progression.</p>
+          <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+          <div class="dc-detail" style="display:none;">
+            <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Absolute alcohol abstinence</strong> is essential — even small amounts can trigger decompensation.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">A <strong>low-sodium diet (≤2 g/day)</strong> helps control fluid retention. Ensure adequate protein intake (1.2–1.5 g/kg/day) to prevent muscle wasting.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Regular gentle exercise</strong> improves muscle mass, reduces fatigue, and is associated with better survival.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">Avoid <strong>NSAIDs (ibuprofen, naproxen)</strong>. Use paracetamol cautiously (max 2 g/day) and always disclose liver disease to your pharmacist.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Regular monitoring</strong> — 6-monthly liver ultrasound, endoscopy for varices, and blood tests — is essential.</li>
+            </ul>
+            <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+              <span title="EASL CPG Decompensated Cirrhosis 2021 · Berzigotti A et al., J Hepatol 2021 · AASLD Cirrhosis Guidance 2023" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+              <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="dc-card dc-wide" data-topic="cirrhosis">
+        <div class="dc-img-wrap" style="height:180px;border-radius:14px 14px 0 0;position:relative;overflow:hidden;">
+          <img src="https://images.unsplash.com/photo-1715529282169-fb7b1dd274a2?w=800&auto=format&fit=crop&q=80" alt="A drawing of two sections of a heart" class="dc-img">
+          <span class="dc-topic">Decompensation</span>
+        </div>
+        <div class="dc-body">
+          <h3 class="dc-question">What is decompensated cirrhosis?</h3>
+          <p class="dc-answer">Decompensated cirrhosis is when the scarred liver can no longer carry out its essential functions, leading to serious complications such as fluid in the abdomen, bleeding, confusion, or jaundice. It marks a turning point that significantly affects prognosis.</p>
+          <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+          <div class="dc-detail" style="display:none;">
+            <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Compensated cirrhosis</strong> means the liver is severely scarred but still managing to function. Many patients have no symptoms and can live for years without complications.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Decompensation</strong> is defined by the first appearance of: ascites, variceal bleeding, hepatic encephalopathy, or jaundice. Each episode significantly worsens long-term survival.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">Once decompensation occurs, <strong>1-year mortality rises to 20–57%</strong> depending on the complication — compared to 1–3% per year in compensated cirrhosis.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Acute-on-chronic liver failure (ACLF)</strong> is a severe form triggered by infection, alcohol, or bleeding and involves multiple organ failure with very high short-term mortality.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">Decompensation is a strong signal to <strong>refer for liver transplant assessment</strong>.</li>
+            </ul>
+            <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+              <span title="EASL CPG on Decompensated Cirrhosis 2021 · Ginès P et al., Nature Reviews 2021 · Moreau R et al., NEJM 2013" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+              <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="dc-card dc-std" data-topic="cirrhosis">
+        <div class="dc-img-wrap" style="height:160px;border-radius:14px 14px 0 0;position:relative;overflow:hidden;">
+          <img src="https://images.unsplash.com/photo-1624031000106-79254a8faa19?w=600&auto=format&fit=crop&q=80" alt="Person holding white round ornament" class="dc-img">
+          <span class="dc-topic">Symptoms</span>
+        </div>
+        <div class="dc-body">
+          <h3 class="dc-question">What are the symptoms of cirrhosis?</h3>
+          <p class="dc-answer">Early cirrhosis often causes no symptoms at all. As the disease progresses, fatigue, jaundice, swollen abdomen, easy bruising, and confusion can develop — often signalling that serious complications have already begun.</p>
+          <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+          <div class="dc-detail" style="display:none;">
+            <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Compensated cirrhosis is often silent</strong> — most patients are diagnosed incidentally through blood tests or imaging done for another reason.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">Early symptoms include <strong>persistent fatigue, reduced appetite, mild weight loss, and a dull ache in the upper right abdomen</strong>.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">Later signs: <strong>jaundice</strong>, <strong>dark urine</strong>, <strong>pale stools</strong>, and <strong>itching</strong> from bile salt accumulation.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Abdominal swelling</strong> (ascites), <strong>leg swelling</strong>, <strong>spider angiomas</strong>, and <strong>palmar erythema</strong> are classic physical signs.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Easy bruising and bleeding</strong> occur because the liver can no longer produce enough clotting proteins.</li>
+            </ul>
+            <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+              <span title="Ginès P et al., Nature Reviews Disease Primers 2021 · EASL CPG Decompensated Cirrhosis 2021 · AASLD Cirrhosis Practice Guidance 2023" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+              <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="dc-card dc-std" data-topic="cirrhosis">
+        <div class="dc-img-wrap" style="height:160px;border-radius:14px 14px 0 0;position:relative;overflow:hidden;">
+          <img src="https://images.unsplash.com/photo-1530071698688-1e4c30e1ea52?w=600&auto=format&fit=crop&q=80" alt="Man sitting on bench" class="dc-img">
+          <span class="dc-topic">Risk Factors</span>
+        </div>
+        <div class="dc-body">
+          <h3 class="dc-question">Who is more likely to get cirrhosis?</h3>
+          <p class="dc-answer">Anyone with long-standing liver disease is at risk. The most common causes are heavy alcohol use, fatty liver disease (MASLD), and chronic hepatitis B or C. Genetics, sex, and metabolic health also play important roles.</p>
+          <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+          <div class="dc-detail" style="display:none;">
+            <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Heavy or prolonged alcohol use</strong> is the leading cause of cirrhosis in Western countries.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Chronic hepatitis B and C</strong> are the most common causes worldwide — about 20–30% of people with untreated chronic hepatitis develop cirrhosis over 20–30 years.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>MASLD</strong> — fatty liver linked to obesity, diabetes, and metabolic syndrome — is now the fastest-growing cause of cirrhosis globally.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">Less common causes include <strong>autoimmune hepatitis, PBC, PSC, haemochromatosis, Wilson's disease, and alpha-1 antitrypsin deficiency</strong>.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Male sex, older age, obesity, type 2 diabetes, and genetic variants</strong> (e.g., PNPLA3) accelerate fibrosis progression.</li>
+            </ul>
+            <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+              <span title="Ginès P et al., Nature Reviews 2021 · Asrani SK et al., J Hepatol 2019 · EASL CPG 2021 · AASLD MASLD Guidance 2023" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+              <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 7 -->
+      <div class="dc-card dc-wide" data-topic="cirrhosis">
+        <div class="dc-img-wrap" style="height:180px;border-radius:14px 14px 0 0;position:relative;overflow:hidden;">
+          <img src="https://images.unsplash.com/photo-1611169231673-7a8a36b28a7e?w=800&auto=format&fit=crop&q=80" alt="Person holding white ballpoint pen, COVID-19 vaccination" class="dc-img">
+          <span class="dc-topic">Vaccination</span>
+        </div>
+        <div class="dc-body">
+          <h3 class="dc-question">What vaccines are needed in people with cirrhosis?</h3>
+          <p class="dc-answer">People with cirrhosis have a weakened immune system, making vaccination critically important. Hepatitis A, hepatitis B, influenza, pneumococcal, and COVID-19 vaccines are all recommended.</p>
+          <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+          <div class="dc-detail" style="display:none;">
+            <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Hepatitis A vaccine</strong> (2-dose series): essential for all patients not already immune. Acute hepatitis A on top of cirrhosis can trigger acute-on-chronic liver failure with very high mortality.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Hepatitis B vaccine</strong> (3-dose series): recommended for all cirrhotic patients without prior immunity. Higher doses may be needed as immune response is often blunted in cirrhosis.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Annual influenza vaccine</strong> is strongly recommended — influenza can precipitate bacterial infections and decompensation.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Pneumococcal vaccines</strong>: patients with cirrhosis are at much higher risk of invasive pneumococcal disease.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>COVID-19 vaccine and boosters</strong> are recommended — cirrhosis patients had significantly worse outcomes from COVID-19 infection.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">Live vaccines should be <strong>used with caution or avoided</strong> in decompensated cirrhosis — discuss with your hepatologist before any travel vaccines.</li>
+            </ul>
+            <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+              <span title="EASL CPG Decompensated Cirrhosis 2021 · AASLD Cirrhosis Guidance 2023 · CDC ACIP Guidelines" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+              <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 8 -->
+      <div class="dc-card dc-std" data-topic="cirrhosis">
+        <div class="dc-img-wrap" style="height:160px;border-radius:14px 14px 0 0;position:relative;overflow:hidden;">
+          <img src="https://images.unsplash.com/photo-1641903202531-bfa6bf0c6419?w=600&auto=format&fit=crop&q=80" alt="A close up of a DNA structure" class="dc-img">
+          <span class="dc-topic">Genetics</span>
+        </div>
+        <div class="dc-body">
+          <h3 class="dc-question">Is cirrhosis a hereditary disease?</h3>
+          <p class="dc-answer">Cirrhosis itself is not directly inherited, but several genetic conditions can cause it, and certain gene variants make some people more prone to liver scarring. Family history matters and should be shared with your doctor.</p>
+          <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+          <div class="dc-detail" style="display:none;">
+            <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Cirrhosis is not directly inherited</strong> — you cannot catch it from a parent. However, certain genetic diseases that cause cirrhosis do run in families.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Hereditary conditions</strong> include haemochromatosis, Wilson's disease, alpha-1 antitrypsin deficiency, and some forms of autoimmune hepatitis — all screenable with blood or genetic tests.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">The <strong>PNPLA3 gene variant</strong> significantly increases the risk of liver fat accumulation, inflammation, and faster fibrosis progression.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">Other variants including <strong>TM6SF2, MBOAT7, and HSD17B13</strong> have also been linked to increased risk of liver fibrosis and cirrhosis.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">If a first-degree relative has cirrhosis from a hereditary cause, <strong>family screening</strong> is recommended.</li>
+            </ul>
+            <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+              <span title="Ginès P et al., Nature Reviews 2021 · Buch S et al., Nature Genetics 2010 · EASL CPG Genetic Liver Diseases 2022" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+              <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 9 -->
+      <div class="dc-card dc-std" data-topic="cirrhosis">
+        <div class="dc-img-wrap" style="height:160px;border-radius:14px 14px 0 0;position:relative;overflow:hidden;">
+          <img src="https://images.unsplash.com/photo-1512678080530-7760d81faba6?w=600&auto=format&fit=crop&q=80" alt="Hospital bed near couch" class="dc-img">
+          <span class="dc-topic">Prognosis</span>
+        </div>
+        <div class="dc-body">
+          <h3 class="dc-question">Can cirrhosis be life-threatening?</h3>
+          <p class="dc-answer">Yes. While compensated cirrhosis can be stable for many years, decompensated cirrhosis carries significant mortality. Cirrhosis and its complications are among the leading causes of death worldwide.</p>
+          <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+          <div class="dc-detail" style="display:none;">
+            <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+              <li style="font-size:12px;color:#374151;line-height:1.65;">Cirrhosis causes approximately <strong>1.3 million deaths per year globally</strong>.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">In <strong>compensated cirrhosis</strong>, annual mortality is low (1–3%) and many patients live for decades. Risk of decompensation is around 5–7% per year.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">After <strong>first decompensation</strong>, 1-year survival drops to around 50–80% depending on the complication and management.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Acute-on-chronic liver failure (ACLF)</strong> carries 28-day mortality of 30–50% without transplantation.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">The <strong>MELD score</strong> predicts short-term mortality and prioritises patients for liver transplantation. A MELD above 15–18 generally warrants transplant listing.</li>
+            </ul>
+            <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+              <span title="Asrani SK et al., J Hepatol 2019 · Ginès P et al., Nature Reviews 2021 · Moreau R et al., NEJM 2013" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+              <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 10 -->
+      <div class="dc-card dc-wide" data-topic="cirrhosis">
+        <div class="dc-img-wrap" style="height:180px;border-radius:14px 14px 0 0;position:relative;overflow:hidden;">
+          <img src="https://images.unsplash.com/photo-1576089172869-4f5f6f315620?w=800&auto=format&fit=crop&q=80" alt="Doctor discussing medical information with a patient" class="dc-img">
+          <span class="dc-topic">Liver Cancer</span>
+        </div>
+        <div class="dc-body">
+          <h3 class="dc-question">Can cirrhosis cause cancer?</h3>
+          <p class="dc-answer">Yes. Cirrhosis is the single biggest risk factor for hepatocellular carcinoma (HCC), the most common form of liver cancer. Around 90% of all liver cancers arise in a cirrhotic liver. Regular 6-monthly ultrasound surveillance can detect cancer early when it is still treatable.</p>
+          <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+          <div class="dc-detail" style="display:none;">
+            <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+              <li style="font-size:12px;color:#374151;line-height:1.65;">Annual HCC risk in cirrhosis is approximately <strong>2–4%</strong>. Highest in cirrhosis from hepatitis B, hepatitis C, alcohol, and haemochromatosis.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>6-monthly liver ultrasound</strong> (with or without AFP) is recommended for all patients with cirrhosis regardless of cause.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">Early-stage HCC has <strong>5-year survival exceeding 70%</strong> with curative treatments. Late-stage HCC has &lt;15% 5-year survival.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Curing hepatitis C</strong> reduces HCC risk by 70–80% but surveillance must continue lifelong in cirrhosis even after viral cure.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">Risk stratification tools such as the <strong>GALAD score</strong> can identify the highest-risk patients for more intensive surveillance.</li>
+            </ul>
+            <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+              <span title="EASL HCC Guidelines 2022 · AASLD HCC Guidance 2023 · Singal AG et al., CA Cancer J Clin 2023" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+              <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 11 -->
+      <div class="dc-card dc-std" data-topic="cirrhosis">
+        <div class="dc-img-wrap" style="height:160px;border-radius:14px 14px 0 0;position:relative;overflow:hidden;">
+          <img src="https://images.unsplash.com/photo-1609840534277-88833ef3ddeb?w=600&auto=format&fit=crop&q=80" alt="Person with band aid on middle finger" class="dc-img">
+          <span class="dc-topic">Reversibility</span>
+        </div>
+        <div class="dc-body">
+          <h3 class="dc-question">Is cirrhosis reversible?</h3>
+          <p class="dc-answer">Advanced cirrhosis is generally not fully reversible, but early-stage cirrhosis can partially regress when the underlying cause is effectively treated. Halting the trigger is the most powerful step you can take.</p>
+          <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+          <div class="dc-detail" style="display:none;">
+            <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+              <li style="font-size:12px;color:#374151;line-height:1.65;">In the early stages, <strong>fibrosis can regress</strong> when the causative injury is removed — shown in patients who clear hepatitis C, stop drinking, or lose significant weight.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Hepatitis C cure</strong> reduces liver stiffness and fibrosis in many patients, though the liver never returns entirely to normal at stage F4.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Alcohol abstinence</strong> in alcohol-related cirrhosis can lead to significant clinical improvement, reduction in portal hypertension, and improved survival.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">In longstanding established cirrhosis, <strong>complete reversal is not possible</strong>. The focus shifts to preventing decompensation and considering transplantation.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">Even without fibrosis reversal, <strong>treating the underlying cause dramatically improves prognosis</strong>.</li>
+            </ul>
+            <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+              <span title="Everson GT et al., Gastroenterology 2020 · EASL CPG 2021 · Ramachandran P et al., J Hepatol 2015" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+              <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 12 -->
+      <div class="dc-card dc-wide" data-topic="cirrhosis">
+        <div class="dc-img-wrap" style="height:180px;background:#f0f4f8;display:flex;align-items:center;justify-content:center;border-radius:14px 14px 0 0;position:relative;overflow:hidden;">
+          <span class="dc-topic">Hepatic Encephalopathy</span>
+        </div>
+        <div class="dc-body">
+          <h3 class="dc-question">What is hepatic encephalopathy?</h3>
+          <p class="dc-answer">Hepatic encephalopathy (HE) is a brain dysfunction caused by the liver's failure to clear toxins — especially ammonia — from the blood. It ranges from subtle memory problems to severe confusion, disorientation, and coma.</p>
+          <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+          <div class="dc-detail" style="display:none;">
+            <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+              <li style="font-size:12px;color:#374151;line-height:1.65;">HE is graded using the <strong>West Haven Criteria (Grade 1–4)</strong>. Grade 1–2: mild confusion, forgetfulness, slowed thinking. Grades 3–4: marked disorientation, stupor, coma.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Covert (minimal) HE</strong> affects up to 40% of cirrhosis patients, detectable only on neuropsychological testing, and impairs driving ability and quality of life.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">Common <strong>triggers</strong>: constipation, infections (especially SBP), GI bleeding, dehydration, sedatives, opioids, and electrolyte disturbances.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Treatment</strong>: identify and correct the trigger. <strong>Lactulose</strong> (first-line) reduces gut ammonia; <strong>Rifaximin</strong> is added for recurrent episodes.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">After one episode of overt HE, <strong>long-term prevention</strong> with lactulose and/or rifaximin is recommended.</li>
+            </ul>
+            <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+              <span title="EASL CPG on Hepatic Encephalopathy 2022 · Vilstrup H et al., Hepatology 2014 · Bass NM et al., NEJM 2010" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+              <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 13 -->
+      <div class="dc-card dc-std" data-topic="cirrhosis">
+        <div class="dc-img-wrap" style="height:160px;background:#f0f4f8;display:flex;align-items:center;justify-content:center;border-radius:14px 14px 0 0;position:relative;overflow:hidden;">
+          <span class="dc-topic">Hepatic Encephalopathy</span>
+        </div>
+        <div class="dc-body">
+          <h3 class="dc-question">How can hepatic encephalopathy be prevented?</h3>
+          <p class="dc-answer">Prevention means avoiding known triggers, maintaining regular bowel habits, eating adequate protein, taking prescribed medications, and seeking early treatment for infections or bleeding.</p>
+          <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+          <div class="dc-detail" style="display:none;">
+            <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Avoid constipation</strong> — lactulose (1–3 times/day, titrated to 2–3 soft stools/day) should be taken consistently.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Do not restrict dietary protein</strong> — adequate protein (1.2–1.5 g/kg/day), especially from plant and dairy sources, actually reduces HE risk.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Treat infections promptly</strong> — any infection can precipitate HE. Report fever, abdominal pain, or confusion to your doctor immediately.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Avoid sedatives, sleeping tablets, and opioids</strong> unless specifically prescribed by a hepatologist.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">For patients with a prior episode of overt HE, <strong>rifaximin (550 mg twice daily) plus lactulose</strong> reduces recurrence by approximately 58%.</li>
+            </ul>
+            <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+              <span title="EASL CPG Hepatic Encephalopathy 2022 · Vilstrup H et al., Hepatology 2014 · Bass NM et al., NEJM 2010" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+              <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 14 -->
+      <div class="dc-card dc-wide" data-topic="cirrhosis">
+        <div class="dc-img-wrap" style="height:180px;background:#f0f4f8;display:flex;align-items:center;justify-content:center;border-radius:14px 14px 0 0;position:relative;overflow:hidden;">
+          <span class="dc-topic">Transplantation</span>
+        </div>
+        <div class="dc-body">
+          <h3 class="dc-question">What are the criteria for a liver transplant?</h3>
+          <p class="dc-answer">Liver transplantation is considered when cirrhosis can no longer be managed medically. The main criteria involve severity of liver failure (MELD score), presence of decompensating complications, and absence of contraindications.</p>
+          <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+          <div class="dc-detail" style="display:none;">
+            <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+              <li style="font-size:12px;color:#374151;line-height:1.65;">The <strong>MELD score</strong> calculates 90-day mortality risk. A MELD ≥15 generally qualifies for transplant listing; MELD ≥20–25 indicates high urgency.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Listing indications</strong>: refractory ascites, recurrent hepatic encephalopathy, variceal bleeding not controlled by endoscopy, SBP, and hepatorenal syndrome.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">For <strong>HCC within Milan criteria</strong> (1 tumour ≤5 cm, or 3 tumours all ≤3 cm), transplantation offers both cancer treatment and liver replacement.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Key contraindications</strong>: active uncontrolled infection, active alcohol or substance use, most extrahepatic malignancies, and severe irreversible cardiopulmonary disease.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">Post-transplant, patients require <strong>lifelong immunosuppression</strong>. Five-year survival is approximately 70–80% at experienced centres.</li>
+            </ul>
+            <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+              <span title="EASL CPG Liver Transplantation 2016 · AASLD Practice Guidance 2021 · Mazzaferro V et al., NEJM 1996" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+              <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 15 -->
+      <div class="dc-card dc-std" data-topic="cirrhosis">
+        <div class="dc-img-wrap" style="height:160px;background:#f0f4f8;display:flex;align-items:center;justify-content:center;border-radius:14px 14px 0 0;position:relative;overflow:hidden;">
+          <span class="dc-topic">SBP</span>
+        </div>
+        <div class="dc-body">
+          <h3 class="dc-question">What is spontaneous bacterial peritonitis?</h3>
+          <p class="dc-answer">Spontaneous bacterial peritonitis (SBP) is a serious bacterial infection of the abdominal fluid (ascites) that occurs in patients with cirrhosis. It can develop without any obvious source of infection and requires urgent antibiotic treatment.</p>
+          <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+          <div class="dc-detail" style="display:none;">
+            <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+              <li style="font-size:12px;color:#374151;line-height:1.65;">SBP occurs when <strong>bacteria from the gut cross into ascitic fluid</strong> (bacterial translocation). Cirrhosis impairs gut barrier function and immune defence, making this much more likely.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">SBP affects approximately <strong>10–30% of cirrhotic patients with ascites</strong> and carries short-term mortality of up to 20–30% even with treatment.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Symptoms</strong>: fever, abdominal pain or tenderness, worsening confusion, rapid kidney deterioration. However, SBP can also be completely asymptomatic.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Diagnosis</strong>: ascitic white blood cell count (PMN) ≥250 cells/mm³ is diagnostic, even without positive bacterial culture.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">Any patient with ascites who develops worsening symptoms must have a <strong>diagnostic paracentesis immediately</strong>.</li>
+            </ul>
+            <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+              <span title="EASL CPG on Decompensated Cirrhosis 2021 · Rimola A et al., J Hepatol 2000 · AASLD Cirrhosis Guidance 2023" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+              <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 16 -->
+      <div class="dc-card dc-std" data-topic="cirrhosis">
+        <div class="dc-img-wrap" style="height:160px;background:#f0f4f8;display:flex;align-items:center;justify-content:center;border-radius:14px 14px 0 0;position:relative;overflow:hidden;">
+          <span class="dc-topic">SBP</span>
+        </div>
+        <div class="dc-body">
+          <h3 class="dc-question">How is spontaneous bacterial peritonitis prevented and managed?</h3>
+          <p class="dc-answer">SBP is treated with intravenous antibiotics — typically cefotaxime or ceftriaxone — started immediately upon diagnosis. Long-term antibiotic prophylaxis is prescribed after a first episode and in high-risk patients with ascites.</p>
+          <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+          <div class="dc-detail" style="display:none;">
+            <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>First-line treatment</strong>: IV cefotaxime or ceftriaxone for 5–7 days plus IV albumin (1.5 g/kg day 1, 1 g/kg day 3) to prevent kidney failure.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Secondary prophylaxis</strong> (after a first SBP): norfloxacin 400 mg/day or ciprofloxacin 500 mg/day indefinitely reduces recurrence from ~70% to ~20% per year.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Primary prophylaxis</strong> for high-risk patients: those with low ascitic protein (&lt;1.5 g/dL) plus advanced liver failure (MELD ≥18) or impaired kidney function.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">Patients with <strong>acute GI bleeding</strong> should receive ceftriaxone 1 g/day IV for 7 days as SBP prophylaxis.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">An episode of SBP should trigger <strong>urgent liver transplant assessment</strong> — 1-year mortality after SBP is approximately 50%.</li>
+            </ul>
+            <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+              <span title="EASL CPG Decompensated Cirrhosis 2021 · Sort P et al., NEJM 1999 · Rimola A et al., J Hepatol 2000" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+              <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 17 -->
+      <div class="dc-card dc-wide" data-topic="cirrhosis">
+        <div class="dc-img-wrap" style="height:180px;background:#f0f4f8;display:flex;align-items:center;justify-content:center;border-radius:14px 14px 0 0;position:relative;overflow:hidden;">
+          <span class="dc-topic">Varices</span>
+        </div>
+        <div class="dc-body">
+          <h3 class="dc-question">What are varices?</h3>
+          <p class="dc-answer">Varices are enlarged, fragile blood vessels that develop in the oesophagus, stomach, or rectum when normal blood flow through the liver is blocked by scar tissue. The high portal vein pressure forces blood through these thin-walled vessels.</p>
+          <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+          <div class="dc-detail" style="display:none;">
+            <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Portal hypertension</strong> — elevated pressure in the portal vein — is the driving force. Blood is redirected through collateral vessels, which become variceal.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Oesophageal varices</strong> occur in 30–40% of compensated and up to 85% of decompensated cirrhosis patients.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Gastric varices</strong> tend to bleed less often but more severely than oesophageal ones.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">Large varices with red signs carry the highest bleeding risk — approximately <strong>15–20% per year</strong> without prophylaxis.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Upper endoscopy</strong> is used to screen for varices — recommended within 12 months of cirrhosis diagnosis.</li>
+            </ul>
+            <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+              <span title="EASL CPG 2021 · de Franchis R et al., J Hepatol 2022 (Baveno VII) · Garcia-Tsao G et al., Hepatology 2017" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+              <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 18 -->
+      <div class="dc-card dc-std" data-topic="cirrhosis">
+        <div class="dc-img-wrap" style="height:160px;background:#f0f4f8;display:flex;align-items:center;justify-content:center;border-radius:14px 14px 0 0;position:relative;overflow:hidden;">
+          <span class="dc-topic">Varices</span>
+        </div>
+        <div class="dc-body">
+          <h3 class="dc-question">What are the symptoms and complications of varices in cirrhosis?</h3>
+          <p class="dc-answer">Varices themselves cause no symptoms until they bleed. A variceal bleed is a medical emergency — causing vomiting of large amounts of blood or passing black tarry stools — and can be rapidly fatal without urgent hospital treatment.</p>
+          <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+          <div class="dc-detail" style="display:none;">
+            <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Varices are silent until they rupture</strong>. The first sign is often sudden, massive, painless vomiting of red blood or passing very dark sticky stools (melaena).</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Acute variceal haemorrhage</strong> is one of the most dangerous emergencies in medicine — 6-week mortality is approximately 15–20% even with optimal treatment.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">A bleeding episode can trigger <strong>hepatic encephalopathy, acute kidney failure, and SBP</strong> simultaneously.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">After a first bleed, <strong>rebleeding risk within 6 weeks is 30–40%</strong> without secondary prophylaxis.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">If you have cirrhosis and develop sudden vomiting of blood or black stools, <strong>call emergency services immediately</strong>.</li>
+            </ul>
+            <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+              <span title="de Franchis R et al., J Hepatol 2022 (Baveno VII) · Garcia-Tsao G et al., Hepatology 2017 · EASL CPG 2021" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+              <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 19 -->
+      <div class="dc-card dc-wide" data-topic="cirrhosis">
+        <div class="dc-img-wrap" style="height:180px;background:#f0f4f8;display:flex;align-items:center;justify-content:center;border-radius:14px 14px 0 0;position:relative;overflow:hidden;">
+          <span class="dc-topic">GI Bleeding</span>
+        </div>
+        <div class="dc-body">
+          <h3 class="dc-question">How is gastrointestinal bleeding prevented and managed in cirrhosis?</h3>
+          <p class="dc-answer">Prevention uses non-selective beta-blockers (carvedilol, propranolol) and/or endoscopic band ligation. An acute bleed requires emergency hospitalisation, vasoactive drugs, antibiotics, and urgent endoscopy.</p>
+          <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+          <div class="dc-detail" style="display:none;">
+            <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Primary prevention</strong>: non-selective beta-blockers (carvedilol or propranolol) or endoscopic variceal band ligation (EVL) for patients with medium/large varices — both equally effective.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Acute bleed</strong>: call emergency services immediately. Hospital treatment combines <strong>vasoactive drugs</strong> (terlipressin or somatostatin analogues) with <strong>emergency endoscopy within 12 hours</strong>.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Antibiotics</strong> (ceftriaxone 1 g/day for 7 days) are given to all patients with acute variceal bleeding.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">Blood transfusion target: <strong>haemoglobin 7–8 g/dL</strong> — overtransfusion raises portal pressure and rebleeding risk.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">For uncontrolled bleeding, <strong>TIPS (transjugular intrahepatic portosystemic shunt)</strong> within 72 hours is recommended for high-risk patients per Baveno VII 2022 guidelines.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Secondary prevention</strong>: combination of non-selective beta-blockers plus EVL reduces rebleeding more than either alone.</li>
+            </ul>
+            <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+              <span title="de Franchis R et al., J Hepatol 2022 (Baveno VII) · EASL CPG 2021 · Garcia-Tsao G et al., Hepatology 2017" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+              <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 20 -->
+      <div class="dc-card dc-std" data-topic="cirrhosis">
+        <div class="dc-img-wrap" style="height:160px;background:#f0f4f8;display:flex;align-items:center;justify-content:center;border-radius:14px 14px 0 0;position:relative;overflow:hidden;">
+          <span class="dc-topic">Ascites</span>
+        </div>
+        <div class="dc-body">
+          <h3 class="dc-question">What is ascites in cirrhosis?</h3>
+          <p class="dc-answer">Ascites is the accumulation of fluid inside the abdominal cavity, and it is the most common complication of cirrhosis. It causes abdominal swelling, discomfort, and breathlessness, and signals that liver disease has progressed to a serious stage.</p>
+          <button class="dc-more-btn" onclick="toggleDetail(this)" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#fff;background:#002147;padding:6px 14px;border-radius:6px;border:none;cursor:pointer;flex-shrink:0;">Read more &#9662;</button>
+          <div class="dc-detail" style="display:none;">
+            <ul style="padding-left:18px;margin:0;display:flex;flex-direction:column;gap:7px;">
+              <li style="font-size:12px;color:#374151;line-height:1.65;">Ascites develops because cirrhosis causes <strong>portal hypertension</strong> and <strong>low albumin</strong> — forcing fluid out of blood vessels into the abdominal cavity.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">Symptoms: <strong>increasing abdominal girth</strong>, fullness, <strong>shortness of breath</strong>, and discomfort or heaviness in the abdomen.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>First-line treatment</strong>: strict <strong>low-sodium diet (≤2 g sodium/day)</strong> plus <strong>diuretics</strong> — spironolactone (100–400 mg/day) with or without furosemide (40–160 mg/day).</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;"><strong>Refractory ascites</strong> is managed with regular large-volume <strong>paracentesis</strong> plus intravenous albumin to prevent kidney problems.</li>
+              <li style="font-size:12px;color:#374151;line-height:1.65;">Ascites carries a <strong>50% 2-year mortality</strong> without liver transplantation and should trigger referral for transplant evaluation.</li>
+            </ul>
+            <div style="margin-top:10px;display:flex;align-items:center;gap:6px;">
+              <span title="EASL CPG Decompensated Cirrhosis 2021 · Ginès P et al., Nature Reviews 2021 · AASLD Cirrhosis Guidance 2023" style="cursor:help;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#002147;color:#c9a84c;font-size:11px;font-weight:700;flex-shrink:0;">i</span>
+              <span style="font-size:11px;color:#9ca3af;">Hover the icon to see sources</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end cirrhosis grid -->
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <a class="footer-logo" href="#">
+      <div class="nav-logo-mark">YL</div>
+      <div>
+        <div class="footer-name">Yeo Lab</div>
+        <div class="footer-sub">Patient Education</div>
+      </div>
+    </a>
+    <div class="footer-right">
+      <p>For clinical inquiries: <a href="mailto:yeehui.yeo@cshs.org">yeehui.yeo@cshs.org</a></p>
+      <p><a href="index.html">← Back to Yeo Lab website</a></p>
+    </div>
+  </div>
+  <div class="disclaimer">
+    ⚠️ This content is for educational purposes only and does not replace professional medical advice. Always consult your doctor or a qualified healthcare provider for diagnosis and treatment decisions.
+  </div>
+</footer>
+
+<script>
+function showTopic(btn, topic) {
+  document.querySelectorAll('.hed-tab').forEach(function(t) { t.classList.remove('active'); });
+  btn.classList.add('active');
+
+  var sections = ['section-fatty-liver','topic-liver-cancer','topic-hepatitis','topic-prevention','topic-cirrhosis'];
+  sections.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.style.display = 'none';
+  });
+
+  var label = document.getElementById('topic-label');
+
+  if (topic === 'all') {
+    sections.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.style.display = 'block';
+    });
+    document.querySelectorAll('#discover-grid .dc-card').forEach(function(c) { c.style.display = 'flex'; });
+    if (label) label.textContent = 'All questions';
+
+  } else if (topic === 'fatty-liver') {
+    var el = document.getElementById('section-fatty-liver');
+    if (el) el.style.display = 'block';
+    document.querySelectorAll('#discover-grid .dc-card').forEach(function(c) { c.style.display = 'flex'; });
+    if (label) label.textContent = 'Fatty Liver';
+
+  } else if (topic === 'liver-cancer') {
+    var el = document.getElementById('topic-liver-cancer');
+    if (el) el.style.display = 'block';
+    if (label) label.textContent = 'Liver Cancer';
+
+  } else if (topic === 'hepatitis') {
+    var el = document.getElementById('topic-hepatitis');
+    if (el) el.style.display = 'block';
+    if (label) label.textContent = 'Hepatitis';
+
+  } else if (topic === 'prevention') {
+    var el = document.getElementById('topic-prevention');
+    if (el) el.style.display = 'block';
+    if (label) label.textContent = 'Prevention';
+
+  } else if (topic === 'cirrhosis') {
+    var el = document.getElementById('topic-cirrhosis');
+    if (el) el.style.display = 'block';
+    if (label) label.textContent = 'Cirrhosis';
+  }
+
+  var navLinks = document.getElementById('hed-nav-links');
+  if (navLinks) navLinks.classList.remove('open');
+  window.scrollTo(0, 0);
+}
+
+function toggleDetail(btn) {
+  var detail = btn.nextElementSibling;
+  var isOpen = detail.style.display === 'block';
+  detail.style.display = isOpen ? 'none' : 'block';
+  btn.innerHTML = isOpen ? 'Read more &#9662;' : 'Read less &#9652;';
+}
+</script>
+</body>
+</html>
