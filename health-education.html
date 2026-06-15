@@ -218,6 +218,12 @@
     font-size: 11px; color: #8fa3bc; line-height: 1.65;
     border-top: .5px solid rgba(255,255,255,.06);
   }
+  /* ── Search ── */
+  #site-search:focus { box-shadow: 0 4px 24px rgba(0,0,0,0.22), 0 0 0 3px rgba(201,168,76,0.5); }
+  .search-highlight { background:#fef08a; border-radius:2px; padding:0 1px; }
+  .dc-card.search-hidden { display:none !important; }
+  .dc-card.search-match { display:flex !important; }
+  #search-no-results { display:none; text-align:center; padding:60px 20px; color:#6b7280; font-size:15px; }
 
 </style>
 </head>
@@ -250,12 +256,36 @@
     <h1 class="hero-h1">Understanding liver disease — in plain language</h1>
     <p class="hero-sub">Real questions from real patients, answered simply and clearly by the Yeo Lab team. All content is evidence-based and regularly updated.</p>
 
+    <!-- SEARCH BAR -->
+    <div style="margin-top:28px;max-width:560px;margin-left:auto;margin-right:auto;position:relative;">
+      <input
+        id="site-search"
+        type="text"
+        placeholder="Search questions, topics, treatments…"
+        oninput="runSearch(this.value)"
+        autocomplete="off"
+        style="width:100%;box-sizing:border-box;padding:14px 48px 14px 20px;border-radius:12px;border:none;font-size:15px;font-family:'Plus Jakarta Sans',sans-serif;color:#111827;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,0.18);outline:none;"
+      >
+      <svg id="search-clear" onclick="clearSearch()" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
+        style="display:none;position:absolute;right:14px;top:50%;transform:translateY(-50%);width:20px;height:20px;cursor:pointer;opacity:0.5;">
+        <circle cx="10" cy="10" r="9" fill="#6b7280"/>
+        <path d="M7 7l6 6M13 7l-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" id="search-icon"
+        style="position:absolute;right:16px;top:50%;transform:translateY(-50%);width:18px;height:18px;pointer-events:none;opacity:0.4;">
+        <circle cx="8.5" cy="8.5" r="5.5" stroke="#374151" stroke-width="2"/>
+        <path d="M13 13l3.5 3.5" stroke="#374151" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div id="search-count" style="display:none;margin-top:10px;font-size:13px;color:rgba(255,255,255,0.7);text-align:center;"></div>
+
   </div>
 </div>
 
 <!-- MAIN -->
 <div class="main">
   <div class="section-label" id="topic-label">All questions</div>
+  <div id="search-no-results"><p style="font-size:22px;margin-bottom:8px;">🔍</p><strong>No results found.</strong><br>Try different keywords or browse a topic tab above.</div>
   <div id="section-fatty-liver" style="display:block;"><div class="discover-grid" id="discover-grid">
 
         <!-- ═══ QUESTION CARDS GO HERE ═══ -->
@@ -3184,6 +3214,132 @@ function toggleDetail(btn) {
   var isOpen = detail.style.display === 'block';
   detail.style.display = isOpen ? 'none' : 'block';
   btn.innerHTML = isOpen ? 'Read more &#9662;' : 'Read less &#9652;';
+}
+function runSearch(query) {
+  var q = query.trim().toLowerCase();
+  var allSections = ['section-fatty-liver','topic-liver-cancer','topic-hepatitis','topic-prevention','topic-cirrhosis'];
+  var cards = document.querySelectorAll('.dc-card');
+  var clearBtn = document.getElementById('search-clear');
+  var searchIcon = document.getElementById('search-icon');
+  var countEl = document.getElementById('search-count');
+  var noResults = document.getElementById('search-no-results');
+  var label = document.getElementById('topic-label');
+
+  // Reset tab UI — deactivate all tabs, activate none during search
+  document.querySelectorAll('.hed-tab').forEach(function(t){ t.classList.remove('active'); });
+
+  if (q === '') {
+    // Clear search — restore "All" view
+    clearBtn.style.display = 'none';
+    searchIcon.style.display = '';
+    countEl.style.display = 'none';
+    noResults.style.display = 'none';
+    allSections.forEach(function(id){ var el=document.getElementById(id); if(el) el.style.display='block'; });
+    cards.forEach(function(card){
+      card.classList.remove('search-hidden','search-match');
+      card.style.display = '';
+      // Remove any highlights
+      card.querySelectorAll('.search-highlight').forEach(function(hl){
+        hl.outerHTML = hl.innerHTML;
+      });
+    });
+    label.textContent = 'All questions';
+    document.querySelector('.hed-tab').classList.add('active'); // re-activate "All"
+    return;
+  }
+
+  clearBtn.style.display = '';
+  searchIcon.style.display = 'none';
+
+  // Show all sections so cards inside them are visible
+  allSections.forEach(function(id){ var el=document.getElementById(id); if(el) el.style.display='block'; });
+
+  var matchCount = 0;
+  var terms = q.split(/\s+/).filter(Boolean);
+
+  cards.forEach(function(card) {
+    // Collect searchable text from the card
+    var questionEl = card.querySelector('.dc-question');
+    var answerEl = card.querySelector('.dc-answer');
+    var detailEl = card.querySelector('.dc-detail');
+    var topicBadge = card.querySelector('.dc-topic');
+
+    var rawText = [
+      questionEl ? questionEl.textContent : '',
+      answerEl ? answerEl.textContent : '',
+      detailEl ? detailEl.textContent : '',
+      topicBadge ? topicBadge.textContent : '',
+      card.getAttribute('data-topic') || ''
+    ].join(' ').toLowerCase();
+
+    var matches = terms.every(function(term){ return rawText.indexOf(term) !== -1; });
+
+    if (matches) {
+      card.classList.remove('search-hidden');
+      card.classList.add('search-match');
+      card.style.display = 'flex';
+      matchCount++;
+
+      // Highlight matching terms in question and answer only
+      [questionEl, answerEl].forEach(function(el){
+        if (!el) return;
+        // Remove old highlights first
+        el.querySelectorAll('.search-highlight').forEach(function(hl){ hl.outerHTML = hl.innerHTML; });
+        // Apply new highlights
+        terms.forEach(function(term){
+          highlightText(el, term);
+        });
+      });
+
+    } else {
+      card.classList.add('search-hidden');
+      card.classList.remove('search-match');
+      card.style.display = 'none';
+      // Remove highlights on hidden cards
+      [questionEl, answerEl].forEach(function(el){
+        if (!el) return;
+        el.querySelectorAll('.search-highlight').forEach(function(hl){ hl.outerHTML = hl.innerHTML; });
+      });
+    }
+  });
+
+  label.textContent = 'Search results';
+  countEl.style.display = '';
+  countEl.textContent = matchCount === 0
+    ? 'No cards found'
+    : matchCount + ' card' + (matchCount === 1 ? '' : 's') + ' found';
+  noResults.style.display = matchCount === 0 ? 'block' : 'none';
+}
+
+function highlightText(el, term) {
+  // Walk text nodes only — safe, no innerHTML regex
+  var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+  var nodes = [];
+  var node;
+  while ((node = walker.nextNode())) { nodes.push(node); }
+  nodes.forEach(function(textNode){
+    var text = textNode.nodeValue;
+    var lower = text.toLowerCase();
+    var idx = lower.indexOf(term);
+    if (idx === -1) return;
+    var span = document.createElement('span');
+    span.innerHTML =
+      escHtml(text.substring(0, idx)) +
+      '<mark class="search-highlight">' + escHtml(text.substring(idx, idx + term.length)) + '</mark>' +
+      escHtml(text.substring(idx + term.length));
+    textNode.parentNode.replaceChild(span, textNode);
+  });
+}
+
+function escHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function clearSearch() {
+  var input = document.getElementById('site-search');
+  input.value = '';
+  input.focus();
+  runSearch('');
 }
 </script>
 </body>
